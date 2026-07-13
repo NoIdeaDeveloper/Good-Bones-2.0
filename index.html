@@ -383,9 +383,13 @@
       </div>
       <form class="contact__form" action="#" method="POST" novalidate>
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required />
+        <input type="text" id="name" name="name" placeholder="Your name" required aria-describedby="name-error" />
+        <span class="form-error" id="name-error" role="alert"></span>
+
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@business.com" required />
+        <input type="email" id="email" name="email" placeholder="you@business.com" required aria-describedby="email-error" />
+        <span class="form-error" id="email-error" role="alert"></span>
+
         <label for="service">What do you need?</label>
         <select id="service" name="service">
           <option value="">Select a service...</option>
@@ -395,8 +399,10 @@
           <option value="rescue">Site Rescue / Updates</option>
           <option value="other">Something else</option>
         </select>
+
         <label for="message">Project details</label>
         <textarea id="message" name="message" rows="5" placeholder="Tell us about your project, timeline, and goals."></textarea>
+
         <button type="submit" class="btn btn--primary">Send Message</button>
       </form>
     </div>

@@ -125,16 +125,63 @@
   }
 
   // Basic form handling (placeholder — no backend configured)
+  const setError = (field, message) => {
+    const errorEl = document.getElementById(field.getAttribute('aria-describedby'));
+    if (errorEl) {
+      errorEl.textContent = message;
+    }
+    field.setAttribute('aria-invalid', 'true');
+  };
+
+  const clearError = (field) => {
+    const errorEl = document.getElementById(field.getAttribute('aria-describedby'));
+    if (errorEl) {
+      errorEl.textContent = '';
+    }
+    field.setAttribute('aria-invalid', 'false');
+  };
+
+  const validateField = (field) => {
+    const value = field.value.trim();
+    if (!value) {
+      setError(field, `${field.previousElementSibling.textContent} is required`);
+      return false;
+    }
+    if (field.type === 'email' && !field.checkValidity()) {
+      setError(field, 'Please enter a valid email address');
+      return false;
+    }
+    clearError(field);
+    return true;
+  };
+
+  ['#name', '#email'].forEach((selector) => {
+    const field = form.querySelector(selector);
+    if (!field) return;
+    field.addEventListener('blur', () => validateField(field));
+    field.addEventListener('input', () => {
+      if (field.getAttribute('aria-invalid') === 'true') {
+        validateField(field);
+      }
+    });
+  });
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
+    const nameField = form.querySelector('#name');
+    const emailField = form.querySelector('#email');
 
-    // Simple validation
-    const email = form.querySelector('#email').value.trim();
-    const name = form.querySelector('#name').value.trim();
-    if (!name || !email || !form.querySelector('#email').checkValidity()) {
-      submitBtn.textContent = 'Please fill in name and email';
+    const nameValid = validateField(nameField);
+    const emailValid = validateField(emailField);
+
+    if (!nameValid || !emailValid) {
+      const firstInvalid = form.querySelector('[aria-invalid="true"]');
+      if (firstInvalid) {
+        firstInvalid.focus();
+      }
+      submitBtn.textContent = 'Please fix the errors above';
       submitBtn.style.background = 'var(--violet)';
       setTimeout(() => {
         submitBtn.textContent = originalText;
@@ -146,6 +193,7 @@
     submitBtn.textContent = 'Message sent (demo)';
     submitBtn.style.background = 'var(--teal)';
     form.reset();
+    [nameField, emailField].forEach(clearError);
     setTimeout(() => {
       submitBtn.textContent = originalText;
       submitBtn.style.background = '';

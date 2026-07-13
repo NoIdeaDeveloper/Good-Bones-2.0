@@ -1610,3 +1610,20 @@ cite {
   box-shadow: 9px 9px 0 var(--ink);
 }
 
+.form-error {
+  display: block;
+  color: var(--coral);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-top: -14px;
+  margin-bottom: 14px;
+  min-height: 1.2em;
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.15);
+}
+
