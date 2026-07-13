@@ -46,7 +46,30 @@
     .error-page { min-height: 100svh; display: flex; flex-direction: column; background: var(--cream); }
     .error-page .site-nav { position: relative; background: rgba(255, 249, 240, 0.96); box-shadow: 0 4px 20px rgba(26, 26, 46, 0.06); }
     .error-hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 6vw 100px; background: radial-gradient(circle at 25% 25%, rgba(255, 217, 61, 0.35) 0%, transparent 40%), radial-gradient(circle at 75% 75%, rgba(78, 205, 196, 0.25) 0%, transparent 40%), var(--white); border-bottom: 3px solid var(--ink); }
-    .error-hero__bone { width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; background: var(--yellow); border: 4px solid var(--ink); border-radius: 50%; font-size: 4rem; margin-bottom: 24px; transform: rotate(-12deg); box-shadow: 8px 8px 0 var(--ink); }
+    .error-hero__mascot { margin-bottom: 12px; }
+    .tube-man { width: 180px; height: 280px; overflow: visible; }
+    .tube-man__group { transform-origin: 100px 290px; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: scaleY(0.22) scaleX(1.08); }
+    .tube-man.is-inflated .tube-man__group { transform: scaleY(1) scaleX(1); animation: tubeSway 0.45s ease-in-out infinite alternate; }
+    .tube-man__body { fill: var(--yellow); stroke: var(--ink); stroke-width: 3; }
+    .tube-man__arm { fill: none; stroke: var(--yellow); stroke-width: 12; stroke-linecap: round; transform-box: fill-box; transition: transform 0.5s ease; }
+    .tube-man__arm--left { transform-origin: 80% 50%; transform: rotate(95deg); }
+    .tube-man__arm--right { transform-origin: 20% 50%; transform: rotate(-95deg); }
+    .tube-man.is-inflated .tube-man__arm--left { animation: armWaveLeft 0.28s ease-in-out infinite alternate; transform: rotate(0deg); }
+    .tube-man.is-inflated .tube-man__arm--right { animation: armWaveRight 0.24s ease-in-out infinite alternate; transform: rotate(0deg); }
+    .tube-man__hair { fill: none; stroke: var(--coral); stroke-width: 4; stroke-linecap: round; transform-box: fill-box; transform-origin: center bottom; transition: transform 0.5s ease; transform: scaleY(0); }
+    .tube-man.is-inflated .tube-man__hair { transform: scaleY(1); animation: hairWave 0.2s ease-in-out infinite alternate; }
+    .tube-man__face { fill: var(--ink); }
+    .tube-man__mouth { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+    @keyframes tubeSway { 0% { transform: scaleY(1) scaleX(1) rotate(-5deg); } 100% { transform: scaleY(1) scaleX(1) rotate(5deg); } }
+    @keyframes armWaveLeft { 0% { transform: rotate(-10deg); } 100% { transform: rotate(40deg); } }
+    @keyframes armWaveRight { 0% { transform: rotate(10deg); } 100% { transform: rotate(-40deg); } }
+    @keyframes hairWave { 0% { transform: scaleY(1) rotate(-10deg); } 100% { transform: scaleY(1) rotate(10deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .tube-man__group, .tube-man__arm, .tube-man__hair { transition: none; animation: none !important; }
+      .tube-man .tube-man__group { transform: scaleY(0.55) scaleX(1); }
+      .tube-man .tube-man__arm { transform: rotate(0deg); }
+      .tube-man .tube-man__hair { transform: scaleY(1); }
+    }
     .error-hero h1 { font-family: "Bebas Neue", sans-serif; font-size: clamp(5rem, 16vw, 10rem); line-height: 1; margin: 0 0 16px; letter-spacing: 0.02em; }
     .error-hero h1 span { display: inline-block; color: var(--coral); transform: rotate(-6deg); }
     .error-hero > p { font-size: clamp(1.1rem, 2vw, 1.35rem); max-width: 520px; margin: 0 auto 32px; }
@@ -85,7 +108,22 @@
   </nav>
 
   <main id="main-content" class="error-hero">
-    <div class="error-hero__bone" aria-hidden="true">🦴</div>
+    <div class="error-hero__mascot" aria-hidden="true">
+      <svg class="tube-man" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+        <rect x="70" y="290" width="60" height="30" rx="6" fill="var(--ink)" />
+        <g class="tube-man__group">
+          <path class="tube-man__body" d="M90 290 C55 275 50 235 75 200 C90 175 60 145 80 115 C92 95 75 80 100 65 C125 80 108 95 120 115 C140 145 110 175 125 200 C150 235 145 275 110 290 Z" />
+          <path class="tube-man__arm tube-man__arm--left" d="M78 175 Q35 155 25 125" />
+          <path class="tube-man__arm tube-man__arm--right" d="M122 175 Q165 155 175 125" />
+          <path class="tube-man__hair tube-man__hair--1" d="M100 65 Q85 35 75 25" />
+          <path class="tube-man__hair tube-man__hair--2" d="M100 65 Q115 35 130 20" />
+          <path class="tube-man__hair tube-man__hair--3" d="M100 65 Q100 30 100 15" />
+          <circle class="tube-man__face" cx="88" cy="120" r="5" />
+          <circle class="tube-man__face" cx="112" cy="120" r="5" />
+          <path class="tube-man__mouth" d="M92 135 Q100 142 108 135" />
+        </g>
+      </svg>
+    </div>
     <h1 aria-label="404 page not found"><span>4</span>0<span>4</span></h1>
     <p>Oops — that page seems to have gone missing. Maybe it moved, maybe it never existed, or maybe the dog buried it in the backyard.</p>
     <div class="error-actions">
@@ -161,5 +199,21 @@
   </footer>
 
   <script type="module" src="/script.js?v=5"></script>
+  <script>
+    // Inflatable tube man: cursor movement inflates and flails; inactivity deflates.
+    const tubeMan = document.querySelector('.tube-man');
+    if (tubeMan) {
+      let deflateTimeout;
+      const inflate = () => {
+        tubeMan.classList.add('is-inflated');
+        clearTimeout(deflateTimeout);
+        deflateTimeout = setTimeout(() => {
+          tubeMan.classList.remove('is-inflated');
+        }, 700);
+      };
+      document.addEventListener('mousemove', inflate, { passive: true });
+      document.addEventListener('touchmove', inflate, { passive: true });
+    }
+  </script>
 </body>
 </html>
