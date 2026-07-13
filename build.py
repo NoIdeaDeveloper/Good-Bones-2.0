@@ -37,6 +37,80 @@ def apply_contact(html: str, contact: dict) -> str:
     return html
 
 
+def build_schema(page_type: str, contact: dict, **kwargs) -> str:
+    """Return a Schema.org JSON-LD script tag for the given page type."""
+    base = {"@context": "https://schema.org"}
+    publisher = {
+        "@type": "Organization",
+        "name": contact["company"],
+        "url": contact["domain"],
+        "logo": f"{contact['domain']}/favicon.png",
+    }
+
+    if page_type == "webpage":
+        data = {
+            **base,
+            "@type": "WebPage",
+            "name": kwargs["title"],
+            "url": kwargs["url"],
+            "description": kwargs["description"],
+            "dateModified": kwargs["date_modified"],
+            "publisher": publisher,
+        }
+    elif page_type == "blog":
+        posts = kwargs["posts"]
+        data = {
+            **base,
+            "@type": "Blog",
+            "name": "The Good Bones Blog",
+            "url": kwargs["url"],
+            "description": kwargs["description"],
+            "publisher": publisher,
+            "blogPost": [
+                {
+                    "@type": "BlogPosting",
+                    "headline": p["title"],
+                    "url": f"{contact['domain']}/blog/{p['slug']}.html",
+                    "datePublished": p["date"],
+                }
+                for p in posts
+            ],
+        }
+    elif page_type == "blogposting":
+        data = {
+            **base,
+            "@type": "BlogPosting",
+            "headline": kwargs["title"],
+            "url": kwargs["url"],
+            "description": kwargs["description"],
+            "datePublished": kwargs["date"],
+            "dateModified": kwargs["date"],
+            "author": {
+                "@type": "Organization",
+                "name": kwargs["author"],
+            },
+            "publisher": publisher,
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": kwargs["url"],
+            },
+            "image": contact["og"]["image"],
+        }
+    else:
+        data = {
+            **base,
+            "@type": "WebPage",
+            "name": kwargs.get("title", contact["company"]),
+            "url": kwargs.get("url", contact["domain"]),
+            "description": kwargs.get("description", ""),
+            "publisher": publisher,
+        }
+
+    json_text = json.dumps(data, indent=2)
+    indented = "\n".join(f"    {line}" for line in json_text.splitlines())
+    return f"  <script type=\"application/ld+json\">\n{indented}\n  </script>"
+
+
 def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
     data = json.loads(data_file.read_text(encoding="utf-8"))
     layout = load_template("legal_layout.html")
@@ -71,6 +145,17 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
+
+    last_updated_iso = datetime.strptime(data["last_updated"], "%B %d, %Y").strftime("%Y-%m-%d")
+    schema = build_schema(
+        "webpage",
+        contact,
+        title=title,
+        url=canonical_url,
+        description=description,
+        date_modified=last_updated_iso,
+    )
+    head = head.replace("{{schema_json}}", schema)
 
     html = layout
     # NOTE: Subresource integrity (SRI) is not added here because all assets
@@ -113,6 +198,17 @@ def build_blog_post(post: dict, contact: dict) -> None:
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
 
+    schema = build_schema(
+        "blogposting",
+        contact,
+        title=post["title"],
+        url=canonical_url,
+        description=description,
+        date=date_iso,
+        author=post["author"],
+    )
+    head = head.replace("{{schema_json}}", schema)
+
     tags_html = "\n".join(f'      <span class="blog-tag">{tag}</span>' for tag in post.get("tags", []))
 
     html = layout
@@ -149,6 +245,15 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
+
+    schema = build_schema(
+        "blog",
+        contact,
+        url=canonical_url,
+        description=description,
+        posts=posts,
+    )
+    head = head.replace("{{schema_json}}", schema)
 
     cards = []
     for post in posts:

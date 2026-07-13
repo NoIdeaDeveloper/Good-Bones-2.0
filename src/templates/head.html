@@ -26,39 +26,7 @@
   <meta name="twitter:description" content="{{description}}" />
   <meta name="twitter:image" content="{{og_image}}" />
   <meta name="twitter:image:alt" content="{{og_image_alt}}" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "{{company}}",
-    "url": "{{canonical_url}}",
-    "logo": "{{domain}}/favicon.png",
-    "image": "{{og_image}}",
-    "description": "{{description}}",
-    "areaServed": {
-      "@type": "City",
-      "name": "Edmonton",
-      "containedIn": {
-        "@type": "AdministrativeArea",
-        "name": "Alberta"
-      }
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Edmonton",
-      "addressRegion": "AB",
-      "addressCountry": "CA"
-    },
-    "email": "mailto:{{email}}",
-    "telephone": "{{phone_href}}",
-    "sameAs": [
-      "{{social_instagram}}",
-      "{{social_linkedin}}",
-      "{{social_twitter}}"
-    ],
-    "priceRange": "$"
-  }
-  </script>
+  {{schema_json}}
   <style>
     :root {
       --ink: #1A1A2E; --cream: #FFF9F0; --white: #FFFFFF; --yellow: #FFD93D;
