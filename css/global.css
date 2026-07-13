@@ -244,6 +244,25 @@ textarea:focus-visible {
   transform: rotate(-12deg);
 }
 
+.logo--header {
+  gap: 12px;
+  font-size: 1.7rem;
+}
+
+.logo__wordmark {
+  display: inline-block;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-shadow: 3px 3px 0 var(--yellow), 6px 6px 0 var(--pink);
+  transition: transform var(--transition);
+}
+
+.logo--header .bone {
+  width: 46px;
+  height: 46px;
+  font-size: 1.4rem;
+}
+
 .menu {
   display: flex;
   align-items: center;
@@ -853,6 +872,21 @@ textarea:focus-visible {
     font-size: 1.1rem;
   }
 
+  .logo--header {
+    font-size: 1.5rem;
+    gap: 10px;
+  }
+
+  .logo__wordmark {
+    text-shadow: 2px 2px 0 var(--yellow), 4px 4px 0 var(--pink);
+  }
+
+  .logo--header .bone {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
   .menu-toggle {
     display: flex;
     padding: 10px;
@@ -1055,6 +1089,21 @@ textarea:focus-visible {
   .logo .bone {
     width: 32px;
     height: 32px;
+    font-size: 1rem;
+  }
+
+  .logo--header {
+    font-size: 1.25rem;
+    gap: 8px;
+  }
+
+  .logo__wordmark {
+    text-shadow: 1.5px 1.5px 0 var(--yellow), 3px 3px 0 var(--pink);
+  }
+
+  .logo--header .bone {
+    width: 34px;
+    height: 34px;
     font-size: 1rem;
   }
 
