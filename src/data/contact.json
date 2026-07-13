@@ -4,9 +4,15 @@
   "phone": "(780) 555-0123",
   "phone_href": "+1-780-555-0123",
   "address": "Edmonton, Alberta, Canada",
+  "domain": "https://goodbonesweb.com",
   "social": {
     "instagram": "#",
     "linkedin": "#",
     "twitter": "#"
+  },
+  "og": {
+    "image": "https://goodbonesweb.com/og-image.png",
+    "image_alt": "Good Bones Web Inc. — vibrant websites with strong foundations.",
+    "twitter_handle": "@goodbonesweb"
   }
 }

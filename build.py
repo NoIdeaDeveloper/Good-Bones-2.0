@@ -41,8 +41,10 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
     layout = load_template("legal_layout.html")
 
     page_title = data["page_title"]
+    title = f"{page_title} — {contact['company']}"
     description = f"{page_title} for {contact['company']}, an Edmonton website consulting company."
-    title = page_title
+    slug = output_file.stem
+    canonical_url = f"{contact['domain']}/{slug}.html"
 
     toc = "\n".join(
         f'      <a href="#{s["id"]}">{s["heading"]}</a>'
@@ -59,8 +61,17 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
         )
     content = "\n\n".join(sections)
 
+    head = load_template("head.html")
+    head = apply_contact(head, contact)
+    head = head.replace("{{title}}", title)
+    head = head.replace("{{description}}", description)
+    head = head.replace("{{canonical_url}}", canonical_url)
+    head = head.replace("{{og_image}}", contact["og"]["image"])
+    head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
+    head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
+
     html = layout
-    html = html.replace("{{head}}", apply_contact(load_template("head.html"), contact).replace("{{title}}", title).replace("{{description}}", description))
+    html = html.replace("{{head}}", head)
     html = html.replace("{{nav}}", apply_contact(load_template("nav.html"), contact))
     html = html.replace("{{footer}}", apply_contact(load_template("footer.html"), contact))
     html = html.replace("{{page_title}}", page_title)
