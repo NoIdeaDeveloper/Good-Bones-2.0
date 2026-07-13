@@ -164,17 +164,51 @@
 
   <script type="module" src="/script.js?v=5"></script>
   <script>
-    // Subtle cursor parallax on the 404 code
+    // Independent, slightly chaotic cursor-driven drift on the 404 digits
     const code = document.querySelector('.error-hero__code');
     if (code && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const digits = code.querySelectorAll('span');
+      const baseRot = [-6, 0, 6];
+      const state = Array.from(digits).map(() => ({
+        x: 0, y: 0, r: 0,
+        tx: 0, ty: 0, tr: 0,
+        speed: 0.02 + Math.random() * 0.03,
+        nextChange: 0
+      }));
+
+      let lastX = 0, lastY = 0, cursorEnergy = 0;
+      let lastTime = performance.now();
+
+      const pickTarget = (s, time) => {
+        const energy = Math.min(cursorEnergy, 1);
+        const range = 10 + energy * 22;
+        s.tx = (Math.random() - 0.5) * range * 2;
+        s.ty = (Math.random() - 0.5) * range;
+        s.tr = (Math.random() - 0.5) * (5 + energy * 12);
+        s.speed = 0.02 + Math.random() * 0.04 + energy * 0.04;
+        s.nextChange = time + 250 + Math.random() * 500 - energy * 200;
+      };
+
       document.addEventListener('mousemove', (e) => {
-        const cx = (e.clientX / window.innerWidth - 0.5) * 2;
-        const cy = (e.clientY / window.innerHeight - 0.5) * 2;
-        if (digits[0]) digits[0].style.transform = `translate(${cx * -14}px, ${cy * -6}px) rotate(${cx * -2 - 6}deg)`;
-        if (digits[1]) digits[1].style.transform = `translate(${cx * 8}px, ${cy * -4}px)`;
-        if (digits[2]) digits[2].style.transform = `translate(${cx * 14}px, ${cy * -6}px) rotate(${cx * 2 + 6}deg)`;
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        cursorEnergy = Math.min(Math.sqrt(dx * dx + dy * dy) / 60, 1);
+        lastX = e.clientX;
+        lastY = e.clientY;
       }, { passive: true });
+
+      const animate = (time) => {
+        cursorEnergy *= 0.94;
+        state.forEach((s, i) => {
+          if (time > s.nextChange) pickTarget(s, time);
+          s.x += (s.tx - s.x) * s.speed;
+          s.y += (s.ty - s.y) * s.speed;
+          s.r += (s.tr - s.r) * s.speed;
+          digits[i].style.transform = `translate(${s.x.toFixed(2)}px, ${s.y.toFixed(2)}px) rotate(${(s.r + baseRot[i]).toFixed(2)}deg)`;
+        });
+        requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
     }
   </script>
 </body>
