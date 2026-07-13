@@ -69,6 +69,7 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
     head = head.replace("{{og_image}}", contact["og"]["image"])
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
+    head = head.replace("{{domain}}", contact["domain"])
 
     html = layout
     html = html.replace("{{head}}", head)
