@@ -753,6 +753,22 @@ textarea:focus-visible {
   color: var(--coral);
 }
 
+.privacy-notice {
+  padding: 26px 28px;
+  margin-bottom: 40px;
+  background: linear-gradient(120deg, var(--mint) 0%, var(--cream) 100%);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.privacy-notice p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 1;
+}
+
 .legal-date {
   display: inline-flex;
   align-items: center;
