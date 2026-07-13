@@ -1,7 +1,7 @@
-(() => {
-  'use strict';
+// Good Bones site scripts — ES module
+// No top-level IIFE needed; modules are implicitly strict and scoped.
 
-  const nav = document.getElementById('nav');
+const nav = document.getElementById('nav');
   const menuToggle = document.getElementById('menuToggle');
   const menu = document.getElementById('menu');
   const menuLinks = menu.querySelectorAll('a');
@@ -271,4 +271,4 @@
     );
     legalSections.forEach((section) => tocObserver.observe(section));
   }
-})();
+});
