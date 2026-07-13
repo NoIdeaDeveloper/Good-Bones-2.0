@@ -280,4 +280,3 @@ const nav = document.getElementById('nav');
     );
     legalSections.forEach((section) => tocObserver.observe(section));
   }
-});
