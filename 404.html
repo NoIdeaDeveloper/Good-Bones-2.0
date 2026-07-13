@@ -47,8 +47,10 @@
     .error-page .site-nav { position: relative; background: rgba(255, 249, 240, 0.96); box-shadow: 0 4px 20px rgba(26, 26, 46, 0.06); }
     .error-hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 6vw 100px; background: radial-gradient(circle at 25% 25%, rgba(255, 217, 61, 0.35) 0%, transparent 40%), radial-gradient(circle at 75% 75%, rgba(78, 205, 196, 0.25) 0%, transparent 40%), var(--white); border-bottom: 3px solid var(--ink); }
     .error-hero__bone { width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; background: var(--yellow); border: 4px solid var(--ink); border-radius: 50%; font-size: 4rem; margin-bottom: 24px; transform: rotate(-12deg); box-shadow: 8px 8px 0 var(--ink); }
-    .error-hero h1 { font-family: "Bebas Neue", sans-serif; font-size: clamp(5rem, 16vw, 10rem); line-height: 1; margin: 0 0 16px; letter-spacing: 0.02em; }
-    .error-hero h1 span { display: inline-block; color: var(--coral); transform: rotate(-6deg); }
+    .error-hero__code { font-family: "Bebas Neue", sans-serif; font-size: clamp(5rem, 16vw, 10rem); line-height: 1; margin: 0 0 16px; letter-spacing: 0.02em; }
+    .error-hero__code span { display: inline-block; color: var(--coral); will-change: transform; }
+    .error-hero__code span:nth-child(1) { transform: rotate(-6deg); }
+    .error-hero__code span:nth-child(3) { transform: rotate(6deg); }
     .error-hero > p { font-size: clamp(1.1rem, 2vw, 1.35rem); max-width: 520px; margin: 0 auto 32px; }
     .error-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
     .error-actions .btn--secondary { background: var(--white); color: var(--ink); }
@@ -86,7 +88,7 @@
 
   <main id="main-content" class="error-hero">
     <div class="error-hero__bone" aria-hidden="true">🦴</div>
-    <h1 aria-label="404 page not found"><span>4</span>0<span>4</span></h1>
+    <h1 class="error-hero__code" aria-label="404 page not found"><span>4</span><span>0</span><span>4</span></h1>
     <p>Oops — that page seems to have gone missing. Maybe it moved, maybe it never existed, or maybe the dog buried it in the backyard.</p>
     <div class="error-actions">
       <a href="/index.html" class="btn btn--primary">Back to home</a>
@@ -161,5 +163,19 @@
   </footer>
 
   <script type="module" src="/script.js?v=5"></script>
+  <script>
+    // Subtle cursor parallax on the 404 code
+    const code = document.querySelector('.error-hero__code');
+    if (code && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const digits = code.querySelectorAll('span');
+      document.addEventListener('mousemove', (e) => {
+        const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+        const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+        if (digits[0]) digits[0].style.transform = `translate(${cx * -14}px, ${cy * -6}px) rotate(${cx * -2 - 6}deg)`;
+        if (digits[1]) digits[1].style.transform = `translate(${cx * 8}px, ${cy * -4}px)`;
+        if (digits[2]) digits[2].style.transform = `translate(${cx * 14}px, ${cy * -6}px) rotate(${cx * 2 + 6}deg)`;
+      }, { passive: true });
+    }
+  </script>
 </body>
 </html>
