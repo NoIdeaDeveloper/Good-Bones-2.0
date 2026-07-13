@@ -95,6 +95,7 @@ const nav = document.getElementById('nav');
   menuToggle.addEventListener('click', () => {
     const isOpen = menu.classList.toggle('menu--open');
     menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
   });
 
   // Close mobile menu when a link is clicked
@@ -102,6 +103,7 @@ const nav = document.getElementById('nav');
     link.addEventListener('click', () => {
       menu.classList.remove('menu--open');
       menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open menu');
     });
   });
 
