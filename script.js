@@ -4,7 +4,7 @@
 const nav = document.getElementById('nav');
 const menuToggle = document.getElementById('menuToggle');
 const menu = document.getElementById('menu');
-const menuLinks = menu.querySelectorAll('a');
+const menuLinks = menu ? menu.querySelectorAll('a') : [];
 const form = document.querySelector('.contact__form');
 const scrollProgress = document.getElementById('scrollProgress');
 const backToTop = document.getElementById('backToTop');
@@ -15,18 +15,24 @@ const updateOnScroll = () => {
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
 
-    if (scrollY > 0) {
-      nav.classList.add('site-nav--scrolled');
-    } else {
-      nav.classList.remove('site-nav--scrolled');
+    if (nav) {
+      if (scrollY > 0) {
+        nav.classList.add('site-nav--scrolled');
+      } else {
+        nav.classList.remove('site-nav--scrolled');
+      }
     }
 
-    scrollProgress.style.width = progress + '%';
+    if (scrollProgress) {
+      scrollProgress.style.width = progress + '%';
+    }
 
-    if (scrollY > 500) {
-      backToTop.classList.add('is-visible');
-    } else {
-      backToTop.classList.remove('is-visible');
+    if (backToTop) {
+      if (scrollY > 500) {
+        backToTop.classList.add('is-visible');
+      } else {
+        backToTop.classList.remove('is-visible');
+      }
     }
   };
 
@@ -34,9 +40,11 @@ window.addEventListener('scroll', updateOnScroll, { passive: true });
 updateOnScroll();
 
 // Back to top
-backToTop.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+if (backToTop) {
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 
 // Reduced motion preference check (used by browser mockup + parallax)
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -99,20 +107,22 @@ if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
 }
 
 // Mobile menu toggle
-menuToggle.addEventListener('click', () => {
-  const isOpen = menu.classList.toggle('menu--open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
-  menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-});
-
-// Close mobile menu when a link is clicked
-menuLinks.forEach((link) => {
-  link.addEventListener('click', () => {
-    menu.classList.remove('menu--open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Open menu');
+if (menuToggle && menu) {
+  menuToggle.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('menu--open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
   });
-});
+
+  // Close mobile menu when a link is clicked
+  menuLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('menu--open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open menu');
+    });
+  });
+}
 
 // 3D tilt effect on cards (desktop hover only, respects reduced-motion)
 const prefersHover = window.matchMedia('(hover: hover)').matches;

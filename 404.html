@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Page Not Found (404) — Good Bones Web Inc.</title>
-  <meta name="description" content="We could not find that page. Head back to Good Bones Web Inc. home." />
+  <meta name="description" content="We couldn't find that page. Let's get you back to Good Bones Web Inc." />
   <meta name="robots" content="noindex, follow" />
   <link rel="preload" href="/fonts/bebasneue-v16-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/spacegrotesk-v22-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -16,48 +16,150 @@
   <meta name="theme-color" content="#FFF9F0" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <link rel="canonical" href="https://goodbonesweb.com/404.html" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://goodbonesweb.com/404.html" />
+  <meta property="og:title" content="Page Not Found (404) — Good Bones Web Inc." />
+  <meta property="og:description" content="We couldn't find that page. Let's get you back to Good Bones Web Inc." />
+  <meta property="og:image" content="https://goodbonesweb.com/og-image.png" />
+  <meta property="og:image:alt" content="Good Bones Web Inc. — vibrant websites with strong foundations." />
+  <meta property="og:site_name" content="Good Bones Web Inc." />
+  <meta property="og:locale" content="en_CA" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@goodbonesweb" />
+  <meta name="twitter:title" content="Page Not Found (404) — Good Bones Web Inc." />
+  <meta name="twitter:description" content="We couldn't find that page. Let's get you back to Good Bones Web Inc." />
+  <meta name="twitter:image" content="https://goodbonesweb.com/og-image.png" />
+  <meta name="twitter:image:alt" content="Good Bones Web Inc. — vibrant websites with strong foundations." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Page Not Found (404) \u2014 Good Bones Web Inc.",
+    "url": "https://goodbonesweb.com/404.html",
+    "description": "We couldn't find that page. Let's get you back to Good Bones Web Inc."
+  }
+  </script>
+  <link rel="stylesheet" href="/css/global.css?v=6" />
   <style>
-    :root {
-      --ink: #1A1A2E; --cream: #FFF9F0; --white: #FFFFFF; --yellow: #FFD93D;
-      --coral: #FF6B6B; --coral-strong: #D62E2E; --teal: #4ECDC4; --violet: #9B5DE5; --violet-strong: #8A4DD6; --pink: #F15BB5;
-      --mint: #CBF3F0; --peach: #FFE5D9; --radius: 22px; --radius-sm: 14px;
-      --max-width: 1200px; --transition: 0.25s ease;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--cream); color: var(--ink); line-height: 1.55; min-height: 100svh; display: flex; flex-direction: column; }
-    .grain { position: fixed; inset: 0; pointer-events: none; z-index: 900; opacity: 0.045; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-    .skip-link { position: absolute; top: -100%; left: 18px; z-index: 10002; background: var(--ink); color: var(--cream); padding: 12px 18px; border-radius: var(--radius-sm); font-weight: 700; border: 3px solid var(--cream); box-shadow: 4px 4px 0 var(--yellow); transition: top 0.2s ease; }
-    .skip-link:focus { top: 18px; }
-    .error-hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 6vw; background: radial-gradient(circle at 20% 30%, rgba(255, 217, 61, 0.35) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(78, 205, 196, 0.25) 0%, transparent 40%), var(--white); border-bottom: 3px solid var(--ink); }
-    .error-hero h1 { font-family: "Bebas Neue", sans-serif; font-size: clamp(6rem, 20vw, 12rem); line-height: 1; margin: 0 0 12px; letter-spacing: 0.02em; }
+    .error-page { min-height: 100svh; display: flex; flex-direction: column; background: var(--cream); }
+    .error-page .site-nav { position: relative; background: rgba(255, 249, 240, 0.96); box-shadow: 0 4px 20px rgba(26, 26, 46, 0.06); }
+    .error-hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 6vw 100px; background: radial-gradient(circle at 25% 25%, rgba(255, 217, 61, 0.35) 0%, transparent 40%), radial-gradient(circle at 75% 75%, rgba(78, 205, 196, 0.25) 0%, transparent 40%), var(--white); border-bottom: 3px solid var(--ink); }
+    .error-hero__bone { width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; background: var(--yellow); border: 4px solid var(--ink); border-radius: 50%; font-size: 4rem; margin-bottom: 24px; transform: rotate(-12deg); box-shadow: 8px 8px 0 var(--ink); }
+    .error-hero h1 { font-family: "Bebas Neue", sans-serif; font-size: clamp(5rem, 16vw, 10rem); line-height: 1; margin: 0 0 16px; letter-spacing: 0.02em; }
     .error-hero h1 span { display: inline-block; color: var(--coral); transform: rotate(-6deg); }
-    .error-hero p { font-size: clamp(1.1rem, 2vw, 1.35rem); max-width: 520px; margin: 0 0 32px; }
+    .error-hero > p { font-size: clamp(1.1rem, 2vw, 1.35rem); max-width: 520px; margin: 0 auto 32px; }
     .error-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 30px; border-radius: 999px; font-weight: 700; border: 3px solid var(--ink); text-decoration: none; transition: transform var(--transition), box-shadow var(--transition), background var(--transition); }
-    .btn--primary { background: var(--coral); color: var(--white); box-shadow: 6px 6px 0 var(--ink); }
-    .btn--primary:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--ink); }
-    .btn--secondary { background: var(--white); color: var(--ink); }
-    .btn--secondary:hover { background: var(--yellow); transform: translateY(-2px); }
-    .site-footer { background: var(--ink); color: var(--cream); padding: 28px 6vw; text-align: center; border-top: 4px solid var(--ink); }
-    .site-footer a { color: var(--yellow); font-weight: 700; }
+    .error-actions .btn--secondary { background: var(--white); color: var(--ink); }
+    .error-actions .btn--secondary:hover { background: var(--yellow); transform: translateY(-2px); }
+    .error-help { margin-top: 40px; padding-top: 32px; border-top: 2px dashed rgba(26, 26, 46, 0.15); max-width: 480px; }
+    .error-help h2 { font-family: "Bebas Neue", sans-serif; font-size: 1.5rem; letter-spacing: 0.03em; margin-bottom: 16px; color: var(--ink); }
+    .error-help ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+    .error-help a { color: var(--coral-strong); font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    .error-help a:hover { color: var(--ink); }
   </style>
 </head>
-<body>
+<body class="error-page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="grain" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" id="nav">
+    <a class="logo logo--header" href="/index.html" aria-label="Good Bones Web Inc. home">
+      <span class="bone" aria-hidden="true">🦴</span>
+      <span class="logo__wordmark">GOOD BONES</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="menu" id="menu">
+      <li><a href="/index.html#services">Services</a></li>
+      <li><a href="/index.html#work">Work</a></li>
+      <li><a href="/index.html#about">About</a></li>
+      <li><a href="/index.html#testimonials">Testimonials</a></li>
+      <li><a href="/blog/index.html">Blog</a></li>
+      <li><a href="/index.html#contact" class="nav-cta">Start a Project</a></li>
+    </ul>
+  </nav>
 
   <main id="main-content" class="error-hero">
+    <div class="error-hero__bone" aria-hidden="true">🦴</div>
     <h1 aria-label="404 page not found"><span>4</span>0<span>4</span></h1>
     <p>Oops — that page seems to have gone missing. Maybe it moved, maybe it never existed, or maybe the dog buried it in the backyard.</p>
     <div class="error-actions">
       <a href="/index.html" class="btn btn--primary">Back to home</a>
       <a href="/index.html#contact" class="btn btn--secondary">Start a Project</a>
     </div>
+    <div class="error-help">
+      <h2>Looking for something?</h2>
+      <ul>
+        <li><a href="/index.html#services">Explore our services</a></li>
+        <li><a href="/index.html#work">See our work</a></li>
+        <li><a href="/blog/index.html">Read the blog</a></li>
+        <li><a href="/index.html#contact">Get in touch</a></li>
+      </ul>
+    </div>
   </main>
 
+  <!-- Footer -->
   <footer class="site-footer">
-    <p>© 2026 Good Bones Web Inc. · <a href="/index.html">Home</a></p>
+    <div class="footer__top">
+      <span class="footer__wordmark" aria-hidden="true">GOOD BONES</span>
+    </div>
+
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="logo logo--footer" href="/index.html" aria-label="Good Bones Web Inc. home">
+          <span class="bone" aria-hidden="true">🦴</span>
+          <span>Good Bones Web Inc.</span>
+        </a>
+        <p class="footer__tagline">Vibrant websites. Strong foundations. Edmonton, Alberta, Canada.</p>
+        <div class="footer__socials">
+          <a class="social" href="https://www.instagram.com/goodbonesweb" aria-label="Instagram" rel="noopener noreferrer" target="_blank"><span>IG</span></a>
+          <a class="social" href="https://www.linkedin.com/company/goodbonesweb" aria-label="LinkedIn" rel="noopener noreferrer" target="_blank"><span>LI</span></a>
+          <a class="social" href="https://twitter.com/goodbonesweb" aria-label="Twitter / X" rel="noopener noreferrer" target="_blank"><span>X</span></a>
+        </div>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <h3 class="footer__heading">Sitemap</h3>
+        <ul>
+          <li><a href="/index.html#services">Services</a></li>
+          <li><a href="/index.html#work">Work</a></li>
+          <li><a href="/index.html#about">About</a></li>
+          <li><a href="/index.html#testimonials">Testimonials</a></li>
+          <li><a href="/blog/index.html">Blog</a></li>
+          <li><a href="/index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__contact">
+        <h3 class="footer__heading">Contact</h3>
+        <ul>
+          <li><a href="mailto:hello@goodbonesweb.com">hello@goodbonesweb.com</a></li>
+          <li><a href="tel:+1-780-555-0123">(780) 555-0123</a></li>
+          <li>Edmonton, Alberta, Canada</li>
+        </ul>
+      </div>
+
+      <div class="footer__legal">
+        <h3 class="footer__heading">Legal</h3>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/accessibility.html">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; 2026 Good Bones Web Inc. All rights reserved.</p>
+      <span class="footer__bone" aria-hidden="true">🦴</span>
+    </div>
   </footer>
+
+  <script type="module" src="/script.js?v=5"></script>
 </body>
 </html>
