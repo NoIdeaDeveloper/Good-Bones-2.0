@@ -58,7 +58,7 @@
   }
 </script>
   <link rel="stylesheet" href="../css/global.css?v=6" />
-  <link rel="stylesheet" href="../css/blog.css?v=7" />
+  <link rel="stylesheet" href="../css/blog.css?v=8" />
 </head>
 <body class="blog-page">
 
@@ -86,15 +86,17 @@
   </nav>
 
 
-  <header class="legal-hero blog-hero">
-    <p class="eyebrow">Good Bones Blog</p>
-    <h1>Why Your Edmonton Business Needs a Website That Actually Works</h1>
-    <div class="blog-meta">
-      <time datetime="2026-07-13">July 13, 2026</time>
-      <span class="blog-meta__author">by Good Bones Team</span>
-      <span class="blog-tag">Web Design</span>
-      <span class="blog-tag">Edmonton</span>
-      <span class="blog-tag">Small Business</span>
+  <header class="blog-hero blog-hero--post">
+    <div class="blog-hero__content">
+      <p class="eyebrow"><a href="../blog/index.html">Good Bones Blog</a></p>
+      <h1>Why Your Edmonton Business Needs a Website That Actually Works</h1>
+      <div class="blog-meta">
+        <span class="blog-meta__author">by Good Bones Team</span>
+        <time datetime="2026-07-13">July 13, 2026</time>
+      <span class="blog-tag blog-tag--violet">Web Design</span>
+      <span class="blog-tag blog-tag--violet">Edmonton</span>
+      <span class="blog-tag blog-tag--violet">Small Business</span>
+      </div>
     </div>
   </header>
 
@@ -114,8 +116,31 @@
         <p>Good Bones builds hand-coded, strategy-first websites for Edmonton businesses that want to compete beyond the local market. No bloated templates. No mystery plugins. Just a solid foundation and a design that converts.</p>
         <p><a href="../index.html#contact">Start a project</a> and let's give your business a website with good bones.</p>
       </div>
-      <a class="legal-back" href="../blog/index.html">Back to the blog</a>
+
+      <footer class="blog-post__footer">
+        <div class="blog-post__tags">
+          <span class="blog-post__tags-label">Tagged:</span>
+        <span class="blog-tag blog-tag--violet">Web Design</span>
+        <span class="blog-tag blog-tag--violet">Edmonton</span>
+        <span class="blog-tag blog-tag--violet">Small Business</span>
+        </div>
+        <a class="legal-back" href="../blog/index.html">← Back to the blog</a>
+      </footer>
     </article>
+
+    <aside class="blog-related" aria-label="Related posts">
+      <h2 class="blog-related__title">More from the blog</h2>
+      <div class="blog-related__grid">
+      <a class="blog-card blog-card--related" href="signs-your-website-needs-a-rescue.html">
+        <div class="blog-card__meta">
+          <time datetime="2026-07-12">July 12, 2026</time>
+        </div>
+        <h3 class="blog-card__title">5 Signs Your Website Needs a Rescue</h3>
+        <p class="blog-card__excerpt">Slow load times, broken forms, and mobile headaches are costing you customers. Here are five warning signs—and what to do about them.</p>
+        <span class="blog-card__accent blog-tag--coral" aria-hidden="true"></span>
+      </a>
+      </div>
+    </aside>
   </main>
 
   <!-- Footer -->

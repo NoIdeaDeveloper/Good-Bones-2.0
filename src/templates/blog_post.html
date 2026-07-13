@@ -3,19 +3,21 @@
 <head>
 {{head}}
   <link rel="stylesheet" href="{{base_path}}css/global.css?v=6" />
-  <link rel="stylesheet" href="{{base_path}}css/blog.css?v=7" />
+  <link rel="stylesheet" href="{{base_path}}css/blog.css?v=8" />
 </head>
 <body class="blog-page">
 
 {{nav}}
 
-  <header class="legal-hero blog-hero">
-    <p class="eyebrow">Good Bones Blog</p>
-    <h1>{{title}}</h1>
-    <div class="blog-meta">
-      <time datetime="{{date_iso}}">{{date_display}}</time>
-      <span class="blog-meta__author">by {{author}}</span>
+  <header class="blog-hero blog-hero--post">
+    <div class="blog-hero__content">
+      <p class="eyebrow"><a href="{{base_path}}blog/index.html">Good Bones Blog</a></p>
+      <h1>{{title}}</h1>
+      <div class="blog-meta">
+        <span class="blog-meta__author">by {{author}}</span>
+        <time datetime="{{date_iso}}">{{date_display}}</time>
 {{tags}}
+      </div>
     </div>
   </header>
 
@@ -25,8 +27,17 @@
       <div class="blog-content">
 {{body}}
       </div>
-      <a class="legal-back" href="{{base_path}}blog/index.html">Back to the blog</a>
+
+      <footer class="blog-post__footer">
+        <div class="blog-post__tags">
+          <span class="blog-post__tags-label">Tagged:</span>
+{{tags}}
+        </div>
+        <a class="legal-back" href="{{base_path}}blog/index.html">← Back to the blog</a>
+      </footer>
     </article>
+
+{{related}}
   </main>
 
 {{footer}}

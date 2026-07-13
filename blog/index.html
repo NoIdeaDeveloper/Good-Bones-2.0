@@ -61,7 +61,7 @@
   }
 </script>
   <link rel="stylesheet" href="../css/global.css?v=6" />
-  <link rel="stylesheet" href="../css/blog.css?v=7" />
+  <link rel="stylesheet" href="../css/blog.css?v=8" />
 </head>
 <body class="blog-page">
 
@@ -89,41 +89,54 @@
   </nav>
 
 
-  <header class="legal-hero blog-hero">
-    <p class="eyebrow">Good Bones Blog</p>
-    <h1>The Good Bones Blog</h1>
-    <p>Ideas, updates, and web wisdom for Edmonton businesses.</p>
+  <header class="blog-hero">
+    <div class="blog-hero__decor" aria-hidden="true">
+      <span class="blog-hero__shape blog-hero__shape--one">✦</span>
+      <span class="blog-hero__shape blog-hero__shape--two">●</span>
+      <span class="blog-hero__shape blog-hero__shape--three">✦</span>
+    </div>
+    <div class="blog-hero__content">
+      <p class="eyebrow">Good Bones Blog</p>
+      <h1>Ideas, updates, and web wisdom</h1>
+      <p>Practical thoughts on web design, performance, and growing an Edmonton business online.</p>
+    </div>
   </header>
 
   <main class="blog-layout" id="main-content">
     <div class="blog-index">
-      <a class="blog-card" href="why-your-edmonton-business-needs-a-website.html">
+    <article class="blog-card blog-card--featured" aria-label="Featured post">
+      <div class="blog-card__content">
         <div class="blog-card__meta">
           <time datetime="2026-07-13">July 13, 2026</time>
-          <div class="blog-card__tags">
-            <span class="blog-tag">Web Design</span>
-            <span class="blog-tag">Edmonton</span>
-            <span class="blog-tag">Small Business</span>
-          </div>
+          <span class="blog-card__featured-label">Featured</span>
+        </div>
+        <div class="blog-card__tags">
+          <span class="blog-tag blog-tag--violet">Web Design</span>
+          <span class="blog-tag blog-tag--violet">Edmonton</span>
+          <span class="blog-tag blog-tag--violet">Small Business</span>
         </div>
         <h2 class="blog-card__title">Why Your Edmonton Business Needs a Website That Actually Works</h2>
         <p class="blog-card__excerpt">A pretty homepage isn't enough. Here's what makes a website a real asset for local Edmonton businesses.</p>
-        <span class="blog-card__more" aria-hidden="true">Read post →</span>
-      </a>
-
+        <a class="btn btn--primary" href="why-your-edmonton-business-needs-a-website.html">Read the latest post</a>
+      </div>
+      <span class="blog-card__accent blog-tag--violet" aria-hidden="true"></span>
+    </article>
+      <div class="blog-index__grid">
       <a class="blog-card" href="signs-your-website-needs-a-rescue.html">
         <div class="blog-card__meta">
           <time datetime="2026-07-12">July 12, 2026</time>
-          <div class="blog-card__tags">
-            <span class="blog-tag">Site Rescue</span>
-            <span class="blog-tag">Performance</span>
-            <span class="blog-tag">Small Business</span>
-          </div>
         </div>
+        <div class="blog-card__tags">
+            <span class="blog-tag blog-tag--coral">Site Rescue</span>
+            <span class="blog-tag blog-tag--coral">Performance</span>
+            <span class="blog-tag blog-tag--coral">Small Business</span>
+          </div>
         <h2 class="blog-card__title">5 Signs Your Website Needs a Rescue</h2>
         <p class="blog-card__excerpt">Slow load times, broken forms, and mobile headaches are costing you customers. Here are five warning signs—and what to do about them.</p>
         <span class="blog-card__more" aria-hidden="true">Read post →</span>
+        <span class="blog-card__accent blog-tag--coral" aria-hidden="true"></span>
       </a>
+      </div>
     </div>
   </main>
 

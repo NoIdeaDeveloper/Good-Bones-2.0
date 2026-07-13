@@ -3,21 +3,31 @@
 <head>
 {{head}}
   <link rel="stylesheet" href="{{base_path}}css/global.css?v=6" />
-  <link rel="stylesheet" href="{{base_path}}css/blog.css?v=7" />
+  <link rel="stylesheet" href="{{base_path}}css/blog.css?v=8" />
 </head>
 <body class="blog-page">
 
 {{nav}}
 
-  <header class="legal-hero blog-hero">
-    <p class="eyebrow">Good Bones Blog</p>
-    <h1>The Good Bones Blog</h1>
-    <p>Ideas, updates, and web wisdom for Edmonton businesses.</p>
+  <header class="blog-hero">
+    <div class="blog-hero__decor" aria-hidden="true">
+      <span class="blog-hero__shape blog-hero__shape--one">✦</span>
+      <span class="blog-hero__shape blog-hero__shape--two">●</span>
+      <span class="blog-hero__shape blog-hero__shape--three">✦</span>
+    </div>
+    <div class="blog-hero__content">
+      <p class="eyebrow">Good Bones Blog</p>
+      <h1>Ideas, updates, and web wisdom</h1>
+      <p>Practical thoughts on web design, performance, and growing an Edmonton business online.</p>
+    </div>
   </header>
 
   <main class="blog-layout" id="main-content">
     <div class="blog-index">
+{{featured}}
+      <div class="blog-index__grid">
 {{posts}}
+      </div>
     </div>
   </main>
 

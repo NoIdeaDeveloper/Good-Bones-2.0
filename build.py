@@ -196,7 +196,24 @@ def format_date(date_str: str) -> tuple[str, str]:
     return dt.strftime("%Y-%m-%d"), display
 
 
-def build_blog_post(post: dict, contact: dict) -> None:
+TAG_ACCENT_COLORS = ["yellow", "coral", "teal", "violet", "pink", "mint"]
+
+
+def tag_accent_class(tags: list[str]) -> str:
+    """Return an accent color class based on the first tag."""
+    if not tags:
+        return "blog-tag--yellow"
+    first = tags[0].lower()
+    if any(word in first for word in ("design", "brand", "ui", "visual")):
+        return "blog-tag--violet"
+    if any(word in first for word in ("performance", "speed", "seo", "rescue", "fix")):
+        return "blog-tag--coral"
+    if any(word in first for word in ("edmonton", "local", "small business", "business")):
+        return "blog-tag--teal"
+    return "blog-tag--yellow"
+
+
+def build_blog_post(post: dict, contact: dict, all_posts: list[dict]) -> None:
     layout = load_template("blog_post.html")
     head = load_template("head.html")
 
@@ -230,7 +247,38 @@ def build_blog_post(post: dict, contact: dict) -> None:
     )
     head = head.replace("{{schema_json}}", schema)
 
-    tags_html = "\n".join(f'      <span class="blog-tag">{tag}</span>' for tag in post.get("tags", []))
+    tags = post.get("tags", [])
+    accent = tag_accent_class(tags)
+    tags_html = "\n".join(f'      <span class="blog-tag {accent}">{tag}</span>' for tag in tags)
+    tags_inline_html = "\n".join(f'        <span class="blog-tag {accent}">{tag}</span>' for tag in tags)
+
+    # Build related posts (up to 2 other posts, newest first)
+    related = [p for p in all_posts if p["slug"] != post["slug"]][:2]
+    related_html = ""
+    if related:
+        related_cards = []
+        for p in related:
+            p_date_iso, p_date_display = format_date(p["date"])
+            p_tags = p.get("tags", [])
+            p_accent = tag_accent_class(p_tags)
+            related_cards.append(
+                f'      <a class="blog-card blog-card--related" href="{p["slug"]}.html">\n'
+                f'        <div class="blog-card__meta">\n'
+                f'          <time datetime="{p_date_iso}">{p_date_display}</time>\n'
+                f'        </div>\n'
+                f'        <h3 class="blog-card__title">{p["title"]}</h3>\n'
+                f'        <p class="blog-card__excerpt">{p["excerpt"]}</p>\n'
+                f'        <span class="blog-card__accent {p_accent}" aria-hidden="true"></span>\n'
+                f'      </a>'
+            )
+        related_html = (
+            '    <aside class="blog-related" aria-label="Related posts">\n'
+            '      <h2 class="blog-related__title">More from the blog</h2>\n'
+            '      <div class="blog-related__grid">\n'
+            + "\n\n".join(related_cards) +
+            "\n      </div>\n"
+            "    </aside>"
+        )
 
     html = layout
     html = html.replace("{{base_path}}", base_path)
@@ -243,12 +291,15 @@ def build_blog_post(post: dict, contact: dict) -> None:
     html = html.replace("{{date_iso}}", date_iso)
     html = html.replace("{{date_display}}", date_display)
     html = html.replace("{{author}}", post["author"])
-    html = html.replace("{{tags}}", tags_html)
+    # Replace the two tag placeholders separately: hero tags and footer tags.
+    html = html.replace("{{tags}}", tags_html, 1)
+    html = html.replace("{{tags}}", tags_inline_html, 1)
     html = html.replace("{{excerpt}}", post["excerpt"])
     body_indented = "\n".join(f"        {line}" for line in post["body"].splitlines())
     # Convert root-relative links inside post bodies to be relative to this page.
     body_indented = body_indented.replace('href="/index.html', f'href="{base_path}index.html')
     html = html.replace("{{body}}", body_indented)
+    html = html.replace("{{related}}", related_html)
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
     output_file.write_text(html, encoding="utf-8")
@@ -286,19 +337,45 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     )
     head = head.replace("{{schema_json}}", schema)
 
+    featured_post = posts[0]
+    featured_date_iso, featured_date_display = format_date(featured_post["date"])
+    featured_tags = featured_post.get("tags", [])
+    featured_accent = tag_accent_class(featured_tags)
+    featured_tags_html = "\n".join(
+        f'          <span class="blog-tag {featured_accent}">{tag}</span>' for tag in featured_tags
+    )
+    featured_html = (
+        f'    <article class="blog-card blog-card--featured" aria-label="Featured post">\n'
+        f'      <div class="blog-card__content">\n'
+        f'        <div class="blog-card__meta">\n'
+        f'          <time datetime="{featured_date_iso}">{featured_date_display}</time>\n'
+        f'          <span class="blog-card__featured-label">Featured</span>\n'
+        f'        </div>\n'
+        f'        <div class="blog-card__tags">\n{featured_tags_html}\n        </div>\n'
+        f'        <h2 class="blog-card__title">{featured_post["title"]}</h2>\n'
+        f'        <p class="blog-card__excerpt">{featured_post["excerpt"]}</p>\n'
+        f'        <a class="btn btn--primary" href="{featured_post["slug"]}.html">Read the latest post</a>\n'
+        f'      </div>\n'
+        f'      <span class="blog-card__accent {featured_accent}" aria-hidden="true"></span>\n'
+        f'    </article>'
+    )
+
     cards = []
-    for post in posts:
+    for post in posts[1:]:
         date_iso, date_display = format_date(post["date"])
-        tags = "\n".join(f'            <span class="blog-tag">{tag}</span>' for tag in post.get("tags", []))
+        tags = post.get("tags", [])
+        accent = tag_accent_class(tags)
+        tags_html = "\n".join(f'            <span class="blog-tag {accent}">{tag}</span>' for tag in tags)
         cards.append(
             f'      <a class="blog-card" href="{post["slug"]}.html">\n'
             f'        <div class="blog-card__meta">\n'
             f'          <time datetime="{date_iso}">{date_display}</time>\n'
-            f'          <div class="blog-card__tags">\n{tags}\n          </div>\n'
             f'        </div>\n'
+            f'        <div class="blog-card__tags">\n{tags_html}\n          </div>\n'
             f'        <h2 class="blog-card__title">{post["title"]}</h2>\n'
             f'        <p class="blog-card__excerpt">{post["excerpt"]}</p>\n'
             f'        <span class="blog-card__more" aria-hidden="true">Read post →</span>\n'
+            f'        <span class="blog-card__accent {accent}" aria-hidden="true"></span>\n'
             f'      </a>'
         )
 
@@ -309,6 +386,7 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     footer = apply_contact(load_template("footer.html"), contact)
     html = html.replace("{{nav}}", nav.replace("{{base_path}}", base_path))
     html = html.replace("{{footer}}", footer.replace("{{base_path}}", base_path))
+    html = html.replace("{{featured}}", featured_html)
     html = html.replace("{{posts}}", "\n\n".join(cards))
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -331,7 +409,7 @@ def build_blog(contact: dict) -> list[dict]:
 
     build_blog_index(posts, contact)
     for post in posts:
-        build_blog_post(post, contact)
+        build_blog_post(post, contact, posts)
     return posts
 
 
