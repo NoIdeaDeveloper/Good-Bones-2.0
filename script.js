@@ -175,4 +175,32 @@
     el.style.setProperty('--reveal-index', index);
     observer.observe(el);
   });
+
+  // Count-up animation for About stats
+  const countObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const stat = entry.target;
+        const target = Number(stat.dataset.count);
+        const suffix = stat.querySelector('strong').textContent.replace(/[0-9]/g, '');
+        const duration = 1200;
+        const start = performance.now();
+        const step = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          const value = Math.floor(ease * target);
+          stat.querySelector('strong').textContent = value + suffix;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          }
+        };
+        requestAnimationFrame(step);
+        countObserver.unobserve(stat);
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  document.querySelectorAll('.about__stat').forEach((stat) => countObserver.observe(stat));
 })();

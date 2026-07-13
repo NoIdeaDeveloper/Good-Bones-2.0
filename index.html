@@ -102,7 +102,7 @@
   <!-- Services -->
   <section class="section section--services" id="services">
     <div class="section__header section__header--services reveal">
-      <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>What we do</p>
+      <p class="eyebrow eyebrow--services"><span class="eyebrow__stub" aria-hidden="true"></span>What we do</p>
       <h2 class="section__title">Build, fix &amp; amplify websites. <span class="starburst" aria-hidden="true">✦</span></h2>
       <p class="section__sub">From first concept to live launch — strategy, design, and code that actually gets your business results.</p>
     </div>
@@ -161,7 +161,7 @@
   <!-- Work -->
   <section class="section section--work" id="work">
     <div class="section__header">
-      <p class="eyebrow">Selected work</p>
+      <p class="eyebrow eyebrow--work"><span class="eyebrow__stub" aria-hidden="true"></span>Selected work</p>
       <h2 class="section__title">Recent projects, big energy.</h2>
       <p class="section__sub">Case studies and screenshots are available on request — these previews show the breadth of what we build.</p>
     </div>
@@ -223,30 +223,49 @@
   <!-- About -->
   <section class="section section--about" id="about">
     <div class="about__inner">
-      <div class="about__visual" aria-hidden="true">
-        <div class="map-pin">📍</div>
+      <div class="about__visual reveal" aria-hidden="true">
+        <div class="map-pin">
+          <svg viewBox="0 0 48 64" aria-hidden="true">
+            <path d="M24 0C10.7 0 0 10.7 0 24c0 12.2 17.5 36.3 22.3 42.6.9 1.2 2.5 1.2 3.4 0C30.5 60.3 48 36.2 48 24 48 10.7 37.3 0 24 0z" fill="#FF6B6B" stroke="#1A1A2E" stroke-width="3"/>
+            <circle cx="24" cy="24" r="10" fill="#1A1A2E"/>
+            <circle cx="24" cy="24" r="4" fill="#FFF9F0"/>
+          </svg>
+        </div>
         <div class="about__map">
+          <div class="about__map__halftone"></div>
           <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stylized map of Edmonton">
             <rect width="400" height="240" rx="24" fill="#FFD93D" />
             <path d="M40 180 Q80 60 160 120 T280 80 T360 160" stroke="#FF6B6B" stroke-width="10" fill="none" stroke-linecap="round" />
             <path d="M40 200 Q100 140 180 180 T320 140" stroke="#4ECDC4" stroke-width="10" fill="none" stroke-linecap="round" />
             <circle cx="200" cy="120" r="14" fill="#1A1A2E" />
-            <circle cx="200" cy="120" r="28" stroke="#1A1A2E" stroke-width="4" fill="none" stroke-dasharray="8 8" />
+            <circle cx="200" cy="120" r="28" stroke="#1A1A2E" stroke-width="4" fill="none" stroke-dasharray="8 8" class="map-pulse" />
           </svg>
         </div>
       </div>
-      <div class="about__content">
-        <p class="eyebrow">About Good Bones</p>
+      <div class="about__content reveal">
+        <p class="eyebrow eyebrow--about"><span class="eyebrow__stub" aria-hidden="true"></span>About Good Bones</p>
         <h2 class="section__title">Edmonton roots. Web-wide reach.</h2>
-        <p>Good Bones Web Inc. was founded in Edmonton, Alberta with a simple belief: every business deserves a website that is as solid underneath as it looks on the surface. No bloated templates, no mystery plugins — just clean code, clear strategy, and design with personality.</p>
-        <p>We blend local know-how with modern web standards to build sites that load fast, rank better, and convert more. Whether you need a bold launch, a thoughtful refresh, or an emergency rescue, we are here to help.</p>
+        <p>We believe every business deserves a website that works as hard as they do — solid code underneath, bold design on top, and a strategy behind every page.</p>
+        <p>Based in Edmonton, we build for local businesses with world-wide ambition. No bloated templates. No mystery plugins. Just fast, accessible, hand-coded sites built to last.</p>
+        <div class="about__stats-row">
         <div class="about__signature" aria-hidden="true">
-          <span>Good Bones</span>
+          <span class="about__stamp__text" aria-hidden="true">GOOD<br>BONES</span>
+          <span class="about__stamp__year">ESTD 2026</span>
         </div>
-        <div class="about__stats">
-          <div><strong>5+</strong> years building sites</div>
-          <div><strong>40+</strong> projects launched</div>
-          <div><strong>1</strong> friendly Edmonton team</div>
+          <div class="about__stats">
+            <div class="about__stat about__stat--yellow" data-count="5">
+              <strong>5+</strong>
+              <span class="about__stat__label">years</span>
+            </div>
+            <div class="about__stat about__stat--coral" data-count="40">
+              <strong>40+</strong>
+              <span class="about__stat__label">projects</span>
+            </div>
+            <div class="about__stat about__stat--teal" data-count="1">
+              <strong>1</strong>
+              <span class="about__stat__label">team</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -258,7 +277,7 @@
       <span>Wow!</span>
     </div>
     <div class="section__header section__header--testimonials reveal">
-      <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Kind words</p>
+      <p class="eyebrow eyebrow--testimonials"><span class="eyebrow__stub" aria-hidden="true"></span>Kind words</p>
       <h2 class="section__title">What clients say.</h2>
       <p class="section__sub">Real results from Edmonton-area businesses.</p>
     </div>
@@ -318,7 +337,7 @@
   <section class="section section--contact" id="contact">
     <div class="contact__inner">
       <div class="contact__content">
-        <p class="eyebrow">Let's build something</p>
+        <p class="eyebrow eyebrow--contact"><span class="eyebrow__stub" aria-hidden="true"></span>Let's build something</p>
         <h2 class="section__title">Ready for a site with good bones?</h2>
         <p>Tell us what you are working on. We will reply within one business day with ideas, questions, and next steps.</p>
         <ul class="contact__details">
