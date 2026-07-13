@@ -382,10 +382,6 @@ textarea:focus-visible {
   border-top: 0;
 }
 
-.eyebrow__stub {
-  display: none;
-}
-
 .hero__title {
   font-family: "Bebas Neue", sans-serif;
   font-size: clamp(3.6rem, 10vw, 7.8rem);
@@ -827,23 +823,6 @@ textarea:focus-visible {
   position: relative;
 }
 
-.section__header .eyebrow {
-  color: var(--ink);
-}
-
-.section__header .eyebrow::before,
-.section__header .eyebrow::after {
-  border-color: var(--ink);
-}
-
-.section--contact .eyebrow {
-  color: var(--yellow);
-}
-
-.section--contact .eyebrow::before,
-.section--contact .eyebrow::after {
-  border-color: var(--yellow);
-}
 
 .section__title {
   font-family: "Bebas Neue", sans-serif;
@@ -1075,9 +1054,8 @@ textarea:focus-visible {
 /* Work */
 .section--work {
   background:
-    radial-gradient(var(--violet) 1.5px, transparent 1.5px) 0 0 / 26px 26px,
-    linear-gradient(135deg, rgba(155, 93, 229, 0.08) 0%, transparent 50%),
-    var(--cream);
+    radial-gradient(rgba(26, 26, 46, 0.07) 1.5px, transparent 1.5px) 0 0 / 26px 26px,
+    var(--mint);
   position: relative;
 }
 
@@ -1324,7 +1302,7 @@ textarea:focus-visible {
   position: absolute;
   inset: -60px;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke-width='6' stroke-linecap='round'%3E%3Cpath d='M10 30 Q40 5 70 30 T130 30 T190 30' stroke='%23006BA6'/%3E%3Cpath d='M0 80 Q30 55 60 80 T120 80 T180 80' stroke='%23F15BB5'/%3E%3Cpath d='M20 130 Q50 105 80 130 T140 130 T200 130' stroke='%23FFD93D'/%3E%3Cpath d='M10 180 Q40 155 70 180 T130 180 T190 180' stroke='%23FF6B6B'/%3E%3C/g%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke-width='6' stroke-linecap='round'%3E%3Cpath d='M10 30 Q40 5 70 30 T130 30 T190 30' stroke='%231A1A2E'/%3E%3Cpath d='M0 80 Q30 55 60 80 T120 80 T180 80' stroke='%23F15BB5'/%3E%3Cpath d='M20 130 Q50 105 80 130 T140 130 T200 130' stroke='%23FFD93D'/%3E%3Cpath d='M10 180 Q40 155 70 180 T130 180 T190 180' stroke='%23FF6B6B'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 220px 220px;
   opacity: 0.35;
   transform: rotate(-6deg);
@@ -1372,18 +1350,6 @@ textarea:focus-visible {
   opacity: 0.9;
 }
 
-.cta-banner .btn--primary {
-  background: var(--coral);
-  color: var(--white);
-  box-shadow: 6px 6px 0 var(--ink);
-}
-
-.cta-banner .btn--primary:hover {
-  background: var(--violet);
-  color: var(--white);
-  box-shadow: 8px 8px 0 var(--ink);
-  transform: translate(-2px, -2px);
-}
 
 /* Back to top button */
 .back-to-top {
@@ -1424,7 +1390,7 @@ textarea:focus-visible {
 
 /* About */
 .section--about {
-  background: var(--white);
+  background: var(--cream);
   position: relative;
   overflow: hidden;
 }
@@ -1464,10 +1430,6 @@ textarea:focus-visible {
   overflow: hidden;
   transform: rotate(-3deg);
   position: relative;
-}
-
-.about__map__halftone {
-  display: none;
 }
 
 .about__map svg {
@@ -1516,7 +1478,6 @@ textarea:focus-visible {
 
 .about__content .section__title {
   text-align: left;
-  margin-bottom: 22px;
 }
 
 .about__content .section__title::after {
@@ -1531,9 +1492,6 @@ textarea:focus-visible {
   line-height: 1.55;
 }
 
-.about__content .section__title {
-  margin-bottom: 18px;
-}
 
 .about__stats-row {
   display: flex;
@@ -1803,7 +1761,7 @@ cite {
 
 /* Contact */
 .section--contact {
-  background: var(--white);
+  background: var(--cream);
   color: var(--ink);
   position: relative;
   overflow: hidden;
@@ -1832,10 +1790,6 @@ cite {
   align-items: start;
   position: relative;
   z-index: 1;
-}
-
-.section--contact .eyebrow {
-  color: var(--ink);
 }
 
 .section--contact .section__title {
