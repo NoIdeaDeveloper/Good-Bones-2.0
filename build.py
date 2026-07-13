@@ -72,6 +72,9 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
     head = head.replace("{{domain}}", contact["domain"])
 
     html = layout
+    # NOTE: Subresource integrity (SRI) is not added here because all assets
+    # (CSS, JS, fonts, favicons) are self-hosted in this repo. If a CDN is
+    # reintroduced later, generate SRI hashes for those <link>/<script> tags.
     html = html.replace("{{head}}", head)
     html = html.replace("{{nav}}", apply_contact(load_template("nav.html"), contact))
     html = html.replace("{{footer}}", apply_contact(load_template("footer.html"), contact))
