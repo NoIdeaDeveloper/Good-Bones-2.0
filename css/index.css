@@ -937,6 +937,24 @@
   margin-bottom: 16px;
 }
 
+.work-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--violet);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.work-card:hover .work-card__cta {
+  color: var(--coral);
+  transform: translateX(4px);
+}
+
 .tag {
   display: inline-block;
   padding: 6px 14px;
