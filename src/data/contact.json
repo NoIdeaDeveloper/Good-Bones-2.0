@@ -10,6 +10,8 @@
     "linkedin": "https://www.linkedin.com/company/goodbonesweb",
     "twitter": "https://twitter.com/goodbonesweb"
   },
+  "external_link_rel": "noopener noreferrer",
+  "external_link_target": "_blank",
   "og": {
     "image": "https://goodbonesweb.com/og-image.png",
     "image_alt": "Good Bones Web Inc. — vibrant websites with strong foundations.",
