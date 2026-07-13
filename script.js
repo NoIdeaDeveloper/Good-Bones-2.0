@@ -89,8 +89,8 @@ if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
       });
 
       if (siteFooter) {
-        siteFooter.style.setProperty('--footer-bg-x', `${-cx * 65}px`);
-        siteFooter.style.setProperty('--footer-bg-y', `${-cy * 65}px`);
+        siteFooter.style.setProperty('--footer-bg-x', `${-cx * 18}px`);
+        siteFooter.style.setProperty('--footer-bg-y', `${-cy * 18}px`);
       }
 
       ticking = false;
@@ -293,11 +293,26 @@ if (tocLinks.length && legalSections.length) {
     const scrollPos = window.scrollY + offset;
     let activeId = '';
 
-    legalSections.forEach((section) => {
-      if (section.offsetTop <= scrollPos) {
+    // Highlight the section whose content is currently at the reading position.
+    for (const section of legalSections) {
+      const top = section.offsetTop;
+      const bottom = top + section.offsetHeight;
+      if (scrollPos >= top && scrollPos < bottom) {
         activeId = section.id;
+        break;
       }
-    });
+    }
+
+    // Fallback: above all sections -> first; below all sections -> last.
+    if (!activeId && legalSections.length) {
+      const first = legalSections[0];
+      const last = legalSections[legalSections.length - 1];
+      if (scrollPos < first.offsetTop) {
+        activeId = first.id;
+      } else if (scrollPos >= last.offsetTop + last.offsetHeight) {
+        activeId = last.id;
+      }
+    }
 
     tocLinks.forEach((link) => {
       link.classList.toggle('is-active', link.getAttribute('href') === '#' + activeId);
