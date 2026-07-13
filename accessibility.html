@@ -169,24 +169,5 @@
 
   <script src="script.js"></script>
 
-
-  <script>
-    (() => {
-      const links = document.querySelectorAll(".legal-toc a");
-      const sections = Array.from(document.querySelectorAll(".legal-content section[id]"));
-      if (!links.length || !sections.length) return;
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            links.forEach((link) => link.classList.toggle("is-active", link.getAttribute("href") === "#" + id));
-          }
-        });
-      }, { rootMargin: "-40% 0px -45% 0px", threshold: 0 });
-
-      sections.forEach((section) => observer.observe(section));
-    })();
-  </script>
 </body>
 </html>

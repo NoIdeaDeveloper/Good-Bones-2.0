@@ -251,4 +251,24 @@
   );
 
   document.querySelectorAll('.about__stat').forEach((stat) => countObserver.observe(stat));
+
+  // Legal table-of-contents active-state highlighting
+  const tocLinks = document.querySelectorAll('.legal-toc a');
+  const legalSections = document.querySelectorAll('.legal-content section[id]');
+  if (tocLinks.length && legalSections.length) {
+    const tocObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            tocLinks.forEach((link) => {
+              link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -45% 0px', threshold: 0 }
+    );
+    legalSections.forEach((section) => tocObserver.observe(section));
+  }
 })();
