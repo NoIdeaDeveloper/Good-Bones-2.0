@@ -11,7 +11,8 @@
     {
       "id": "information-we-collect",
       "heading": "Information we collect",
-      "body": "<p>We only collect information that helps us build great websites and communicate with you. This may include:</p><ul><li><strong>Contact details</strong> — name, email address, phone number, and business information you provide through our contact form or email.</li><li><strong>Project details</strong> — information about your business, goals, timeline, and website needs.</li><li><strong>Usage data</strong> — anonymous information about how visitors use our site, such as pages viewed and time spent, collected through standard analytics tools.</li></ul><p>We do not collect sensitive personal information such as financial details, health information, or government IDs through this website.</p>"
+      "body": "<p>We only collect information that helps us build great websites and communicate with you. This may include:</p><ul><li><strong>Contact details</strong> — name, email address, phone number, and business information you provide through our contact form or email.</li><li><strong>Project details</strong> — information about your business, goals, timeline, and website needs.</li><li><strong>Usage data</strong> — anonymous information about how visitors use our site, such as pages viewed and time spent, collected through standard analytics tools.</li></ul><p>We do not collect sensitive personal information such as financial details, health information, or government IDs through this website.</p>",
+      "use_contact": true
     },
     {
       "id": "how-we-use-your-information",

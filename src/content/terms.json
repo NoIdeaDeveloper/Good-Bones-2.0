@@ -61,7 +61,8 @@
     {
       "id": "contact-us",
       "heading": "Contact us",
-      "body": "<p>Questions about these terms? Get in touch.</p><p><strong>Good Bones Web Inc.</strong><br />Email: <a href=\"mailto:hello@goodbonesweb.com\">hello@goodbonesweb.com</a><br />Phone: <a href=\"tel:+1-780-555-0123\">(780) 555-0123</a><br />Edmonton, Alberta, Canada</p>"
+      "body": "<p>Questions about these terms? Get in touch.</p>",
+      "use_contact": true
     }
   ]
 }

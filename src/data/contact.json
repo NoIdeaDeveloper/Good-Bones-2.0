@@ -1,0 +1,12 @@
+{
+  "company": "Good Bones Web Inc.",
+  "email": "hello@goodbonesweb.com",
+  "phone": "(780) 555-0123",
+  "phone_href": "+1-780-555-0123",
+  "address": "Edmonton, Alberta, Canada",
+  "social": {
+    "instagram": "#",
+    "linkedin": "#",
+    "twitter": "#"
+  }
+}

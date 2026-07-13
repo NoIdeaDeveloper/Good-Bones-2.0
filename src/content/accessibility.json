@@ -31,7 +31,8 @@
     {
       "id": "how-to-give-feedback",
       "heading": "How to give feedback",
-      "body": "<p>If you experience any difficulty using this website, or if you have suggestions for improving accessibility, we want to hear from you.</p><p><strong>Good Bones Web Inc.</strong><br />Email: <a href=\"mailto:hello@goodbonesweb.com\">hello@goodbonesweb.com</a><br />Phone: <a href=\"tel:+1-780-555-0123\">(780) 555-0123</a><br />Edmonton, Alberta, Canada</p>"
+      "body": "<p>If you experience any difficulty using this website, or if you have suggestions for improving accessibility, we want to hear from you.</p>",
+      "use_contact": true
     }
   ]
 }
