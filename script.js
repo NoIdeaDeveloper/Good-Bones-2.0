@@ -15,7 +15,7 @@ const updateOnScroll = () => {
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
 
-    if (scrollY > 40) {
+    if (scrollY > 0) {
       nav.classList.add('site-nav--scrolled');
     } else {
       nav.classList.remove('site-nav--scrolled');
@@ -267,18 +267,24 @@ document.querySelectorAll('.about__stat').forEach((stat) => countObserver.observ
 const tocLinks = document.querySelectorAll('.legal-toc a');
 const legalSections = document.querySelectorAll('.legal-content section[id]');
 if (tocLinks.length && legalSections.length) {
-    const tocObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            tocLinks.forEach((link) => {
-              link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
-            });
-          }
-        });
-      },
-      { rootMargin: '-40% 0px -45% 0px', threshold: 0 }
-    );
-  legalSections.forEach((section) => tocObserver.observe(section));
+  const navHeight = nav ? nav.offsetHeight : 90;
+  const offset = navHeight + 32;
+
+  const updateTocActive = () => {
+    const scrollPos = window.scrollY + offset;
+    let activeId = '';
+
+    legalSections.forEach((section) => {
+      if (section.offsetTop <= scrollPos) {
+        activeId = section.id;
+      }
+    });
+
+    tocLinks.forEach((link) => {
+      link.classList.toggle('is-active', link.getAttribute('href') === '#' + activeId);
+    });
+  };
+
+  window.addEventListener('scroll', updateTocActive, { passive: true });
+  updateTocActive();
 }

@@ -210,10 +210,11 @@ textarea:focus-visible {
 }
 
 .site-nav--scrolled {
-  background: rgba(255, 249, 240, 0.72);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 4px 20px rgba(26, 26, 46, 0.10);
+  background: rgba(255, 249, 240, 0.92);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: 0 4px 24px rgba(26, 26, 46, 0.12);
+  border-bottom: 1px solid rgba(26, 26, 46, 0.08);
 }
 
 .logo {
