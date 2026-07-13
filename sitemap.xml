@@ -20,9 +20,4 @@
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
-  <url>
-    <loc>https://goodbonesweb.com/404.html</loc>
-    <priority>0.1</priority>
-    <changefreq>yearly</changefreq>
-  </url>
 </urlset>
