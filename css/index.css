@@ -280,6 +280,13 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat {
+  min-width: 0;
 }
 
 .browser {
