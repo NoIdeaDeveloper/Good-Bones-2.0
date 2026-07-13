@@ -107,8 +107,8 @@ def build_schema(page_type: str, contact: dict, **kwargs) -> str:
         }
 
     json_text = json.dumps(data, indent=2)
-    indented = "\n".join(f"    {line}" for line in json_text.splitlines())
-    return f"  <script type=\"application/ld+json\">\n{indented}\n  </script>"
+    indented = "\n".join(f"  {line}" for line in json_text.splitlines())
+    return f"<script type=\"application/ld+json\">\n{indented}\n</script>"
 
 
 def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
@@ -145,6 +145,7 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
+    head = head.replace("{{og_type}}", "website")
 
     last_updated_iso = datetime.strptime(data["last_updated"], "%B %d, %Y").strftime("%Y-%m-%d")
     schema = build_schema(
@@ -197,6 +198,7 @@ def build_blog_post(post: dict, contact: dict) -> None:
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
+    head = head.replace("{{og_type}}", "article")
 
     schema = build_schema(
         "blogposting",
@@ -221,7 +223,8 @@ def build_blog_post(post: dict, contact: dict) -> None:
     html = html.replace("{{author}}", post["author"])
     html = html.replace("{{tags}}", tags_html)
     html = html.replace("{{excerpt}}", post["excerpt"])
-    html = html.replace("{{body}}", post["body"])
+    body_indented = "\n".join(f"        {line}" for line in post["body"].splitlines())
+    html = html.replace("{{body}}", body_indented)
 
     output_file = ROOT / "blog" / f"{post['slug']}.html"
     output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -234,7 +237,7 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     head = load_template("head.html")
 
     title = f"Blog — {contact['company']}"
-    description = f"Ideas, updates, and web wisdom from {contact['company']}."
+    description = f"Ideas, updates, and web wisdom from {contact['company']}".rstrip('.') + '.'
     canonical_url = f"{contact['domain']}/blog/index.html"
 
     head = apply_contact(head, contact)
@@ -245,6 +248,7 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
+    head = head.replace("{{og_type}}", "website")
 
     schema = build_schema(
         "blog",
@@ -258,7 +262,7 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     cards = []
     for post in posts:
         date_iso, date_display = format_date(post["date"])
-        tags = "\n".join(f'<span class="blog-tag">{tag}</span>' for tag in post.get("tags", []))
+        tags = "\n".join(f'            <span class="blog-tag">{tag}</span>' for tag in post.get("tags", []))
         cards.append(
             f'      <a class="blog-card" href="/blog/{post["slug"]}.html">\n'
             f'        <div class="blog-card__meta">\n'

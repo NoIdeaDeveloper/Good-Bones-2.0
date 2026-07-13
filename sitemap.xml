@@ -36,4 +36,10 @@
     <priority>0.6</priority>
     <changefreq>yearly</changefreq>
   </url>
+  <url>
+    <loc>https://goodbonesweb.com/blog/signs-your-website-needs-a-rescue.html</loc>
+    <lastmod>2026-07-12</lastmod>
+    <priority>0.6</priority>
+    <changefreq>yearly</changefreq>
+  </url>
 </urlset>
