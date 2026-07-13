@@ -21,6 +21,15 @@ def load_template(name: str) -> str:
     return (TEMPLATES / name).read_text(encoding="utf-8")
 
 
+def relative_base_path(output_file: Path) -> str:
+    """Return the relative prefix (e.g. '' or '../') for assets and page links.
+
+    ROOT-level pages use an empty prefix; pages inside subfolders use '../'.
+    """
+    depth = len(output_file.relative_to(ROOT).parts) - 1
+    return "../" * depth
+
+
 def apply_contact(html: str, contact: dict) -> str:
     replacements = {
         "{{company}}": contact["company"],
@@ -136,8 +145,11 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
         )
     content = "\n\n".join(sections)
 
+    base_path = relative_base_path(output_file)
+
     head = load_template("head.html")
     head = apply_contact(head, contact)
+    head = head.replace("{{base_path}}", base_path)
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
@@ -162,9 +174,12 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
     # NOTE: Subresource integrity (SRI) is not added here because all assets
     # (CSS, JS, fonts, favicons) are self-hosted in this repo. If a CDN is
     # reintroduced later, generate SRI hashes for those <link>/<script> tags.
+    html = html.replace("{{base_path}}", base_path)
     html = html.replace("{{head}}", head)
-    html = html.replace("{{nav}}", apply_contact(load_template("nav.html"), contact))
-    html = html.replace("{{footer}}", apply_contact(load_template("footer.html"), contact))
+    nav = apply_contact(load_template("nav.html"), contact)
+    footer = apply_contact(load_template("footer.html"), contact)
+    html = html.replace("{{nav}}", nav.replace("{{base_path}}", base_path))
+    html = html.replace("{{footer}}", footer.replace("{{base_path}}", base_path))
     html = html.replace("{{page_title}}", page_title)
     html = html.replace("{{intro}}", data["intro"])
     html = html.replace("{{date}}", data["last_updated"])
@@ -190,7 +205,11 @@ def build_blog_post(post: dict, contact: dict) -> None:
     canonical_url = f"{contact['domain']}/blog/{post['slug']}.html"
     date_iso, date_display = format_date(post["date"])
 
+    output_file = ROOT / "blog" / f"{post['slug']}.html"
+    base_path = relative_base_path(output_file)
+
     head = apply_contact(head, contact)
+    head = head.replace("{{base_path}}", base_path)
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
@@ -214,9 +233,12 @@ def build_blog_post(post: dict, contact: dict) -> None:
     tags_html = "\n".join(f'      <span class="blog-tag">{tag}</span>' for tag in post.get("tags", []))
 
     html = layout
+    html = html.replace("{{base_path}}", base_path)
     html = html.replace("{{head}}", head)
-    html = html.replace("{{nav}}", apply_contact(load_template("nav.html"), contact))
-    html = html.replace("{{footer}}", apply_contact(load_template("footer.html"), contact))
+    nav = apply_contact(load_template("nav.html"), contact)
+    footer = apply_contact(load_template("footer.html"), contact)
+    html = html.replace("{{nav}}", nav.replace("{{base_path}}", base_path))
+    html = html.replace("{{footer}}", footer.replace("{{base_path}}", base_path))
     html = html.replace("{{title}}", post["title"])
     html = html.replace("{{date_iso}}", date_iso)
     html = html.replace("{{date_display}}", date_display)
@@ -224,9 +246,10 @@ def build_blog_post(post: dict, contact: dict) -> None:
     html = html.replace("{{tags}}", tags_html)
     html = html.replace("{{excerpt}}", post["excerpt"])
     body_indented = "\n".join(f"        {line}" for line in post["body"].splitlines())
+    # Convert root-relative links inside post bodies to be relative to this page.
+    body_indented = body_indented.replace('href="/index.html', f'href="{base_path}index.html')
     html = html.replace("{{body}}", body_indented)
 
-    output_file = ROOT / "blog" / f"{post['slug']}.html"
     output_file.parent.mkdir(parents=True, exist_ok=True)
     output_file.write_text(html, encoding="utf-8")
     print(f"Built {output_file}")
@@ -240,7 +263,11 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     description = f"Ideas, updates, and web wisdom from {contact['company']}".rstrip('.') + '.'
     canonical_url = f"{contact['domain']}/blog/index.html"
 
+    output_file = ROOT / "blog" / "index.html"
+    base_path = relative_base_path(output_file)
+
     head = apply_contact(head, contact)
+    head = head.replace("{{base_path}}", base_path)
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
@@ -264,7 +291,7 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
         date_iso, date_display = format_date(post["date"])
         tags = "\n".join(f'            <span class="blog-tag">{tag}</span>' for tag in post.get("tags", []))
         cards.append(
-            f'      <a class="blog-card" href="/blog/{post["slug"]}.html">\n'
+            f'      <a class="blog-card" href="{post["slug"]}.html">\n'
             f'        <div class="blog-card__meta">\n'
             f'          <time datetime="{date_iso}">{date_display}</time>\n'
             f'          <div class="blog-card__tags">\n{tags}\n          </div>\n'
@@ -276,12 +303,14 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
         )
 
     html = layout
+    html = html.replace("{{base_path}}", base_path)
     html = html.replace("{{head}}", head)
-    html = html.replace("{{nav}}", apply_contact(load_template("nav.html"), contact))
-    html = html.replace("{{footer}}", apply_contact(load_template("footer.html"), contact))
+    nav = apply_contact(load_template("nav.html"), contact)
+    footer = apply_contact(load_template("footer.html"), contact)
+    html = html.replace("{{nav}}", nav.replace("{{base_path}}", base_path))
+    html = html.replace("{{footer}}", footer.replace("{{base_path}}", base_path))
     html = html.replace("{{posts}}", "\n\n".join(cards))
 
-    output_file = ROOT / "blog" / "index.html"
     output_file.parent.mkdir(parents=True, exist_ok=True)
     output_file.write_text(html, encoding="utf-8")
     print(f"Built {output_file}")

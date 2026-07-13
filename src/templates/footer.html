@@ -6,7 +6,7 @@
 
     <div class="footer__grid">
       <div class="footer__brand">
-        <a class="logo logo--footer" href="/index.html" aria-label="{{company}} home">
+        <a class="logo logo--footer" href="{{base_path}}index.html" aria-label="{{company}} home">
           <span class="bone" aria-hidden="true">🦴</span>
           <span>{{company}}</span>
         </a>
@@ -21,12 +21,12 @@
       <nav class="footer__nav" aria-label="Footer navigation">
         <h3 class="footer__heading">Sitemap</h3>
         <ul>
-          <li><a href="/index.html#services">Services</a></li>
-          <li><a href="/index.html#work">Work</a></li>
-          <li><a href="/index.html#about">About</a></li>
-          <li><a href="/index.html#testimonials">Testimonials</a></li>
-          <li><a href="/blog/index.html">Blog</a></li>
-          <li><a href="/index.html#contact">Contact</a></li>
+          <li><a href="{{base_path}}index.html#services">Services</a></li>
+          <li><a href="{{base_path}}index.html#work">Work</a></li>
+          <li><a href="{{base_path}}index.html#about">About</a></li>
+          <li><a href="{{base_path}}index.html#testimonials">Testimonials</a></li>
+          <li><a href="{{base_path}}blog/index.html">Blog</a></li>
+          <li><a href="{{base_path}}index.html#contact">Contact</a></li>
         </ul>
       </nav>
 
@@ -42,9 +42,9 @@
       <div class="footer__legal">
         <h3 class="footer__heading">Legal</h3>
         <ul>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms of Service</a></li>
-          <li><a href="/accessibility.html">Accessibility</a></li>
+          <li><a href="{{base_path}}privacy.html">Privacy Policy</a></li>
+          <li><a href="{{base_path}}terms.html">Terms of Service</a></li>
+          <li><a href="{{base_path}}accessibility.html">Accessibility</a></li>
         </ul>
       </div>
     </div>
@@ -55,4 +55,4 @@
     </div>
   </footer>
 
-  <script type="module" src="/script.js?v=5"></script>
+  <script type="module" src="{{base_path}}script.js?v=5"></script>
