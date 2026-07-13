@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Good Bones Web Inc. — Edmonton Website Consulting</title>
+  <meta name="description" content="Good Bones Web Inc. builds vibrant, strategy-first websites and digital experiences for businesses in Edmonton, Alberta and beyond." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦴</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" id="nav">
+    <a class="logo" href="#" aria-label="Good Bones Web Inc. home">
+      <span class="bone" aria-hidden="true">🦴</span>
+      <span>Good Bones</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="menu" id="menu" role="menubar">
+      <li><a href="#services" role="menuitem">Services</a></li>
+      <li><a href="#work" role="menuitem">Work</a></li>
+      <li><a href="#about" role="menuitem">About</a></li>
+      <li><a href="#testimonials" role="menuitem">Testimonials</a></li>
+      <li><a href="#contact" class="nav-cta" role="menuitem">Start a Project</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="blob blob--one" aria-hidden="true"><div class="blob__inner"></div></div>
+    <div class="blob blob--two" aria-hidden="true"><div class="blob__inner"></div></div>
+    <div class="blob blob--three" aria-hidden="true"><div class="blob__inner"></div></div>
+
+    <div class="hero__content">
+      <p class="eyebrow">Founded in Edmonton, Alberta</p>
+      <h1 class="hero__title">
+        Websites with
+        <span class="hero__highlight">
+          <span class="good">Good</span>
+          <span class="bones">Bones</span>
+        </span>
+        <span class="sparkle" aria-hidden="true">✦</span>
+      </h1>
+        <p class="hero__lede">Websites built with strategy, designed with guts, and coded to perform. Built for Edmonton businesses with web-wide ambition.</p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn btn--primary">Start a Project</a>
+        <a href="#work" class="btn btn--secondary">See the Work</a>
+      </div>
+    </div>
+
+    <div class="hero__card" aria-hidden="true">
+      <div class="stat stat--top">
+        <span class="stat__number">100%</span>
+        <span class="stat__label">Hand-coded</span>
+      </div>
+      <div class="stat stat--right">
+        <span class="stat__number">YEG</span>
+        <span class="stat__label">Home base</span>
+      </div>
+        <div class="browser">
+          <div class="browser__bar">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser__body">
+            <div class="line line--long"></div>
+            <div class="line line--short"></div>
+            <div class="cursor" aria-hidden="true"></div>
+            <div class="blocks">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <a href="#services" class="scroll-hint" aria-label="Scroll to services">
+      <span class="scroll-hint__text">Scroll</span>
+      <span class="scroll-hint__arrow">↓</span>
+    </a>
+
+    <!-- Floating pop-art shapes -->
+    <div class="float-shape float-shape--star" aria-hidden="true"><span class="float-shape__inner">✦</span></div>
+    <div class="float-shape float-shape--zig" aria-hidden="true"><span class="float-shape__inner">⚡</span></div>
+    <div class="float-shape float-shape--dot" aria-hidden="true"><span class="float-shape__inner"></span></div>
+  </header>
+
+  <!-- Marquee ticker -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Good Bones Web Inc.</span><span>•</span><span>Edmonton, Alberta</span><span>•</span><span>Website Design</span><span>•</span><span>Web Development</span><span>•</span><span>Digital Strategy</span><span>•</span><span>Site Rescue</span><span>•</span><span>No templates. No bloat. Just good bones.</span><span>•</span>
+      <span>Good Bones Web Inc.</span><span>•</span><span>Edmonton, Alberta</span><span>•</span><span>Website Design</span><span>•</span><span>Web Development</span><span>•</span><span>Digital Strategy</span><span>•</span><span>Site Rescue</span><span>•</span><span>No templates. No bloat. Just good bones.</span><span>•</span>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="section section--services" id="services">
+    <div class="section__header">
+      <p class="eyebrow">What we do</p>
+      <h2 class="section__title">Build, fix &amp; amplify websites.</h2>
+    </div>
+    <div class="services">
+      <article class="service-card service-card--yellow tilt" data-tilt>
+        <div class="service-card__icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="24" height="24" rx="4"/><circle cx="12" cy="12" r="2.5"/><path d="M4 22l8-8 6 6 10-10"/></svg></div>
+        <h3>Website Design</h3>
+        <p>Bold, brand-first visuals that make a strong first impression and guide visitors toward action.</p>
+        <ul>
+          <li>UI / UX design</li>
+          <li>Brand storytelling</li>
+          <li>Mobile-first layouts</li>
+        </ul>
+      </article>
+      <article class="service-card service-card--coral tilt" data-tilt>
+        <div class="service-card__icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 9l-7 7 7 7"/><path d="M22 9l7 7-7 7"/><circle cx="16" cy="16" r="2" fill="currentColor" stroke="none"/></svg></div>
+        <h3>Web Development</h3>
+        <p>Fast, accessible, hand-coded sites that skip the page-builder bloat and load in a blink.</p>
+        <ul>
+          <li>Static &amp; CMS builds</li>
+          <li>Performance tuning</li>
+          <li>Accessibility (WCAG)</li>
+        </ul>
+      </article>
+      <article class="service-card service-card--teal tilt" data-tilt>
+        <div class="service-card__icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="4" fill="currentColor" stroke="none"/><path d="M16 2v4M16 26v4M2 16h4M26 16h4"/></svg></div>
+        <h3>Digital Strategy</h3>
+        <p>Clarify your message, map the customer journey, and turn visits into real business.</p>
+        <ul>
+          <li>Content strategy</li>
+          <li>SEO foundations</li>
+          <li>Conversion audits</li>
+        </ul>
+      </article>
+      <article class="service-card service-card--violet tilt" data-tilt>
+        <div class="service-card__icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="24" height="24" rx="4"/><path d="M16 10v12M10 16h12"/></svg></div>
+        <h3>Site Rescue &amp; Updates</h3>
+        <p>Stuck with a slow, broken, or outdated site? We diagnose, repair, and set it up for the future.</p>
+        <ul>
+          <li>Speed optimization</li>
+          <li>Bug fixes</li>
+          <li>Ongoing maintenance</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section class="section section--work" id="work">
+    <div class="section__header">
+      <p class="eyebrow">Selected work</p>
+      <h2 class="section__title">Recent projects, big energy.</h2>
+      <p class="section__sub">Case studies and screenshots are available on request — these previews show the breadth of what we build.</p>
+    </div>
+    <div class="work-grid">
+      <a class="work-card tilt" href="#contact" data-tilt aria-label="View Local Coffee Roasters project">
+        <div class="work-card__image work-card__image--one">
+          <div class="mini-browser">
+            <div class="mini-browser__bar"><span></span><span></span><span></span></div>
+            <div class="mini-browser__body">
+              <div class="mini-browser__hero"></div>
+              <div class="mini-browser__grid"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+          <span class="work-card__peek">Case study</span>
+        </div>
+        <div class="work-card__body">
+          <h3>Local Coffee Roasters</h3>
+          <p>Brand site, online menu, and local SEO for an Edmonton cafe.</p>
+          <span class="tag tag--yellow">Design + Dev</span>
+        </div>
+      </a>
+      <a class="work-card tilt" href="#contact" data-tilt aria-label="View Northside Fitness project">
+        <div class="work-card__image work-card__image--two">
+          <div class="mini-browser">
+            <div class="mini-browser__bar"><span></span><span></span><span></span></div>
+            <div class="mini-browser__body">
+              <div class="mini-browser__hero"></div>
+              <div class="mini-browser__grid"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+          <span class="work-card__peek">Case study</span>
+        </div>
+        <div class="work-card__body">
+          <h3>Northside Fitness</h3>
+          <p>High-energy booking site with class schedules and membership CTAs.</p>
+          <span class="tag tag--coral">Strategy + Dev</span>
+        </div>
+      </a>
+      <a class="work-card tilt" href="#contact" data-tilt aria-label="View Prairie Makers Market project">
+        <div class="work-card__image work-card__image--three">
+          <div class="mini-browser">
+            <div class="mini-browser__bar"><span></span><span></span><span></span></div>
+            <div class="mini-browser__body">
+              <div class="mini-browser__hero"></div>
+              <div class="mini-browser__grid"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+          <span class="work-card__peek">Case study</span>
+        </div>
+        <div class="work-card__body">
+          <h3>Prairie Makers Market</h3>
+          <p>E-commerce refresh that doubled mobile conversions in 90 days.</p>
+          <span class="tag tag--teal">Rescue + Updates</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section section--about" id="about">
+    <div class="about__inner">
+      <div class="about__visual" aria-hidden="true">
+        <div class="map-pin">📍</div>
+        <div class="about__map">
+          <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stylized map of Edmonton">
+            <rect width="400" height="240" rx="24" fill="#FFD93D" />
+            <path d="M40 180 Q80 60 160 120 T280 80 T360 160" stroke="#FF6B6B" stroke-width="10" fill="none" stroke-linecap="round" />
+            <path d="M40 200 Q100 140 180 180 T320 140" stroke="#4ECDC4" stroke-width="10" fill="none" stroke-linecap="round" />
+            <circle cx="200" cy="120" r="14" fill="#1A1A2E" />
+            <circle cx="200" cy="120" r="28" stroke="#1A1A2E" stroke-width="4" fill="none" stroke-dasharray="8 8" />
+          </svg>
+        </div>
+      </div>
+      <div class="about__content">
+        <p class="eyebrow">About Good Bones</p>
+        <h2 class="section__title">Edmonton roots. Web-wide reach.</h2>
+        <p>Good Bones Web Inc. was founded in Edmonton, Alberta with a simple belief: every business deserves a website that is as solid underneath as it looks on the surface. No bloated templates, no mystery plugins — just clean code, clear strategy, and design with personality.</p>
+        <p>We blend local know-how with modern web standards to build sites that load fast, rank better, and convert more. Whether you need a bold launch, a thoughtful refresh, or an emergency rescue, we are here to help.</p>
+        <div class="about__signature" aria-hidden="true">
+          <span>Good Bones</span>
+        </div>
+        <div class="about__stats">
+          <div><strong>5+</strong> years building sites</div>
+          <div><strong>40+</strong> projects launched</div>
+          <div><strong>1</strong> friendly Edmonton team</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section section--testimonials" id="testimonials">
+    <div class="starburst starburst--section" aria-hidden="true">
+      <span>Wow!</span>
+    </div>
+    <div class="section__header">
+      <p class="eyebrow">Kind words</p>
+      <h2 class="section__title">What clients say.</h2>
+      <p class="section__sub">Real quotes from real Edmonton-area businesses we have worked with.</p>
+    </div>
+    <div class="testimonials">
+      <blockquote class="testimonial">
+        <p>"Good Bones turned our outdated site into something we are actually proud to share. The process was fast, collaborative, and way more fun than expected."</p>
+        <footer>
+          <span class="avatar" aria-hidden="true">SM</span>
+          <div>
+            <cite>Sarah Miller</cite>
+            <span>Owner, Local Coffee Roasters</span>
+          </div>
+        </footer>
+      </blockquote>
+      <blockquote class="testimonial">
+        <p>"Our mobile bookings jumped immediately after launch. They understood both the design and the business side — rare combo."</p>
+        <footer>
+          <span class="avatar" aria-hidden="true">JC</span>
+          <div>
+            <cite>James Chen</cite>
+            <span>Founder, Northside Fitness</span>
+          </div>
+        </footer>
+      </blockquote>
+      <blockquote class="testimonial">
+        <p>"Honest, reliable, and obsessively detail-oriented. If your website needs CPR, call Good Bones first."</p>
+        <footer>
+          <span class="avatar" aria-hidden="true">AR</span>
+          <div>
+            <cite>Asha Rahman</cite>
+            <span>Director, Prairie Makers Market</span>
+          </div>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- CTA banner -->
+  <section class="cta-banner" aria-label="Call to action">
+    <div class="cta-banner__inner">
+      <h2>Your website deserves good bones.</h2>
+      <p>Let's build something Edmonton-proud and world-ready.</p>
+      <a href="#contact" class="btn btn--primary">Start a Project</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section section--contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact__content">
+        <p class="eyebrow">Let's build something</p>
+        <h2 class="section__title">Ready for a site with good bones?</h2>
+        <p>Tell us what you are working on. We will reply within one business day with ideas, questions, and next steps.</p>
+        <ul class="contact__details">
+          <li><strong>Email:</strong> <a href="mailto:hello@goodbonesweb.com">hello@goodbonesweb.com</a></li>
+          <li><strong>Phone:</strong> <a href="tel:+1-780-555-0123">(780) 555-0123</a></li>
+          <li><strong>Office:</strong> Edmonton, Alberta, Canada</li>
+        </ul>
+        <div class="socials">
+          <a href="#" class="social" aria-label="Instagram"><span>IG</span></a>
+          <a href="#" class="social" aria-label="LinkedIn"><span>LI</span></a>
+          <a href="#" class="social" aria-label="Twitter / X"><span>X</span></a>
+        </div>
+      </div>
+      <form class="contact__form" action="#" method="POST" novalidate>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@business.com" required />
+        <label for="service">What do you need?</label>
+        <select id="service" name="service">
+          <option value="">Select a service...</option>
+          <option value="design">Website Design</option>
+          <option value="dev">Web Development</option>
+          <option value="strategy">Digital Strategy</option>
+          <option value="rescue">Site Rescue / Updates</option>
+          <option value="other">Something else</option>
+        </select>
+        <label for="message">Project details</label>
+        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project, timeline, and goals."></textarea>
+        <button type="submit" class="btn btn--primary">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer__inner">
+      <a class="logo logo--footer" href="#top" aria-label="Back to top">
+        <span class="bone" aria-hidden="true">🦴</span>
+        <span>Good Bones Web Inc.</span>
+      </a>
+      <p class="footer__tagline">Vibrant websites. Strong foundations. Edmonton, Alberta.</p>
+      <p class="footer__copy">&copy; 2026 Good Bones Web Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <span aria-hidden="true">↑</span>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
