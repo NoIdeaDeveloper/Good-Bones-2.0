@@ -1273,7 +1273,6 @@
 .about__stat--yellow { background: var(--yellow); }
 .about__stat--coral { background: var(--coral); color: var(--white); }
 .about__stat--teal { background: var(--teal); }
-.about__stat--violet { background: var(--violet); color: var(--white); }
 
 .about__stat:hover {
   transform: translateY(-3px);
