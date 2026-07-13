@@ -1458,12 +1458,36 @@ textarea:focus-visible {
   pointer-events: none;
 }
 
+.section__header--testimonials .section__title::after {
+  background: var(--teal);
+}
+
+.starburst--section {
+  top: 30px;
+  right: 5vw;
+  width: 130px;
+  height: 130px;
+  z-index: 1;
+  box-shadow: 6px 6px 0 var(--ink);
+  animation: starburst-wow 6s ease-in-out infinite;
+}
+
+@keyframes starburst-wow {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(8deg) scale(1.07); }
+}
+
+.starburst--section span {
+  transform: rotate(-12deg);
+  font-size: 2.1rem;
+}
+
 .testimonials {
   max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 28px;
+  gap: 34px;
   position: relative;
   z-index: 1;
 }
@@ -1472,49 +1496,124 @@ textarea:focus-visible {
   background: var(--white);
   border: 3px solid var(--ink);
   border-radius: var(--radius);
-  padding: 34px;
-  box-shadow: var(--shadow);
-  transition: transform var(--transition);
+  padding: 40px 34px 34px;
+  box-shadow: 6px 6px 0 var(--ink), var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: visible;
 }
 
-.testimonial:hover {
-  transform: translateY(-6px) rotate(0.6deg);
+.testimonial:nth-child(1) { transform: rotate(-1.2deg); }
+.testimonial:nth-child(2) { transform: rotate(0.8deg); }
+.testimonial:nth-child(3) { transform: rotate(-0.6deg); }
+
+.testimonial:hover:not(.is-tilting) {
+  transform: translateY(-8px) rotate(0deg);
+  box-shadow: 10px 12px 0 var(--ink), var(--shadow-hover);
+}
+
+.testimonial::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  left: 42px;
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 18px solid var(--white);
+  filter: drop-shadow(0 3px 0 var(--ink)) drop-shadow(0 -3px 0 var(--ink));
+  z-index: 2;
+}
+
+.testimonial::before {
+  content: "";
+  position: absolute;
+  bottom: -26px;
+  left: 42px;
+  width: 34px;
+  height: 34px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.testimonial--coral::after { border-top-color: var(--white); }
+.testimonial--coral::before { background: var(--coral); }
+.testimonial--teal::before { background: var(--teal); }
+.testimonial--violet::before { background: var(--violet); }
+
+.testimonial__pin {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 3px solid var(--white);
+  box-shadow: 2px 2px 0 var(--ink);
+  z-index: 4;
+}
+
+.testimonial__quote-mark {
+  position: absolute;
+  top: 14px;
+  right: 22px;
+  font-family: Georgia, serif;
+  font-size: 7rem;
+  line-height: 1;
+  color: var(--coral);
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
 }
 
 .testimonial > p {
   font-size: 1.15rem;
+  font-weight: 500;
   line-height: 1.55;
-  margin-bottom: 26px;
+  margin-bottom: 24px;
   position: relative;
-}
-
-.testimonial > p::before {
-  content: """;
-  display: block;
-  font-family: Georgia, serif;
-  font-size: 4rem;
-  line-height: 0.6;
-  color: var(--coral);
-  margin-bottom: 8px;
+  z-index: 1;
 }
 
 .testimonial footer {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
 }
 
 .avatar {
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: var(--teal);
-  border: 2px solid var(--ink);
+  border: 3px solid var(--ink);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.testimonial--coral .avatar { background: var(--coral); color: var(--white); }
+.testimonial--teal .avatar { background: var(--teal); }
+.testimonial--violet .avatar { background: var(--violet); color: var(--white); }
+
+.stars {
+  color: var(--yellow);
+  font-size: 1rem;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-shadow: 1px 1px 0 var(--ink);
+  margin-bottom: 4px;
 }
 
 cite {
