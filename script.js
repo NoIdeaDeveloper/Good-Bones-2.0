@@ -64,6 +64,8 @@ if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
       factorY: item.factorY
     })).filter((item) => item.el);
 
+    const siteFooter = document.querySelector('.site-footer');
+
     let ticking = false;
     let mouseX = 0;
     let mouseY = 0;
@@ -77,6 +79,11 @@ if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
         const ty = cy * item.factorY;
         item.el.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
       });
+
+      if (siteFooter) {
+        siteFooter.style.setProperty('--footer-bg-x', `${-cx * 30}px`);
+        siteFooter.style.setProperty('--footer-bg-y', `${-cy * 30}px`);
+      }
 
       ticking = false;
     };
