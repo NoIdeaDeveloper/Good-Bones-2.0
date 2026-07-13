@@ -843,14 +843,14 @@
 .service-card--teal::after { background: var(--teal); }
 .service-card--violet::after { background: var(--violet); }
 
-.service-card:hover:not(.is-tilting) {
+.service-card:hover {
   transform: translateY(-8px);
 }
 
-.service-card--yellow:hover:not(.is-tilting) { box-shadow: 8px 12px 0 var(--yellow), 0 22px 40px rgba(26, 26, 46, 0.12); }
-.service-card--coral:hover:not(.is-tilting) { box-shadow: 8px 12px 0 var(--coral), 0 22px 40px rgba(26, 26, 46, 0.12); }
-.service-card--teal:hover:not(.is-tilting) { box-shadow: 8px 12px 0 var(--teal), 0 22px 40px rgba(26, 26, 46, 0.12); }
-.service-card--violet:hover:not(.is-tilting) { box-shadow: 8px 12px 0 var(--violet), 0 22px 40px rgba(26, 26, 46, 0.12); }
+.service-card--yellow:hover { box-shadow: 8px 12px 0 var(--yellow), 0 22px 40px rgba(26, 26, 46, 0.12); }
+.service-card--coral:hover { box-shadow: 8px 12px 0 var(--coral), 0 22px 40px rgba(26, 26, 46, 0.12); }
+.service-card--teal:hover { box-shadow: 8px 12px 0 var(--teal), 0 22px 40px rgba(26, 26, 46, 0.12); }
+.service-card--violet:hover { box-shadow: 8px 12px 0 var(--violet), 0 22px 40px rgba(26, 26, 46, 0.12); }
 
 .service-card__number {
   position: absolute;
