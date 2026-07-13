@@ -38,6 +38,9 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
+  // Reduced motion preference check (used by browser mockup + parallax)
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // Animated browser mockup in hero card
   const browser = document.querySelector('.browser');
   if (browser && !prefersReducedMotion) {
