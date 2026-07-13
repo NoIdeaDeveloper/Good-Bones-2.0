@@ -199,7 +199,7 @@
 }
 
 .btn--primary {
-  background: var(--coral);
+  background: var(--coral-strong);
   color: var(--white);
   box-shadow: 6px 6px 0 var(--ink);
 }
@@ -744,9 +744,9 @@
 }
 
 .service-card--yellow .service-card__icon { background: var(--yellow); }
-.service-card--coral .service-card__icon { background: var(--coral); color: var(--white); }
+.service-card--coral .service-card__icon { background: var(--coral-strong); color: var(--white); }
 .service-card--teal .service-card__icon { background: var(--teal); }
-.service-card--violet .service-card__icon { background: var(--violet); color: var(--white); }
+.service-card--violet .service-card__icon { background: var(--violet-strong); color: var(--white); }
 
 .service-card__icon svg {
   width: 34px;
@@ -974,7 +974,7 @@
 }
 
 .tag--yellow { background: var(--yellow); }
-.tag--coral { background: var(--coral); color: var(--white); }
+.tag--coral { background: var(--coral-strong); color: var(--white); }
 .tag--teal { background: var(--teal); }
 
 /* 3D tilt cards */
@@ -1278,7 +1278,7 @@
 }
 
 .about__stat--yellow { background: var(--yellow); }
-.about__stat--coral { background: var(--coral); color: var(--white); }
+.about__stat--coral { background: var(--coral-strong); color: var(--white); }
 .about__stat--teal { background: var(--teal); }
 
 .about__stat:hover {
@@ -1461,9 +1461,9 @@
   flex-shrink: 0;
 }
 
-.testimonial--coral .avatar { background: var(--coral); color: var(--white); }
+.testimonial--coral .avatar { background: var(--coral-strong); color: var(--white); }
 .testimonial--teal .avatar { background: var(--teal); }
-.testimonial--violet .avatar { background: var(--violet); color: var(--white); }
+.testimonial--violet .avatar { background: var(--violet-strong); color: var(--white); }
 
 .stars {
   color: var(--yellow);
@@ -1628,7 +1628,7 @@ cite {
 
 .contact__form .btn--primary {
   width: 100%;
-  background: var(--coral);
+  background: var(--coral-strong);
   color: var(--white);
   box-shadow: 6px 6px 0 var(--ink);
 }

@@ -5,8 +5,10 @@
   --white: #FFFFFF;
   --yellow: #FFD93D;
   --coral: #FF6B6B;
+  --coral-strong: #D62E2E;
   --teal: #4ECDC4;
   --violet: #9B5DE5;
+  --violet-strong: #8A4DD6;
   --pink: #F15BB5;
   --mint: #CBF3F0;
   --peach: #FFE5D9;
@@ -312,7 +314,7 @@ textarea:focus-visible {
 }
 
 .btn--primary {
-  background: var(--coral);
+  background: var(--coral-strong);
   color: var(--white);
   box-shadow: 6px 6px 0 var(--ink);
 }
@@ -333,7 +335,7 @@ textarea:focus-visible {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--coral);
+  background: var(--coral-strong);
   color: var(--white);
   border: 3px solid var(--ink);
   box-shadow: 5px 5px 0 var(--ink);
