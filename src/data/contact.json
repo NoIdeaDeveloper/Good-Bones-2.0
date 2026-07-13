@@ -6,9 +6,9 @@
   "address": "Edmonton, Alberta, Canada",
   "domain": "https://goodbonesweb.com",
   "social": {
-    "instagram": "#",
-    "linkedin": "#",
-    "twitter": "#"
+    "instagram": "https://www.instagram.com/goodbonesweb",
+    "linkedin": "https://www.linkedin.com/company/goodbonesweb",
+    "twitter": "https://twitter.com/goodbonesweb"
   },
   "og": {
     "image": "https://goodbonesweb.com/og-image.png",
