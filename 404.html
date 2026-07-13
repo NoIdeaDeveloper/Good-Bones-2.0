@@ -47,8 +47,8 @@
     .error-page .site-nav { position: relative; background: rgba(255, 249, 240, 0.96); box-shadow: 0 4px 20px rgba(26, 26, 46, 0.06); }
     .error-hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 6vw 100px; background: radial-gradient(circle at 25% 25%, rgba(255, 217, 61, 0.35) 0%, transparent 40%), radial-gradient(circle at 75% 75%, rgba(78, 205, 196, 0.25) 0%, transparent 40%), var(--white); border-bottom: 3px solid var(--ink); }
     .error-hero__bone { width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; background: var(--yellow); border: 4px solid var(--ink); border-radius: 50%; font-size: 4rem; margin-bottom: 24px; transform: rotate(-12deg); box-shadow: 8px 8px 0 var(--ink); }
-    .error-hero__code { font-family: "Bebas Neue", sans-serif; font-size: clamp(5rem, 16vw, 10rem); line-height: 1; margin: 0 0 16px; letter-spacing: 0.02em; }
-    .error-hero__code span { display: inline-block; color: var(--coral); will-change: transform; }
+    .error-hero__code { font-family: "Bebas Neue", sans-serif; font-size: clamp(5rem, 16vw, 10rem); line-height: 1; margin: 0 0 16px; letter-spacing: 0.02em; perspective: 1000px; }
+    .error-hero__code span { display: inline-block; color: var(--coral); will-change: transform; transform-style: preserve-3d; }
     .error-hero__code span:nth-child(1) { transform: rotate(-6deg); }
     .error-hero__code span:nth-child(3) { transform: rotate(6deg); }
     .error-hero > p { font-size: clamp(1.1rem, 2vw, 1.35rem); max-width: 520px; margin: 0 auto 32px; }
@@ -170,14 +170,14 @@
       const digits = code.querySelectorAll('span');
       const baseRot = [-6, 0, 6];
       const state = Array.from(digits).map(() => ({
-        x: 0, y: 0, r: 0,
-        tx: 0, ty: 0, tr: 0,
+        x: 0, y: 0, r: 0, rx: 0, ry: 0,
+        tx: 0, ty: 0, tr: 0, trx: 0, try: 0,
         speed: 0.02 + Math.random() * 0.03,
+        tiltSpeed: 0.02 + Math.random() * 0.03,
         nextChange: 0
       }));
 
       let lastX = 0, lastY = 0, cursorEnergy = 0;
-      let lastTime = performance.now();
 
       const pickTarget = (s, time) => {
         const energy = Math.min(cursorEnergy, 1);
@@ -185,7 +185,10 @@
         s.tx = (Math.random() - 0.5) * range * 2;
         s.ty = (Math.random() - 0.5) * range;
         s.tr = (Math.random() - 0.5) * (5 + energy * 12);
+        s.trx = (Math.random() - 0.5) * (8 + energy * 18);
+        s.try = (Math.random() - 0.5) * (8 + energy * 18);
         s.speed = 0.02 + Math.random() * 0.04 + energy * 0.04;
+        s.tiltSpeed = 0.02 + Math.random() * 0.05 + energy * 0.05;
         s.nextChange = time + 250 + Math.random() * 500 - energy * 200;
       };
 
@@ -204,7 +207,13 @@
           s.x += (s.tx - s.x) * s.speed;
           s.y += (s.ty - s.y) * s.speed;
           s.r += (s.tr - s.r) * s.speed;
-          digits[i].style.transform = `translate(${s.x.toFixed(2)}px, ${s.y.toFixed(2)}px) rotate(${(s.r + baseRot[i]).toFixed(2)}deg)`;
+          s.rx += (s.trx - s.rx) * s.tiltSpeed;
+          s.ry += (s.try - s.ry) * s.tiltSpeed;
+          digits[i].style.transform =
+            `translate3d(${s.x.toFixed(2)}px, ${s.y.toFixed(2)}px, 0)` +
+            ` rotateX(${s.rx.toFixed(2)}deg)` +
+            ` rotateY(${s.ry.toFixed(2)}deg)` +
+            ` rotate(${(s.r + baseRot[i]).toFixed(2)}deg)`;
         });
         requestAnimationFrame(animate);
       };
