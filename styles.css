@@ -1310,12 +1310,7 @@ textarea:focus-visible {
 
 /* CTA banner */
 .cta-banner {
-  background:
-    radial-gradient(circle at 12% 22%, var(--yellow) 0%, transparent 48%),
-    radial-gradient(circle at 88% 18%, var(--pink) 0%, transparent 44%),
-    radial-gradient(circle at 72% 82%, var(--teal) 0%, transparent 50%),
-    radial-gradient(circle at 22% 86%, var(--violet) 0%, transparent 46%),
-    linear-gradient(135deg, var(--coral) 0%, #ff8e8e 100%);
+  background: var(--white);
   padding: 90px 6vw;
   text-align: center;
   position: relative;
@@ -1324,32 +1319,29 @@ textarea:focus-visible {
   border-bottom: 4px solid var(--ink);
 }
 
-.cta-banner::before,
+.cta-banner::before {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke-width='6' stroke-linecap='round'%3E%3Cpath d='M10 30 Q40 5 70 30 T130 30 T190 30' stroke='%23006BA6'/%3E%3Cpath d='M0 80 Q30 55 60 80 T120 80 T180 80' stroke='%23F15BB5'/%3E%3Cpath d='M20 130 Q50 105 80 130 T140 130 T200 130' stroke='%23FFD93D'/%3E%3Cpath d='M10 180 Q40 155 70 180 T130 180 T190 180' stroke='%23FF6B6B'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.35;
+  transform: rotate(-6deg);
+  pointer-events: none;
+}
+
 .cta-banner::after {
   content: "";
   position: absolute;
-  border-radius: 50%;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 20%, var(--yellow) 0%, transparent 32%),
+    radial-gradient(circle at 88% 30%, var(--coral) 0%, transparent 30%),
+    radial-gradient(circle at 70% 80%, var(--teal) 0%, transparent 34%),
+    radial-gradient(circle at 25% 85%, var(--pink) 0%, transparent 28%);
+  opacity: 1;
   pointer-events: none;
-  opacity: 0.55;
-  filter: blur(2px);
-}
-
-.cta-banner::before {
-  width: 220px;
-  height: 220px;
-  top: -60px;
-  left: -50px;
-  background: var(--yellow);
-  border: 4px solid var(--ink);
-}
-
-.cta-banner::after {
-  width: 160px;
-  height: 160px;
-  bottom: -40px;
-  right: -30px;
-  background: var(--mint);
-  border: 4px solid var(--ink);
 }
 
 .cta-banner__inner {
@@ -1357,6 +1349,11 @@ textarea:focus-visible {
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  background: var(--white);
+  border: 4px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  box-shadow: 10px 10px 0 var(--ink);
 }
 
 .cta-banner h2 {
@@ -1365,7 +1362,6 @@ textarea:focus-visible {
   line-height: 0.95;
   color: var(--ink);
   margin-bottom: 16px;
-  text-shadow: 4px 4px 0 var(--white);
 }
 
 .cta-banner p {
@@ -1373,16 +1369,20 @@ textarea:focus-visible {
   font-weight: 600;
   color: var(--ink);
   margin-bottom: 30px;
+  opacity: 0.9;
 }
 
 .cta-banner .btn--primary {
-  background: var(--ink);
-  color: var(--yellow);
+  background: var(--coral);
+  color: var(--white);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 
 .cta-banner .btn--primary:hover {
   background: var(--violet);
   color: var(--white);
+  box-shadow: 8px 8px 0 var(--ink);
+  transform: translate(-2px, -2px);
 }
 
 /* Back to top button */
@@ -1973,13 +1973,7 @@ cite {
   position: relative;
   overflow: hidden;
   color: var(--cream);
-  background:
-    radial-gradient(circle at 10% 20%, rgba(255, 217, 61, 0.55) 0%, transparent 35%),
-    radial-gradient(circle at 90% 30%, rgba(255, 107, 107, 0.5) 0%, transparent 35%),
-    radial-gradient(circle at 80% 85%, rgba(78, 205, 196, 0.5) 0%, transparent 35%),
-    radial-gradient(circle at 15% 80%, rgba(155, 93, 229, 0.5) 0%, transparent 35%),
-    radial-gradient(circle at 50% 50%, rgba(241, 91, 181, 0.28) 0%, transparent 40%),
-    var(--cream);
+  background: var(--ink);
   border-top: 4px solid var(--ink);
 }
 
@@ -1988,8 +1982,9 @@ cite {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(var(--ink) 1.5px, transparent 1.5px) 0 0 / 30px 30px;
-  opacity: 0.05;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke-width='4' stroke-linecap='round'%3E%3Ccircle cx='30' cy='30' r='10' fill='%23FFD93D' stroke='none'/%3E%3Ccircle cx='210' cy='210' r='12' fill='%23F15BB5' stroke='none'/%3E%3Cpath d='M100 20 L110 40 L90 40 Z' fill='%234ECDC4' stroke='none'/%3E%3Cpath d='M200 80 L220 90 L200 100 Z' fill='%23FFD93D' stroke='none'/%3E%3Cpath d='M40 120 L60 130 L40 140 Z' fill='%23FF6B6B' stroke='none'/%3E%3Cpath d='M180 160 Q190 150 200 160 T220 160' stroke='%23FFD93D'/%3E%3Cpath d='M20 200 Q30 190 40 200 T60 200' stroke='%234ECDC4'/%3E%3Cpath d='M120 80 Q130 70 140 80 T160 80' stroke='%23F15BB5'/%3E%3Cpath d='M80 180 Q90 170 100 180 T120 180' stroke='%23FF6B6B'/%3E%3Cpath d='M220 20 L230 30' stroke='%234ECDC4'/%3E%3Cpath d='M10 80 L20 90' stroke='%23FFD93D'/%3E%3Cpath d='M140 220 L150 230' stroke='%23FF6B6B'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  opacity: 0.45;
   pointer-events: none;
 }
 
@@ -1998,14 +1993,13 @@ cite {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(var(--ink) 1.2px, transparent 1.2px) 0 0 / 26px 26px;
-  opacity: 0.04;
+    linear-gradient(180deg, rgba(26, 26, 46, 0.35) 0%, rgba(26, 26, 46, 0.85) 70%, rgba(26, 26, 46, 0.95) 100%);
   pointer-events: none;
 }
 
 .footer__top {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2018,14 +2012,14 @@ cite {
   font-family: "Bebas Neue", sans-serif;
   font-size: clamp(2.4rem, 7vw, 5rem);
   letter-spacing: 0.04em;
-  color: var(--ink);
+  color: var(--white);
   line-height: 1;
-  text-shadow: 3px 3px 0 var(--white);
+  text-shadow: 4px 4px 0 var(--yellow), 8px 8px 0 var(--pink);
 }
 
 .footer__grid {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
@@ -2038,18 +2032,19 @@ cite {
   justify-content: flex-start;
   margin-bottom: 16px;
   font-size: 1.7rem;
-  color: var(--ink);
+  color: var(--white);
 }
 
 .footer__brand .logo--footer .bone {
   background: var(--yellow);
+  color: var(--ink);
 }
 
 .footer__tagline {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 18px;
-  opacity: 0.85;
+  opacity: 0.9;
   max-width: 260px;
 }
 
@@ -2059,7 +2054,7 @@ cite {
 }
 
 .footer__tagline {
-  color: var(--ink);
+  color: var(--white);
 }
 
 .footer__socials .social {
@@ -2069,9 +2064,9 @@ cite {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--ink);
-  color: var(--cream);
-  border: 3px solid var(--ink);
+  background: var(--white);
+  color: var(--ink);
+  border: 3px solid var(--white);
   font-weight: 700;
   font-size: 0.8rem;
   transition: transform var(--transition), background var(--transition), color var(--transition);
@@ -2081,7 +2076,7 @@ cite {
   transform: translateY(-3px) rotate(-4deg);
   background: var(--yellow);
   color: var(--ink);
-  border-color: var(--ink);
+  border-color: var(--yellow);
 }
 
 .footer__heading {
@@ -2089,7 +2084,7 @@ cite {
   font-size: 1.25rem;
   letter-spacing: 0.04em;
   margin-bottom: 16px;
-  color: var(--ink);
+  color: var(--yellow);
 }
 
 .footer__nav ul,
@@ -2106,7 +2101,7 @@ cite {
   opacity: 0.85;
   transition: opacity var(--transition), transform var(--transition);
   display: inline-block;
-  color: var(--ink);
+  color: var(--white);
 }
 
 .footer__nav a:hover,
@@ -2114,21 +2109,21 @@ cite {
 .footer__legal a:hover {
   opacity: 1;
   transform: translateX(4px);
-  color: var(--coral);
+  color: var(--yellow);
 }
 
 .footer__bottom {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
   padding: 18px 6vw;
-  background: rgba(26, 26, 46, 0.1);
-  border-top: 3px solid rgba(26, 26, 46, 0.18);
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 3px solid rgba(255, 255, 255, 0.12);
   font-size: 0.85rem;
-  color: var(--ink);
+  color: var(--white);
 }
 
 .footer__bone {
