@@ -435,13 +435,18 @@
           <a href="#" class="social" aria-label="Twitter / X"><span>X</span></a>
         </div>
       </div>
-      <form class="contact__form" action="#" method="POST" novalidate>
+      <form class="contact__form" action="#" method="POST" novalidate data-form-type="contact">
+        <p class="form-note" id="form-status" role="status" aria-live="polite">
+          This form is a demo — it does not send messages yet. For now, email us directly at
+          <a href="mailto:hello@goodbonesweb.com">hello@goodbonesweb.com</a>.
+        </p>
+
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required aria-describedby="name-error" />
+        <input type="text" id="name" name="name" placeholder="Your name" required aria-describedby="name-error form-status" />
         <span class="form-error" id="name-error" role="alert"></span>
 
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@business.com" required aria-describedby="email-error" />
+        <input type="email" id="email" name="email" placeholder="you@business.com" required aria-describedby="email-error form-status" />
         <span class="form-error" id="email-error" role="alert"></span>
 
         <label for="service">What do you need?</label>
