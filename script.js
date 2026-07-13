@@ -107,9 +107,9 @@ const nav = document.getElementById('nav');
     });
   });
 
-  // 3D tilt effect on cards (desktop hover only)
+  // 3D tilt effect on cards (desktop hover only, respects reduced-motion)
   const prefersHover = window.matchMedia('(hover: hover)').matches;
-  if (prefersHover) {
+  if (prefersHover && !prefersReducedMotion) {
     const tiltCards = document.querySelectorAll('[data-tilt]');
     tiltCards.forEach((card) => {
       card.addEventListener('pointermove', (e) => {
