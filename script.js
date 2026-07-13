@@ -231,14 +231,23 @@ const nav = document.getElementById('nav');
         if (!entry.isIntersecting) return;
         const stat = entry.target;
         const target = Number(stat.dataset.count);
-        const suffix = stat.querySelector('strong').textContent.replace(/[0-9]/g, '');
+        const strong = stat.querySelector('strong');
+        const suffix = strong.textContent.replace(/[0-9]/g, '');
+
+        if (target <= 1) {
+          // Skip animation for very small numbers; it feels underwhelming.
+          strong.textContent = target + suffix;
+          countObserver.unobserve(stat);
+          return;
+        }
+
         const duration = 1200;
         const start = performance.now();
         const step = (now) => {
           const progress = Math.min((now - start) / duration, 1);
           const ease = 1 - Math.pow(1 - progress, 3);
           const value = Math.floor(ease * target);
-          stat.querySelector('strong').textContent = value + suffix;
+          strong.textContent = value + suffix;
           if (progress < 1) {
             requestAnimationFrame(step);
           }
