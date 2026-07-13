@@ -47,23 +47,37 @@
     .error-page .site-nav { position: relative; background: rgba(255, 249, 240, 0.96); box-shadow: 0 4px 20px rgba(26, 26, 46, 0.06); }
     .error-hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 6vw 100px; background: radial-gradient(circle at 25% 25%, rgba(255, 217, 61, 0.35) 0%, transparent 40%), radial-gradient(circle at 75% 75%, rgba(78, 205, 196, 0.25) 0%, transparent 40%), var(--white); border-bottom: 3px solid var(--ink); }
     .error-hero__mascot { margin-bottom: 12px; }
-    .tube-man { width: 180px; height: 280px; overflow: visible; }
-    .tube-man__group { transform-origin: 100px 290px; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: scaleY(0.22) scaleX(1.08); }
+    .error-hero__mascot { margin-bottom: 4px; }
+    .tube-man { width: 220px; height: 340px; overflow: visible; }
+    .tube-man__group { transform-origin: 120px 360px; transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); transform: scaleY(0.18) scaleX(1.12); }
     .tube-man.is-inflated .tube-man__group { transform: scaleY(1) scaleX(1); animation: tubeSway 0.45s ease-in-out infinite alternate; }
-    .tube-man__body { fill: var(--yellow); stroke: var(--ink); stroke-width: 3; }
-    .tube-man__arm { fill: none; stroke: var(--yellow); stroke-width: 12; stroke-linecap: round; transform-box: fill-box; transition: transform 0.5s ease; }
-    .tube-man__arm--left { transform-origin: 80% 50%; transform: rotate(95deg); }
-    .tube-man__arm--right { transform-origin: 20% 50%; transform: rotate(-95deg); }
-    .tube-man.is-inflated .tube-man__arm--left { animation: armWaveLeft 0.28s ease-in-out infinite alternate; transform: rotate(0deg); }
-    .tube-man.is-inflated .tube-man__arm--right { animation: armWaveRight 0.24s ease-in-out infinite alternate; transform: rotate(0deg); }
-    .tube-man__hair { fill: none; stroke: var(--coral); stroke-width: 4; stroke-linecap: round; transform-box: fill-box; transform-origin: center bottom; transition: transform 0.5s ease; transform: scaleY(0); }
+    .tube-man__base { fill: url(#baseGrad); stroke: var(--ink); stroke-width: 2; }
+    .tube-man__vent { fill: none; stroke: #4A4A6A; stroke-width: 2; stroke-linecap: round; }
+    .tube-man__cord { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+    .tube-man__segment { fill: url(#tubeBodyGrad); stroke: var(--ink); stroke-width: 2.5; }
+    .tube-man__rim { fill: url(#rimGrad); stroke: var(--ink); stroke-width: 2; }
+    .tube-man__sheen { fill: url(#sheenGrad); pointer-events: none; }
+    .tube-man__crease { fill: none; stroke: rgba(26, 26, 46, 0.18); stroke-width: 2; stroke-linecap: round; }
+    .tube-man__arm { fill: none; stroke: url(#armGrad); stroke-width: 14; stroke-linecap: round; transform-box: fill-box; transition: transform 0.55s ease; }
+    .tube-man__arm--left { transform-origin: 85% 50%; transform: rotate(100deg); }
+    .tube-man__arm--right { transform-origin: 15% 50%; transform: rotate(-100deg); }
+    .tube-man.is-inflated .tube-man__arm--left { animation: armWaveLeft 0.3s ease-in-out infinite alternate; transform: rotate(0deg); }
+    .tube-man.is-inflated .tube-man__arm--right { animation: armWaveRight 0.26s ease-in-out infinite alternate; transform: rotate(0deg); }
+    .tube-man__hand { fill: url(#armGrad); stroke: var(--ink); stroke-width: 2; }
+    .tube-man__hair { fill: none; stroke-width: 5; stroke-linecap: round; transform-box: fill-box; transform-origin: center bottom; transition: transform 0.55s ease; transform: scaleY(0); }
+    .tube-man__hair--coral { stroke: var(--coral); }
+    .tube-man__hair--pink { stroke: var(--pink); }
+    .tube-man__hair--teal { stroke: var(--teal); }
     .tube-man.is-inflated .tube-man__hair { transform: scaleY(1); animation: hairWave 0.2s ease-in-out infinite alternate; }
-    .tube-man__face { fill: var(--ink); }
-    .tube-man__mouth { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+    .tube-man__eye-white { fill: var(--white); stroke: var(--ink); stroke-width: 2; }
+    .tube-man__pupil { fill: var(--ink); }
+    .tube-man__brow { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+    .tube-man__mouth { fill: var(--coral-strong); stroke: var(--ink); stroke-width: 2; }
+    .tube-man__tooth { fill: var(--white); }
     @keyframes tubeSway { 0% { transform: scaleY(1) scaleX(1) rotate(-5deg); } 100% { transform: scaleY(1) scaleX(1) rotate(5deg); } }
-    @keyframes armWaveLeft { 0% { transform: rotate(-10deg); } 100% { transform: rotate(40deg); } }
-    @keyframes armWaveRight { 0% { transform: rotate(10deg); } 100% { transform: rotate(-40deg); } }
-    @keyframes hairWave { 0% { transform: scaleY(1) rotate(-10deg); } 100% { transform: scaleY(1) rotate(10deg); } }
+    @keyframes armWaveLeft { 0% { transform: rotate(-12deg); } 100% { transform: rotate(45deg); } }
+    @keyframes armWaveRight { 0% { transform: rotate(12deg); } 100% { transform: rotate(-45deg); } }
+    @keyframes hairWave { 0% { transform: scaleY(1) rotate(-12deg); } 100% { transform: scaleY(1) rotate(12deg); } }
     @media (prefers-reduced-motion: reduce) {
       .tube-man__group, .tube-man__arm, .tube-man__hair { transition: none; animation: none !important; }
       .tube-man .tube-man__group { transform: scaleY(0.55) scaleX(1); }
@@ -109,18 +123,98 @@
 
   <main id="main-content" class="error-hero">
     <div class="error-hero__mascot" aria-hidden="true">
-      <svg class="tube-man" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
-        <rect x="70" y="290" width="60" height="30" rx="6" fill="var(--ink)" />
+      <svg class="tube-man" viewBox="0 0 240 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="tubeBodyGrad" cx="0.5" cy="0.38" r="0.72">
+            <stop offset="0%" stop-color="#FFED78" />
+            <stop offset="45%" stop-color="#FFD93D" />
+            <stop offset="100%" stop-color="#E5B800" />
+          </radialGradient>
+          <linearGradient id="sheenGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0" />
+            <stop offset="18%" stop-color="#FFFFFF" stop-opacity="0.35" />
+            <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0.05" />
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="rimGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFF1A3" />
+            <stop offset="100%" stop-color="#F0C800" />
+          </linearGradient>
+          <radialGradient id="armGrad" cx="0.5" cy="0.4" r="0.65">
+            <stop offset="0%" stop-color="#FFED78" />
+            <stop offset="50%" stop-color="#FFD93D" />
+            <stop offset="100%" stop-color="#E5B800" />
+          </radialGradient>
+          <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2A2A45" />
+            <stop offset="100%" stop-color="#111122" />
+          </linearGradient>
+        </defs>
+
+        <!-- Blower base -->
+        <rect class="tube-man__base" x="68" y="360" width="104" height="38" rx="8" />
+        <line class="tube-man__vent" x1="88" y1="372" x2="152" y2="372" />
+        <line class="tube-man__vent" x1="82" y1="378" x2="158" y2="378" />
+        <line class="tube-man__vent" x1="90" y1="384" x2="150" y2="384" />
+        <path class="tube-man__cord" d="M172 378 Q195 390 210 385" />
+
+        <!-- Deflated body group -->
         <g class="tube-man__group">
-          <path class="tube-man__body" d="M90 290 C55 275 50 235 75 200 C90 175 60 145 80 115 C92 95 75 80 100 65 C125 80 108 95 120 115 C140 145 110 175 125 200 C150 235 145 275 110 290 Z" />
-          <path class="tube-man__arm tube-man__arm--left" d="M78 175 Q35 155 25 125" />
-          <path class="tube-man__arm tube-man__arm--right" d="M122 175 Q165 155 175 125" />
-          <path class="tube-man__hair tube-man__hair--1" d="M100 65 Q85 35 75 25" />
-          <path class="tube-man__hair tube-man__hair--2" d="M100 65 Q115 35 130 20" />
-          <path class="tube-man__hair tube-man__hair--3" d="M100 65 Q100 30 100 15" />
-          <circle class="tube-man__face" cx="88" cy="120" r="5" />
-          <circle class="tube-man__face" cx="112" cy="120" r="5" />
-          <path class="tube-man__mouth" d="M92 135 Q100 142 108 135" />
+          <!-- Lower segment -->
+          <path class="tube-man__segment" d="M68 360 C68 340, 172 340, 172 360 L172 292 C172 275, 68 275, 68 292 Z" />
+          <ellipse class="tube-man__rim" cx="120" cy="292" rx="52" ry="11" />
+          <path class="tube-man__sheen" d="M80 300 Q92 326 80 350 L95 350 Q108 326 95 300 Z" opacity="0.7" />
+          <path class="tube-man__crease" d="M85 320 Q105 326 118 318" />
+          <path class="tube-man__crease" d="M135 330 Q150 322 160 335" />
+
+          <!-- Middle segment -->
+          <path class="tube-man__segment" d="M76 292 C76 278, 164 278, 164 292 L156 210 C156 195, 84 195, 84 210 Z" />
+          <ellipse class="tube-man__rim" cx="120" cy="210" rx="36" ry="9" />
+          <path class="tube-man__sheen" d="M92 220 Q100 250 92 278 L104 278 Q114 250 104 220 Z" opacity="0.7" />
+          <path class="tube-man__crease" d="M100 240 Q118 245 130 235" />
+
+          <!-- Upper segment / chest -->
+          <path class="tube-man__segment" d="M84 210 C84 198, 156 198, 156 210 L150 130 C150 118, 90 118, 90 130 Z" />
+          <ellipse class="tube-man__rim" cx="120" cy="130" rx="30" ry="7" />
+          <path class="tube-man__sheen" d="M100 140 Q106 170 100 198 L110 198 Q118 170 110 140 Z" opacity="0.7" />
+
+          <!-- Head -->
+          <path class="tube-man__segment" d="M90 130 C90 120, 150 120, 150 130 L148 78 C148 58, 92 58, 92 78 Z" />
+          <path class="tube-man__sheen" d="M102 78 Q108 105 102 128 L112 128 Q118 105 112 78 Z" opacity="0.7" />
+
+          <!-- Arms with hands -->
+          <path class="tube-man__arm tube-man__arm--left" d="M78 235 Q25 215 18 165" />
+          <g class="tube-man__hand">
+            <ellipse cx="18" cy="162" rx="14" ry="18" transform="rotate(-20 18 162)" />
+          </g>
+          <path class="tube-man__arm tube-man__arm--right" d="M162 235 Q215 215 222 165" />
+          <g class="tube-man__hand">
+            <ellipse cx="222" cy="162" rx="14" ry="18" transform="rotate(20 222 162)" />
+          </g>
+
+          <!-- Wild hair -->
+          <path class="tube-man__hair tube-man__hair--coral" d="M120 68 Q100 35 85 22" />
+          <path class="tube-man__hair tube-man__hair--pink" d="M120 68 Q125 32 140 15" />
+          <path class="tube-man__hair tube-man__hair--teal" d="M120 68 Q145 40 165 35" />
+          <path class="tube-man__hair tube-man__hair--coral" d="M120 68 Q80 48 60 50" />
+          <path class="tube-man__hair tube-man__hair--pink" d="M120 68 Q155 55 180 65" />
+          <path class="tube-man__hair tube-man__hair--teal" d="M120 68 Q95 25 105 8" />
+          <path class="tube-man__hair tube-man__hair--coral" d="M120 68 Q135 28 150 22" />
+
+          <!-- Face -->
+          <g class="tube-man__face">
+            <ellipse class="tube-man__eye-white" cx="105" cy="102" rx="11" ry="14" transform="rotate(-10 105 102)" />
+            <ellipse class="tube-man__eye-white" cx="138" cy="102" rx="11" ry="14" transform="rotate(10 138 102)" />
+            <circle class="tube-man__pupil" cx="108" cy="102" r="5" />
+            <circle class="tube-man__pupil" cx="135" cy="102" r="5" />
+            <circle class="tube-man__pupil" cx="109" cy="99" r="2" fill="#FFFFFF" />
+            <circle class="tube-man__pupil" cx="136" cy="99" r="2" fill="#FFFFFF" />
+            <path class="tube-man__brow" d="M96 84 Q105 78 115 84" />
+            <path class="tube-man__brow" d="M128 84 Q138 78 147 84" />
+            <path class="tube-man__mouth" d="M110 125 Q122 138 135 125 Z" />
+            <path class="tube-man__tooth" d="M116 128 L122 128 L122 133 L116 133 Z" />
+            <path class="tube-man__tooth" d="M123 128 L129 128 L129 133 L123 133 Z" />
+          </g>
         </g>
       </svg>
     </div>
