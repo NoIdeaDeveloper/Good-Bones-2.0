@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{head}}
+  <link rel="stylesheet" href="css/global.css" />
+</head>
+<body class="legal-page">
+
+{{nav}}
+
+  <header class="legal-hero">
+    <p class="eyebrow">Good Bones Web Inc.</p>
+    <h1>{{page_title}}</h1>
+    <p>{{intro}}</p>
+  </header>
+
+  <div class="legal-layout">
+    <nav class="legal-toc" aria-label="On this page">
+      <span class="legal-toc__title">On this page</span>
+{{toc}}
+    </nav>
+    <main class="legal-content" id="main-content">
+      <span class="legal-date">Last updated: {{date}}</span>
+
+{{content}}
+
+      <a class="legal-back" href="index.html">Back to home</a>
+    </main>
+  </div>
+
+{{footer}}
+
+  <script>
+    (() => {
+      const links = document.querySelectorAll(".legal-toc a");
+      const sections = Array.from(document.querySelectorAll(".legal-content section[id]"));
+      if (!links.length || !sections.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            links.forEach((link) => link.classList.toggle("is-active", link.getAttribute("href") === "#" + id));
+          }
+        });
+      }, { rootMargin: "-40% 0px -45% 0px", threshold: 0 });
+
+      sections.forEach((section) => observer.observe(section));
+    })();
+  </script>
+</body>
+</html>
