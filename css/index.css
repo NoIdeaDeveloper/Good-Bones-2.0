@@ -1446,7 +1446,11 @@
   font-size: 1rem;
   letter-spacing: 2px;
   line-height: 1;
-  text-shadow: 1px 1px 0 var(--ink);
+  text-shadow:
+    1px 1px 0 var(--ink),
+    -1px -1px 0 var(--ink),
+    1px -1px 0 var(--ink),
+    -1px 1px 0 var(--ink);
   margin-bottom: 4px;
 }
 
