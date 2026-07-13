@@ -2,15 +2,15 @@
 // No top-level IIFE needed; modules are implicitly strict and scoped.
 
 const nav = document.getElementById('nav');
-  const menuToggle = document.getElementById('menuToggle');
-  const menu = document.getElementById('menu');
-  const menuLinks = menu.querySelectorAll('a');
-  const form = document.querySelector('.contact__form');
-  const scrollProgress = document.getElementById('scrollProgress');
-  const backToTop = document.getElementById('backToTop');
+const menuToggle = document.getElementById('menuToggle');
+const menu = document.getElementById('menu');
+const menuLinks = menu.querySelectorAll('a');
+const form = document.querySelector('.contact__form');
+const scrollProgress = document.getElementById('scrollProgress');
+const backToTop = document.getElementById('backToTop');
 
-  // Sticky nav background on scroll + scroll progress + back-to-top
-  const updateOnScroll = () => {
+// Sticky nav background on scroll + scroll progress + back-to-top
+const updateOnScroll = () => {
     const scrollY = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
@@ -30,25 +30,25 @@ const nav = document.getElementById('nav');
     }
   };
 
-  window.addEventListener('scroll', updateOnScroll, { passive: true });
-  updateOnScroll();
+window.addEventListener('scroll', updateOnScroll, { passive: true });
+updateOnScroll();
 
-  // Back to top
-  backToTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+// Back to top
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
-  // Reduced motion preference check (used by browser mockup + parallax)
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Reduced motion preference check (used by browser mockup + parallax)
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Animated browser mockup in hero card
-  const browser = document.querySelector('.browser');
-  if (browser && !prefersReducedMotion) {
-    setTimeout(() => browser.classList.add('is-building'), 400);
-  }
+// Animated browser mockup in hero card
+const browser = document.querySelector('.browser');
+if (browser && !prefersReducedMotion) {
+  setTimeout(() => browser.classList.add('is-building'), 400);
+}
 
-  // Mouse parallax on hero blobs and floating shapes
-  if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+// Mouse parallax on hero blobs and floating shapes
+if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
     const parallaxItems = [
       { selector: '.blob--one .blob__inner', factorX: -18, factorY: -18 },
       { selector: '.blob--two .blob__inner', factorX: 26, factorY: 18 },
@@ -89,44 +89,44 @@ const nav = document.getElementById('nav');
         ticking = true;
       }
     }, { passive: true });
-  }
+}
 
-  // Mobile menu toggle
-  menuToggle.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('menu--open');
-    menuToggle.setAttribute('aria-expanded', String(isOpen));
-    menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+// Mobile menu toggle
+menuToggle.addEventListener('click', () => {
+  const isOpen = menu.classList.toggle('menu--open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+  menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+});
+
+// Close mobile menu when a link is clicked
+menuLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    menu.classList.remove('menu--open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Open menu');
   });
+});
 
-  // Close mobile menu when a link is clicked
-  menuLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      menu.classList.remove('menu--open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      menuToggle.setAttribute('aria-label', 'Open menu');
+// 3D tilt effect on cards (desktop hover only, respects reduced-motion)
+const prefersHover = window.matchMedia('(hover: hover)').matches;
+if (prefersHover && !prefersReducedMotion) {
+  const tiltCards = document.querySelectorAll('[data-tilt]');
+  tiltCards.forEach((card) => {
+    card.addEventListener('pointermove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.classList.add('is-tilting');
+      card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-8px)`;
+    });
+    card.addEventListener('pointerleave', () => {
+      card.classList.remove('is-tilting');
+      card.style.transform = '';
     });
   });
+}
 
-  // 3D tilt effect on cards (desktop hover only, respects reduced-motion)
-  const prefersHover = window.matchMedia('(hover: hover)').matches;
-  if (prefersHover && !prefersReducedMotion) {
-    const tiltCards = document.querySelectorAll('[data-tilt]');
-    tiltCards.forEach((card) => {
-      card.addEventListener('pointermove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.classList.add('is-tilting');
-        card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-8px)`;
-      });
-      card.addEventListener('pointerleave', () => {
-        card.classList.remove('is-tilting');
-        card.style.transform = '';
-      });
-    });
-  }
-
-  // Basic form handling (placeholder — no backend configured)
+// Basic form handling (placeholder — no backend configured)
   const setError = (field, message) => {
     const errorEl = document.getElementById(field.getAttribute('aria-describedby'));
     if (errorEl) {
@@ -135,7 +135,7 @@ const nav = document.getElementById('nav');
     field.setAttribute('aria-invalid', 'true');
   };
 
-  const clearError = (field) => {
+const clearError = (field) => {
     const errorEl = document.getElementById(field.getAttribute('aria-describedby'));
     if (errorEl) {
       errorEl.textContent = '';
@@ -143,7 +143,7 @@ const nav = document.getElementById('nav');
     field.setAttribute('aria-invalid', 'false');
   };
 
-  const validateField = (field) => {
+const validateField = (field) => {
     const value = field.value.trim();
     if (!value) {
       setError(field, `${field.previousElementSibling.textContent} is required`);
@@ -157,7 +157,7 @@ const nav = document.getElementById('nav');
     return true;
   };
 
-  ['#name', '#email'].forEach((selector) => {
+['#name', '#email'].forEach((selector) => {
     const field = form.querySelector(selector);
     if (!field) return;
     field.addEventListener('blur', () => validateField(field));
@@ -168,7 +168,7 @@ const nav = document.getElementById('nav');
     });
   });
 
-  form.addEventListener('submit', (event) => {
+form.addEventListener('submit', (event) => {
     event.preventDefault();
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
@@ -202,8 +202,8 @@ const nav = document.getElementById('nav');
     }, 3000);
   });
 
-  // Reveal-on-scroll for sections and cards
-  const observer = new IntersectionObserver(
+// Reveal-on-scroll for sections and cards
+const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -220,14 +220,14 @@ const nav = document.getElementById('nav');
     observer.observe(el);
   });
 
-  document.querySelectorAll('.service-card, .work-card, .testimonial, .about__visual, .about__content, .contact__form, .contact__content, .cta-banner__inner').forEach((el, index) => {
+document.querySelectorAll('.service-card, .work-card, .testimonial, .about__visual, .about__content, .contact__form, .contact__content, .cta-banner__inner').forEach((el, index) => {
     el.classList.add('reveal');
     el.style.setProperty('--reveal-index', index);
     observer.observe(el);
   });
 
-  // Count-up animation for About stats
-  const countObserver = new IntersectionObserver(
+// Count-up animation for About stats
+const countObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
@@ -261,12 +261,12 @@ const nav = document.getElementById('nav');
     { threshold: 0.5 }
   );
 
-  document.querySelectorAll('.about__stat').forEach((stat) => countObserver.observe(stat));
+document.querySelectorAll('.about__stat').forEach((stat) => countObserver.observe(stat));
 
-  // Legal table-of-contents active-state highlighting
-  const tocLinks = document.querySelectorAll('.legal-toc a');
-  const legalSections = document.querySelectorAll('.legal-content section[id]');
-  if (tocLinks.length && legalSections.length) {
+// Legal table-of-contents active-state highlighting
+const tocLinks = document.querySelectorAll('.legal-toc a');
+const legalSections = document.querySelectorAll('.legal-content section[id]');
+if (tocLinks.length && legalSections.length) {
     const tocObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -280,5 +280,5 @@ const nav = document.getElementById('nav');
       },
       { rootMargin: '-40% 0px -45% 0px', threshold: 0 }
     );
-    legalSections.forEach((section) => tocObserver.observe(section));
-  }
+  legalSections.forEach((section) => tocObserver.observe(section));
+}
