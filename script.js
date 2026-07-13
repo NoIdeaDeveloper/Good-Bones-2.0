@@ -81,8 +81,8 @@ if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
       });
 
       if (siteFooter) {
-        siteFooter.style.setProperty('--footer-bg-x', `${-cx * 30}px`);
-        siteFooter.style.setProperty('--footer-bg-y', `${-cy * 30}px`);
+        siteFooter.style.setProperty('--footer-bg-x', `${-cx * 65}px`);
+        siteFooter.style.setProperty('--footer-bg-y', `${-cy * 65}px`);
       }
 
       ticking = false;

@@ -432,9 +432,9 @@ textarea:focus-visible {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke-width='4' stroke-linecap='round'%3E%3Ccircle cx='35' cy='35' r='12' fill='%23FFD93D' stroke='none'/%3E%3Ccircle cx='225' cy='225' r='14' fill='%23F15BB5' stroke='none'/%3E%3Cpath d='M110 25 L122 48 L98 48 Z' fill='%234ECDC4' stroke='none'/%3E%3Cpath d='M215 88 L236 99 L215 110 Z' fill='%23FFD93D' stroke='none'/%3E%3Cpath d='M45 132 L66 143 L45 154 Z' fill='%23FF6B6B' stroke='none'/%3E%3Cpath d='M195 175 Q206 164 217 175 T239 175' stroke='%23FFD93D'/%3E%3Cpath d='M25 218 Q36 207 47 218 T69 218' stroke='%234ECDC4'/%3E%3Cpath d='M132 88 Q143 77 154 88 T176 88' stroke='%23F15BB5'/%3E%3Cpath d='M88 195 Q99 184 110 195 T132 195' stroke='%23FF6B6B'/%3E%3Cpath d='M238 28 L249 39' stroke='%234ECDC4'/%3E%3Cpath d='M15 88 L26 99' stroke='%23FFD93D'/%3E%3Cpath d='M152 238 L163 249' stroke='%23FF6B6B'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 260px 260px;
   background-position: calc(50% + var(--footer-bg-x, 0px)) calc(50% + var(--footer-bg-y, 0px));
-  opacity: 0.55;
+  opacity: 0.6;
   pointer-events: none;
-  transition: background-position 0.15s ease-out;
+  transition: background-position 0.1s ease-out;
   will-change: background-position;
 }
 
@@ -443,9 +443,9 @@ textarea:focus-visible {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(26, 26, 46, 0.42) 0%, rgba(26, 26, 46, 0.78) 60%, rgba(26, 26, 46, 0.94) 100%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
-  backdrop-filter: blur(10px) saturate(120%);
+    linear-gradient(180deg, rgba(26, 26, 46, 0.32) 0%, rgba(26, 26, 46, 0.66) 60%, rgba(26, 26, 46, 0.86) 100%);
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+  backdrop-filter: blur(6px) saturate(110%);
   pointer-events: none;
 }
 
