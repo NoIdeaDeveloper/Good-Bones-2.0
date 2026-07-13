@@ -543,6 +543,11 @@
   to { transform: translateX(-50%); }
 }
 
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track {
+  animation-play-state: paused;
+}
+
 /* Sections */
 .section {
   padding: 110px 6vw;
