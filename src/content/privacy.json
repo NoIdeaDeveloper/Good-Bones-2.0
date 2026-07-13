@@ -1,53 +1,72 @@
 {
   "page_title": "Privacy Policy",
-  "intro": "Simple, clear, and easy to understand. This is how we handle information when you visit our site or work with us.",
-  "last_updated": "July 12, 2026",
+  "intro": "Good Bones Web Inc. is committed to protecting your privacy. This policy explains how we collect, use, and safeguard personal information in plain language, and how you can exercise your rights under Canada's Bill C-36, the Protecting Privacy and Consumer Data Act.",
+  "last_updated": "July 13, 2026",
   "sections": [
     {
-      "id": "what-this-policy-covers",
-      "heading": "What this policy covers",
-      "body": "<p>This Privacy Policy explains what information Good Bones Web Inc. collects, how we use it, and the choices you have when you visit our website or use our services. We believe privacy should be straightforward, so we've kept this page short and readable.</p>"
+      "id": "accountability",
+      "heading": "Accountability",
+      "body": "<p>Good Bones Web Inc. is responsible for all personal information under our control, including information we entrust to service providers such as web hosts, email platforms, analytics tools, and payment processors. We have a privacy management program that covers staff training, complaint handling, access and correction requests, and public transparency about our practices.</p>"
     },
     {
-      "id": "information-we-collect",
-      "heading": "Information we collect",
-      "body": "<p>We only collect information that helps us build great websites and communicate with you. This may include:</p><ul><li><strong>Contact details</strong> — name, email address, phone number, and business information you provide through our contact form or email.</li><li><strong>Project details</strong> — information about your business, goals, timeline, and website needs.</li><li><strong>Usage data</strong> — anonymous information about how visitors use our site, such as pages viewed and time spent, collected through standard analytics tools.</li></ul><p>We do not collect sensitive personal information such as financial details, health information, or government IDs through this website.</p>",
-      "use_contact": true
+      "id": "privacy-contact",
+      "heading": "Privacy contact",
+      "body": "<p>If you have questions, complaints, or want to exercise your privacy rights, contact our privacy lead:</p><p><strong>Good Bones Web Inc.</strong><br />Email: <a href=\"mailto:hello@goodbonesweb.com\">hello@goodbonesweb.com</a><br />Phone: <a href=\"tel:+1-780-555-0123\">(780) 555-0123</a><br />Edmonton, Alberta, Canada</p>"
     },
     {
-      "id": "how-we-use-your-information",
-      "heading": "How we use your information",
-      "body": "<p>We use the information we collect to:</p><ul><li>Respond to your messages and project inquiries.</li><li>Plan, build, and maintain your website.</li><li>Improve our website and services.</li><li>Send occasional updates about our work, if you've asked to hear from us.</li></ul><p>We do not sell your personal information to third parties.</p>"
+      "id": "what-we-collect",
+      "heading": "What we collect and why",
+      "body": "<p>We only collect personal information that is necessary for specific, recorded purposes. The purposes and the types of information we collect are:</p><ul><li><strong>Responding to inquiries</strong> — name, email address, phone number, and business information you provide through our contact form or email.</li><li><strong>Planning and delivering projects</strong> — details about your business, goals, timeline, and website needs.</li><li><strong>Improving our website</strong> — anonymous usage data such as pages viewed and time spent, collected through privacy-focused analytics.</li></ul><p>We do not collect sensitive personal information such as financial details, health information, or government IDs through this website unless a specific project clearly requires it and you provide express consent.</p>"
     },
     {
-      "id": "how-we-store-and-protect-information",
-      "heading": "How we store and protect information",
-      "body": "<p>We keep your information only as long as needed to fulfill the purpose it was collected for. We use reasonable security measures to protect your information from unauthorized access or disclosure.</p><p>Because we are a small consulting company, your information is shared only with the people directly involved in your project. We use trusted third-party tools for email, hosting, and analytics, and we choose tools that take privacy seriously.</p>"
+      "id": "consent",
+      "heading": "Consent",
+      "body": "<p>We ask for your express consent before collecting, using, or disclosing your personal information, unless another legal exception applies. When we request consent, we tell you the specific purpose, the type of information, any reasonably foreseeable consequences, and any third parties who may receive it. We use plain language and avoid jargon.</p><p>You can withdraw your consent at any time by contacting us. We will explain any consequences and stop collecting, using, or disclosing the affected information as soon as feasible. We will never require you to consent to unrelated data uses as a condition of working with us.</p>"
     },
     {
-      "id": "cookies-and-analytics",
-      "heading": "Cookies and analytics",
-      "body": "<p>Our website may use small text files called cookies to help the site work properly and to understand how visitors use our pages. You can disable cookies in your browser settings at any time.</p><p>We may use simple analytics tools that collect anonymous data, such as which pages are visited most often. This data does not identify you personally.</p>"
+      "id": "use-and-disclosure",
+      "heading": "Use and disclosure limits",
+      "body": "<p>We use and disclose personal information only for the purposes we told you about, or for a new purpose only if we record that purpose and obtain consent when required. We limit collection and use to what a reasonable person would consider appropriate, weighing the sensitivity of the information, the business need, and whether less intrusive options are available.</p><p>We do not sell personal information. We may disclose information to trusted service providers who help us deliver our services, and only when they have agreed to appropriate privacy and security protections.</p>"
     },
     {
-      "id": "external-links",
-      "heading": "External links",
-      "body": "<p>Our website may link to other websites, such as client projects or resources. We are not responsible for the privacy practices of those sites, so we encourage you to read their policies when you visit them.</p>"
+      "id": "service-providers-and-transfers",
+      "heading": "Service providers and cross-border transfers",
+      "body": "<p>Some of our service providers are located outside Canada or process data across provincial borders. Before any cross-border transfer, we assess privacy risks and put in place safeguards such as contractual protections or approved certification programs. We will disclose in this policy whether personal information may be transferred outside Canada where privacy implications are reasonably foreseeable.</p><p>Current service categories that may handle data include hosting, email and communication, analytics, and payment processing. We require each service provider to notify us of any privacy breach involving our data.</p>"
     },
     {
-      "id": "your-choices",
-      "heading": "Your choices",
-      "body": "<p>You can ask us to:</p><ul><li>Update or correct your contact information.</li><li>Delete your information from our records.</li><li>Stop sending you messages or marketing emails.</li></ul><p>To make any of these requests, contact us at <a href=\"mailto:hello@goodbonesweb.com\">hello@goodbonesweb.com</a>.</p>"
+      "id": "retention-and-disposal",
+      "heading": "Retention and disposal",
+      "body": "<p>We keep personal information only as long as necessary to fulfill the original purpose, respond to access requests, meet legal obligations, or satisfy reasonable contract terms. We consider the sensitivity of the data when setting retention periods.</p><p>When retention ends, we permanently and irreversibly dispose of the information by secure deletion or anonymization. You may ask us in writing to dispose of your personal information if it was collected unlawfully, you have withdrawn consent, or it is no longer needed to provide our services. We will comply unless legal obligations or other valid exceptions apply, in which case we will give you written reasons.</p>"
     },
     {
-      "id": "changes-to-this-policy",
-      "heading": "Changes to this policy",
-      "body": "<p>We may update this Privacy Policy from time to time. When we do, we will change the \"Last updated\" date at the top of this page. We encourage you to review this page occasionally.</p>"
+      "id": "security",
+      "heading": "Security and breach reporting",
+      "body": "<p>We protect personal information with physical, organizational, and technological safeguards that are proportionate to the sensitivity, quantity, and format of the data. These safeguards guard against loss, theft, and unauthorized access, disclosure, copying, use, or modification.</p><p>If a breach occurs that creates a real risk of significant harm, we will report it to the Digital Safety and Data Protection Commission of Canada, notify affected individuals directly and conspicuously, and notify any other organizations or government bodies that could help reduce harm. All notifications happen as soon as feasible after the breach is confirmed. We keep records of every breach and produce them if requested.</p>"
     },
     {
-      "id": "contact-us",
-      "heading": "Contact us",
-      "body": "<p>If you have questions about this Privacy Policy or how we handle your information, please reach out.</p><p><strong>Good Bones Web Inc.</strong><br />Email: <a href=\"mailto:hello@goodbonesweb.com\">hello@goodbonesweb.com</a><br />Phone: <a href=\"tel:+1-780-555-0123\">(780) 555-0123</a><br />Edmonton, Alberta, Canada</p>"
+      "id": "your-rights",
+      "heading": "Your rights",
+      "body": "<p>You have the following rights regarding your personal information:</p><ul><li><strong>Access:</strong> Ask us whether we hold personal information about you, how we use it, whether it has been disclosed, and request a copy. We respond within 30 days, in plain language, and can provide an alternative format if needed.</li><li><strong>Correction:</strong> Ask us to correct inaccurate, incomplete, or out-of-date information. If appropriate, we will send the correction to any third party that has access to the information.</li><li><strong>Withdraw consent and disposal:</strong> Withdraw consent or request disposal as described above.</li><li><strong>Complaint:</strong> Complain about our privacy practices. We will investigate, respond, and make necessary changes.</li></ul><p>We will help you prepare your request if you need assistance.</p>"
+    },
+    {
+      "id": "automated-decisions",
+      "heading": "Automated decisions",
+      "body": "<p>We do not currently use automated decision systems to make predictions, recommendations, or decisions about individuals that have legal or similarly significant effects. If we introduce such a system, this policy will be updated to explain the types of information used, their source, and the principal reasons or factors behind the decisions, and we will provide a way for you to request a human review.</p>"
+    },
+    {
+      "id": "children",
+      "heading": "Children's privacy",
+      "body": "<p>Our services are directed to adults and businesses, not children under 18. We do not knowingly collect personal information from children. If we learn that we have collected a child's personal information, we will dispose of it promptly. We treat any children's personal information as sensitive by default.</p>"
+    },
+    {
+      "id": "de-identification",
+      "heading": "De-identification and anonymization",
+      "body": "<p>De-identified information is still considered personal information under Bill C-36 and remains protected. Anonymized information has been irreversibly and permanently modified so that no reasonably foreseeable risk of identifying an individual remains, and is no longer subject to this policy.</p><p>If we de-identify data, we use measures proportionate to its sensitivity and purpose, and we do not use de-identified data to re-identify individuals except where permitted by law.</p>"
+    },
+    {
+      "id": "updates",
+      "heading": "Updates to this policy",
+      "body": "<p>We may update this Privacy Policy from time to time to reflect changes in our practices or the law, including Canada\u2019s Bill C-36. When we do, we will change the \u201cLast updated\u201d date at the top of this page and encourage you to review the policy.</p>"
     }
   ]
 }
