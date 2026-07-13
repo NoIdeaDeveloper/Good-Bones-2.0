@@ -783,7 +783,9 @@
   font-weight: 700;
 }
 
-/* Work */
+/* Work
+   NOTE: when real case-study images are added, use loading="lazy"
+   and decoding="async" on every below-the-fold <img>. */
 .section--work {
   background:
     radial-gradient(rgba(26, 26, 46, 0.07) 1.5px, transparent 1.5px) 0 0 / 26px 26px,
