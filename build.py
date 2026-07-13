@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Static site generator for Good Bones legal pages."""
+"""Static site generator for Good Bones legal pages and blog."""
 
 import json
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -88,6 +89,113 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
     print(f"Built {output_file}")
 
 
+def format_date(date_str: str) -> tuple[str, str]:
+    dt = datetime.strptime(date_str, "%Y-%m-%d")
+    display = dt.strftime("%B %d, %Y").replace(" 0", " ")
+    return dt.strftime("%Y-%m-%d"), display
+
+
+def build_blog_post(post: dict, contact: dict) -> None:
+    layout = load_template("blog_post.html")
+    head = load_template("head.html")
+
+    title = f"{post['title']} — {contact['company']}"
+    description = post["excerpt"]
+    canonical_url = f"{contact['domain']}/blog/{post['slug']}.html"
+    date_iso, date_display = format_date(post["date"])
+
+    head = apply_contact(head, contact)
+    head = head.replace("{{title}}", title)
+    head = head.replace("{{description}}", description)
+    head = head.replace("{{canonical_url}}", canonical_url)
+    head = head.replace("{{og_image}}", contact["og"]["image"])
+    head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
+    head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
+    head = head.replace("{{domain}}", contact["domain"])
+
+    tags_html = "\n".join(f'      <span class="blog-tag">{tag}</span>' for tag in post.get("tags", []))
+
+    html = layout
+    html = html.replace("{{head}}", head)
+    html = html.replace("{{nav}}", apply_contact(load_template("nav.html"), contact))
+    html = html.replace("{{footer}}", apply_contact(load_template("footer.html"), contact))
+    html = html.replace("{{title}}", post["title"])
+    html = html.replace("{{date_iso}}", date_iso)
+    html = html.replace("{{date_display}}", date_display)
+    html = html.replace("{{author}}", post["author"])
+    html = html.replace("{{tags}}", tags_html)
+    html = html.replace("{{excerpt}}", post["excerpt"])
+    html = html.replace("{{body}}", post["body"])
+
+    output_file = ROOT / "blog" / f"{post['slug']}.html"
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    output_file.write_text(html, encoding="utf-8")
+    print(f"Built {output_file}")
+
+
+def build_blog_index(posts: list[dict], contact: dict) -> None:
+    layout = load_template("blog_index.html")
+    head = load_template("head.html")
+
+    title = f"Blog — {contact['company']}"
+    description = f"Ideas, updates, and web wisdom from {contact['company']}."
+    canonical_url = f"{contact['domain']}/blog/index.html"
+
+    head = apply_contact(head, contact)
+    head = head.replace("{{title}}", title)
+    head = head.replace("{{description}}", description)
+    head = head.replace("{{canonical_url}}", canonical_url)
+    head = head.replace("{{og_image}}", contact["og"]["image"])
+    head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
+    head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
+    head = head.replace("{{domain}}", contact["domain"])
+
+    cards = []
+    for post in posts:
+        date_iso, date_display = format_date(post["date"])
+        tags = "\n".join(f'<span class="blog-tag">{tag}</span>' for tag in post.get("tags", []))
+        cards.append(
+            f'      <a class="blog-card" href="/blog/{post["slug"]}.html">\n'
+            f'        <div class="blog-card__meta">\n'
+            f'          <time datetime="{date_iso}">{date_display}</time>\n'
+            f'          <div class="blog-card__tags">\n{tags}\n          </div>\n'
+            f'        </div>\n'
+            f'        <h2 class="blog-card__title">{post["title"]}</h2>\n'
+            f'        <p class="blog-card__excerpt">{post["excerpt"]}</p>\n'
+            f'        <span class="blog-card__more" aria-hidden="true">Read post →</span>\n'
+            f'      </a>'
+        )
+
+    html = layout
+    html = html.replace("{{head}}", head)
+    html = html.replace("{{nav}}", apply_contact(load_template("nav.html"), contact))
+    html = html.replace("{{footer}}", apply_contact(load_template("footer.html"), contact))
+    html = html.replace("{{posts}}", "\n\n".join(cards))
+
+    output_file = ROOT / "blog" / "index.html"
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    output_file.write_text(html, encoding="utf-8")
+    print(f"Built {output_file}")
+
+
+def build_blog(contact: dict) -> None:
+    posts_file = CONTENT / "blog" / "posts.json"
+    if not posts_file.exists():
+        print("No blog posts found; skipping blog build.")
+        return
+
+    data = json.loads(posts_file.read_text(encoding="utf-8"))
+    posts = sorted(data.get("posts", []), key=lambda p: p["date"], reverse=True)
+
+    if not posts:
+        print("No blog posts found; skipping blog build.")
+        return
+
+    build_blog_index(posts, contact)
+    for post in posts:
+        build_blog_post(post, contact)
+
+
 def main() -> None:
     contact = load_json("contact.json")
 
@@ -99,6 +207,8 @@ def main() -> None:
 
     for src, dst in pages.items():
         build_page(CONTENT / src, dst, contact)
+
+    build_blog(contact)
 
 
 if __name__ == "__main__":

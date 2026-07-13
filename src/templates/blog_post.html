@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{head}}
+  <link rel="stylesheet" href="/css/global.css?v=3" />
+  <link rel="stylesheet" href="/css/blog.css?v=3" />
+</head>
+<body class="blog-page">
+
+{{nav}}
+
+  <header class="legal-hero blog-hero">
+    <p class="eyebrow">Good Bones Blog</p>
+    <h1>{{title}}</h1>
+    <div class="blog-meta">
+      <time datetime="{{date_iso}}">{{date_display}}</time>
+      <span class="blog-meta__author">by {{author}}</span>
+{{tags}}
+    </div>
+  </header>
+
+  <main class="blog-layout" id="main-content">
+    <article class="blog-post">
+      <p class="blog-excerpt">{{excerpt}}</p>
+      <div class="blog-content">
+{{body}}
+      </div>
+      <a class="legal-back" href="/blog/index.html">Back to the blog</a>
+    </article>
+  </main>
+
+{{footer}}
+</body>
+</html>

@@ -127,6 +127,7 @@ if (prefersHover && !prefersReducedMotion) {
 }
 
 // Basic form handling (placeholder — no backend configured)
+if (form) {
   const setError = (field, message) => {
     const errorEl = document.getElementById(field.getAttribute('aria-describedby'));
     if (errorEl) {
@@ -201,6 +202,7 @@ form.addEventListener('submit', (event) => {
       submitBtn.style.background = '';
     }, 3000);
   });
+}
 
 // Reveal-on-scroll for sections and cards
 const observer = new IntersectionObserver(
