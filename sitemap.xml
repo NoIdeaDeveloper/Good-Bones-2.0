@@ -2,31 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://goodbonesweb.com/</loc>
+    <lastmod>2026-07-13</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://goodbonesweb.com/privacy.html</loc>
+    <lastmod>2026-07-12</lastmod>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>
     <loc>https://goodbonesweb.com/terms.html</loc>
+    <lastmod>2026-07-12</lastmod>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>
     <loc>https://goodbonesweb.com/accessibility.html</loc>
+    <lastmod>2026-07-12</lastmod>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>
     <loc>https://goodbonesweb.com/blog/index.html</loc>
+    <lastmod>2026-07-13</lastmod>
     <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://goodbonesweb.com/blog/why-your-edmonton-business-needs-a-website.html</loc>
+    <lastmod>2026-07-13</lastmod>
     <priority>0.6</priority>
     <changefreq>yearly</changefreq>
   </url>

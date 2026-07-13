@@ -283,22 +283,90 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     print(f"Built {output_file}")
 
 
-def build_blog(contact: dict) -> None:
+def build_blog(contact: dict) -> list[dict]:
     posts_file = CONTENT / "blog" / "posts.json"
     if not posts_file.exists():
         print("No blog posts found; skipping blog build.")
-        return
+        return []
 
     data = json.loads(posts_file.read_text(encoding="utf-8"))
     posts = sorted(data.get("posts", []), key=lambda p: p["date"], reverse=True)
 
     if not posts:
         print("No blog posts found; skipping blog build.")
-        return
+        return []
 
     build_blog_index(posts, contact)
     for post in posts:
         build_blog_post(post, contact)
+    return posts
+
+
+def build_sitemap(contact: dict, posts: list[dict]) -> None:
+    """Generate sitemap.xml with <lastmod> for all public pages."""
+    domain = contact["domain"]
+    today = datetime.now().strftime("%Y-%m-%d")
+    urls: list[dict] = []
+
+    # Homepage uses the mtime of the hand-written index.html.
+    index_mtime = datetime.fromtimestamp((ROOT / "index.html").stat().st_mtime)
+    urls.append({
+        "loc": f"{domain}/",
+        "lastmod": index_mtime.strftime("%Y-%m-%d"),
+        "priority": "1.0",
+        "changefreq": "weekly",
+    })
+
+    # Legal pages use the last_updated date from their content JSON.
+    legal_pages = {
+        "privacy.json": ("privacy.html", "0.3", "yearly"),
+        "terms.json": ("terms.html", "0.3", "yearly"),
+        "accessibility.json": ("accessibility.html", "0.3", "yearly"),
+    }
+    for src, (filename, priority, changefreq) in legal_pages.items():
+        data = json.loads((CONTENT / src).read_text(encoding="utf-8"))
+        lastmod = datetime.strptime(data["last_updated"], "%B %d, %Y").strftime("%Y-%m-%d")
+        urls.append({
+            "loc": f"{domain}/{filename}",
+            "lastmod": lastmod,
+            "priority": priority,
+            "changefreq": changefreq,
+        })
+
+    # Blog index uses the most recent post date.
+    blog_index_lastmod = max((p["date"] for p in posts), default=today)
+    urls.append({
+        "loc": f"{domain}/blog/index.html",
+        "lastmod": blog_index_lastmod,
+        "priority": "0.7",
+        "changefreq": "weekly",
+    })
+
+    # Individual blog posts use their publish date.
+    for post in posts:
+        urls.append({
+            "loc": f"{domain}/blog/{post['slug']}.html",
+            "lastmod": post["date"],
+            "priority": "0.6",
+            "changefreq": "yearly",
+        })
+
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for url in urls:
+        lines.append("  <url>")
+        lines.append(f"    <loc>{url['loc']}</loc>")
+        lines.append(f"    <lastmod>{url['lastmod']}</lastmod>")
+        lines.append(f"    <priority>{url['priority']}</priority>")
+        lines.append(f"    <changefreq>{url['changefreq']}</changefreq>")
+        lines.append("  </url>")
+    lines.append("</urlset>")
+
+    sitemap_path = ROOT / "sitemap.xml"
+    sitemap_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"Built {sitemap_path}")
 
 
 def main() -> None:
@@ -313,7 +381,8 @@ def main() -> None:
     for src, dst in pages.items():
         build_page(CONTENT / src, dst, contact)
 
-    build_blog(contact)
+    posts = build_blog(contact)
+    build_sitemap(contact, posts)
 
 
 if __name__ == "__main__":
