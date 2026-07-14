@@ -235,8 +235,13 @@ html {
   transition: transform var(--transition);
 }
 
-.logo:hover {
+.logo:hover,
+.logo:focus-visible {
   transform: scale(1.04);
+}
+
+.logo:focus-visible {
+  outline-offset: 6px;
 }
 
 .logo .bone {
@@ -293,8 +298,13 @@ html {
   transition: width var(--transition);
 }
 
-.menu a:not(.nav-cta):hover::after {
+.menu a:not(.nav-cta):hover::after,
+.menu a:not(.nav-cta):focus-visible::after {
   width: 100%;
+}
+
+.menu a:not(.nav-cta):focus-visible {
+  color: var(--coral);
 }
 
 .nav-cta {
@@ -305,7 +315,8 @@ html {
   transition: transform var(--transition), background var(--transition);
 }
 
-.nav-cta:hover {
+.nav-cta:hover,
+.nav-cta:focus-visible {
   background: var(--violet);
   transform: translateY(-2px);
 }
@@ -384,7 +395,8 @@ html {
   pointer-events: auto;
 }
 
-.back-to-top:hover {
+.back-to-top:hover,
+.back-to-top:focus-visible {
   background: var(--violet);
   transform: translateY(-3px) scale(1.06);
   box-shadow: 7px 7px 0 var(--ink);
@@ -548,7 +560,8 @@ html {
   transition: transform var(--transition), background var(--transition), color var(--transition);
 }
 
-.footer__socials .social:hover {
+.footer__socials .social:hover,
+.footer__socials .social:focus-visible {
   transform: translateY(-3px) rotate(-4deg);
   background: var(--yellow);
   color: var(--ink);
@@ -582,7 +595,10 @@ html {
 
 .footer__nav a:hover,
 .footer__contact a:hover,
-.footer__legal a:hover {
+.footer__legal a:hover,
+.footer__nav a:focus-visible,
+.footer__contact a:focus-visible,
+.footer__legal a:focus-visible {
   opacity: 1;
   transform: translateX(4px);
   color: var(--yellow);
@@ -1051,12 +1067,14 @@ html {
     transition: background var(--transition), transform var(--transition);
   }
 
-  .menu a:not(.nav-cta):hover {
+  .menu a:not(.nav-cta):hover,
+  .menu a:not(.nav-cta):focus-visible {
     background: rgba(26, 26, 46, 0.06);
     transform: translateX(4px);
   }
 
-  .menu a:not(.nav-cta):hover::after {
+  .menu a:not(.nav-cta):hover::after,
+  .menu a:not(.nav-cta):focus-visible::after {
     display: none;
   }
 

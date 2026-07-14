@@ -42,7 +42,8 @@ updateOnScroll();
 // Back to top
 if (backToTop) {
   backToTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 }
 
@@ -115,20 +116,59 @@ if (hasHomepageHero && !prefersReducedMotion && window.matchMedia('(hover: hover
 
 // Mobile menu toggle
 if (menuToggle && menu) {
-  menuToggle.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('menu--open');
+  const mobileMenuQuery = window.matchMedia('(max-width: 720px)');
+  const isMobileMenu = () => mobileMenuQuery.matches;
+
+  const updateMenuState = (isOpen) => {
+    menu.classList.toggle('menu--open', isOpen);
     menuToggle.setAttribute('aria-expanded', String(isOpen));
     menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+
+    // Keep the hidden mobile menu out of the keyboard/AT order when closed.
+    if (isMobileMenu()) {
+      menu.inert = !isOpen;
+      menu.setAttribute('aria-hidden', String(!isOpen));
+    } else {
+      menu.inert = false;
+      menu.removeAttribute('aria-hidden');
+    }
+  };
+
+  updateMenuState(false);
+
+  menuToggle.addEventListener('click', () => {
+    const willOpen = !menu.classList.contains('menu--open');
+    updateMenuState(willOpen);
+    if (willOpen && isMobileMenu() && menuLinks.length) {
+      menuLinks[0].focus();
+    }
   });
 
   // Close mobile menu when a link is clicked
   menuLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      menu.classList.remove('menu--open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      menuToggle.setAttribute('aria-label', 'Open menu');
-    });
+    link.addEventListener('click', () => updateMenuState(false));
   });
+
+  // Close on Escape or when clicking outside the open menu
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('menu--open')) {
+      updateMenuState(false);
+      menuToggle.focus();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (
+      menu.classList.contains('menu--open') &&
+      !menu.contains(e.target) &&
+      !menuToggle.contains(e.target)
+    ) {
+      updateMenuState(false);
+    }
+  });
+
+  // Re-apply accessibility state when crossing the mobile breakpoint
+  mobileMenuQuery.addEventListener('change', () => updateMenuState(menu.classList.contains('menu--open')));
 }
 
 // 3D tilt effect on cards (desktop hover only, respects reduced-motion)
