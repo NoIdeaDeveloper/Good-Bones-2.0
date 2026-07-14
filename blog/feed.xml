@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>The Good Bones Blog</title>
+  <link href="https://goodbonesweb.com/blog/index.html" />
+  <link rel="self" href="https://goodbonesweb.com/blog/feed.xml" />
+  <id>https://goodbonesweb.com/blog/index.html</id>
+  <updated>2026-07-13T00:00:00Z</updated>
+  <author>
+    <name>Good Bones Web Inc.</name>
+  </author>
+  <entry>
+    <title>Why Your Edmonton Business Needs a Website That Actually Works</title>
+    <link href="https://goodbonesweb.com/blog/why-your-edmonton-business-needs-a-website.html" />
+    <id>https://goodbonesweb.com/blog/why-your-edmonton-business-needs-a-website.html</id>
+    <updated>2026-07-13T00:00:00Z</updated>
+    <summary>A pretty homepage isn't enough. Here's what makes a website a real asset for local Edmonton businesses.</summary>
+  </entry>
+  <entry>
+    <title>5 Signs Your Website Needs a Rescue</title>
+    <link href="https://goodbonesweb.com/blog/signs-your-website-needs-a-rescue.html" />
+    <id>https://goodbonesweb.com/blog/signs-your-website-needs-a-rescue.html</id>
+    <updated>2026-07-12T00:00:00Z</updated>
+    <summary>Slow load times, broken forms, and mobile headaches are costing you customers. Here are five warning signs—and what to do about them.</summary>
+  </entry>
+</feed>

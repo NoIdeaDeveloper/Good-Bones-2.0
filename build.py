@@ -533,6 +533,55 @@ def build_sitemap(contact: dict, posts: list[dict]) -> None:
     print(f"Built {sitemap_path}")
 
 
+def xml_escape(text: str) -> str:
+    return (
+        text.replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace('"', "&quot;")
+    )
+
+
+def build_feed(contact: dict, posts: list[dict]) -> None:
+    """Generate an Atom feed for the blog."""
+    if not posts:
+        return
+
+    domain = contact["domain"]
+    updated_iso = max((p["date"] for p in posts), default=datetime.now().strftime("%Y-%m-%d"))
+
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<feed xmlns="http://www.w3.org/2005/Atom">',
+        f"  <title>{xml_escape('The Good Bones Blog')}</title>",
+        f"  <link href=\"{domain}/blog/index.html\" />",
+        f"  <link rel=\"self\" href=\"{domain}/blog/feed.xml\" />",
+        f"  <id>{domain}/blog/index.html</id>",
+        f"  <updated>{updated_iso}T00:00:00Z</updated>",
+        "  <author>",
+        f"    <name>{xml_escape(contact['company'])}</name>",
+        "  </author>",
+    ]
+
+    for post in posts:
+        post_url = f"{domain}/blog/{post['slug']}.html"
+        date_iso, _ = format_date(post["date"])
+        summary = xml_escape(post["excerpt"])
+        lines.append("  <entry>")
+        lines.append(f"    <title>{xml_escape(post['title'])}</title>")
+        lines.append(f"    <link href=\"{post_url}\" />")
+        lines.append(f"    <id>{post_url}</id>")
+        lines.append(f"    <updated>{date_iso}T00:00:00Z</updated>")
+        lines.append(f"    <summary>{summary}</summary>")
+        lines.append("  </entry>")
+
+    lines.append("</feed>")
+
+    feed_path = ROOT / "blog" / "feed.xml"
+    feed_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"Built {feed_path}")
+
+
 def build_home_index(contact: dict, posts: list[dict]) -> None:
     """Generate the homepage from template + content JSON."""
     layout = load_template("index.html")
@@ -721,6 +770,7 @@ def main() -> None:
     posts = build_blog(contact)
     build_home_index(contact, posts)
     build_404(contact)
+    build_feed(contact, posts)
     build_sitemap(contact, posts)
 
 
