@@ -1083,9 +1083,15 @@
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.work-card:hover:not(.is-tilting) {
+.work-card:hover:not(.is-tilting),
+.work-card:focus-within:not(.is-tilting) {
   transform: translateY(-8px) rotate(-0.5deg);
   box-shadow: var(--shadow-hover);
+}
+
+.work-card:focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
 }
 
 .work-card__image {
@@ -1243,7 +1249,8 @@
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.work-card:hover .work-card__cta {
+.work-card:hover .work-card__cta,
+.work-card:focus-within .work-card__cta {
   color: var(--coral);
   transform: translateX(4px);
 }
@@ -1300,13 +1307,22 @@
   transition: opacity var(--transition), transform var(--transition);
 }
 
-.work-card:hover .work-card__peek {
+.work-card:hover .work-card__peek,
+.work-card:focus-within .work-card__peek {
   opacity: 1;
   transform: scale(1) translateY(0);
 }
 
 .work-card__image {
   position: relative;
+}
+
+.work-grid__note {
+  max-width: var(--max-width);
+  margin: 28px auto 0;
+  text-align: center;
+  font-size: clamp(0.95rem, 2.4vw, 1rem);
+  opacity: 0.82;
 }
 
 /* Starburst */

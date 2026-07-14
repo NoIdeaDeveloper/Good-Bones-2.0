@@ -855,24 +855,26 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     ]
 
     project_cards = []
-    for project in data["projects"]:
+    for index, project in enumerate(data["projects"]):
+        title_id = f"work-title-{index + 1}"
+        desc_id = f"work-desc-{index + 1}"
         project_cards.append(
-            f'      <a class="work-card tilt" href="#contact" data-tilt aria-label="Request the {project["title"]} case study">\n'
+            f'      <a class="work-card tilt" href="#contact" data-tilt aria-labelledby="{title_id}" aria-describedby="{desc_id}">\n'
             f'        <div class="work-card__image {project["image_class"]}">\n'
-            f'          <div class="mini-browser">\n'
+            f'          <div class="mini-browser" aria-hidden="true">\n'
             f'            <div class="mini-browser__bar"><span></span><span></span><span></span></div>\n'
             f'            <div class="mini-browser__body">\n'
             f'              <div class="mini-browser__hero"></div>\n'
             f'              <div class="mini-browser__grid"><span></span><span></span><span></span><span></span></div>\n'
             f'            </div>\n'
             f'          </div>\n'
-            f'          <span class="work-card__peek">Case study</span>\n'
+            f'          <span class="work-card__peek" aria-hidden="true">Case study</span>\n'
             f'        </div>\n'
             f'        <div class="work-card__body">\n'
-            f'          <h3>{project["title"]}</h3>\n'
-            f'          <p>{project["description"]}</p>\n'
+            f'          <h3 id="{title_id}">{project["title"]}</h3>\n'
+            f'          <p id="{desc_id}">{project["description"]}</p>\n'
             f'          <span class="tag {project["tag_class"]}">{project["tag"]}</span>\n'
-            f'          <span class="work-card__cta">Request case study →</span>\n'
+            f'          <span class="work-card__cta" aria-hidden="true">Request case study <span aria-hidden="true">→</span></span>\n'
             f'        </div>\n'
             f'      </a>'
         )
