@@ -302,9 +302,10 @@ def build_schema(page_type: str, contact: dict, **kwargs) -> str:
             "name": kwargs["title"],
             "url": kwargs["url"],
             "description": kwargs["description"],
-            "dateModified": kwargs.get("date_modified", datetime.now().strftime("%Y-%m-%d")),
             "publisher": publisher,
         }
+        if kwargs.get("date_modified"):
+            data["dateModified"] = kwargs["date_modified"]
     elif page_type == "blog":
         posts = kwargs["posts"]
         data = {
@@ -680,25 +681,36 @@ def build_blog(contact: dict) -> list[dict]:
 
 
 def build_sitemap(contact: dict, posts: list[dict]) -> None:
-    """Generate sitemap.xml with <lastmod> for all public pages."""
+    """Generate sitemap.xml with <lastmod> for all public pages.
+
+    All <lastmod> values are derived from content JSON or post dates so the
+    output is deterministic across CI runs. File mtimes are not used because
+    they change on every checkout.
+    """
     domain = contact["domain"]
-    today = datetime.now().strftime("%Y-%m-%d")
     urls: list[dict] = []
 
-    # Homepage uses the mtime of the generated index.html.
-    index_mtime = datetime.fromtimestamp((ROOT / "index.html").stat().st_mtime)
+    # Homepage uses the most recent homepage content update or, failing that,
+    # the most recent blog post date.
+    home_json = CONTENT / "home" / "content.json"
+    if home_json.exists():
+        home_data = json.loads(home_json.read_text(encoding="utf-8"))
+        home_lastmod = datetime.strptime(home_data.get("last_updated", "January 1, 2020"), "%B %d, %Y").strftime("%Y-%m-%d")
+    else:
+        home_lastmod = max((p["date"] for p in posts), default="2020-01-01")
     urls.append({
         "loc": f"{domain}/",
-        "lastmod": index_mtime.strftime("%Y-%m-%d"),
+        "lastmod": home_lastmod,
         "priority": "1.0",
         "changefreq": "weekly",
     })
 
-    # 404 page uses its own mtime.
-    notfound_mtime = datetime.fromtimestamp((ROOT / "404.html").stat().st_mtime)
+    # 404 page uses the last_updated date from its content JSON.
+    notfound_data = json.loads((CONTENT / "404" / "content.json").read_text(encoding="utf-8"))
+    notfound_lastmod = datetime.strptime(notfound_data.get("last_updated", "January 1, 2020"), "%B %d, %Y").strftime("%Y-%m-%d")
     urls.append({
         "loc": f"{domain}/404.html",
-        "lastmod": notfound_mtime.strftime("%Y-%m-%d"),
+        "lastmod": notfound_lastmod,
         "priority": "0.1",
         "changefreq": "yearly",
     })
@@ -720,7 +732,7 @@ def build_sitemap(contact: dict, posts: list[dict]) -> None:
         })
 
     # Blog index uses the most recent post date.
-    blog_index_lastmod = max((p["date"] for p in posts), default=today)
+    blog_index_lastmod = max((p["date"] for p in posts), default="2020-01-01")
     urls.append({
         "loc": f"{domain}/blog/index.html",
         "lastmod": blog_index_lastmod,
@@ -943,6 +955,7 @@ def build_404(contact: dict) -> None:
     output_file = ROOT / "404.html"
     base_path = relative_base_path(output_file)
     cache_bust = cache_bust_for(output_file)
+    last_updated_iso = datetime.strptime(data["last_updated"], "%B %d, %Y").strftime("%Y-%m-%d")
 
     title = data["title"]
     description = data["description"]
@@ -963,7 +976,7 @@ def build_404(contact: dict) -> None:
     head = head.replace("{{domain}}", contact["domain"])
     head = head.replace("{{og_type}}", "website")
     head = apply_asset_hashes(head, base_path)
-    head = head.replace("{{schema_json}}", build_schema("webpage", contact, title=title, url=canonical_url, description=description))
+    head = head.replace("{{schema_json}}", build_schema("webpage", contact, title=title, url=canonical_url, description=description, date_modified=last_updated_iso))
 
     html = layout
     html = html.replace("{{base_path}}", base_path)
