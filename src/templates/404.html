@@ -3,7 +3,7 @@
 <head>
 {{head}}
   <meta name="robots" content="noindex, follow" />
-  <link rel="stylesheet" href="{{base_path}}css/global.css{{cache_bust}}" />
+  <link rel="stylesheet" href="{{base_path}}css/global.min.css{{cache_bust}}" />
   <style>
     .error-page { min-height: 100svh; display: flex; flex-direction: column; background: var(--cream); }
     .error-page .site-nav { position: relative; background: rgba(255, 249, 240, 0.96); box-shadow: 0 4px 20px rgba(26, 26, 46, 0.06); }
@@ -50,7 +50,7 @@
 
 {{footer}}
 
-  <script type="module" src="{{base_path}}script.js{{cache_bust}}"></script>
+  <script type="module" src="{{base_path}}script.min.js{{cache_bust}}"></script>
   <script>
     // Independent, slightly chaotic cursor-driven drift on the 404 digits
     const code = document.querySelector('.error-hero__code');

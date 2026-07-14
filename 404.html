@@ -49,7 +49,7 @@
   }
 </script>
   <meta name="robots" content="noindex, follow" />
-  <link rel="stylesheet" href="css/global.css?v=48211317" />
+  <link rel="stylesheet" href="css/global.min.css?v=6377deb8" />
   <style>
     .error-page { min-height: 100svh; display: flex; flex-direction: column; background: var(--cream); }
     .error-page .site-nav { position: relative; background: rgba(255, 249, 240, 0.96); box-shadow: 0 4px 20px rgba(26, 26, 46, 0.06); }
@@ -72,11 +72,9 @@
   </style>
 </head>
 <body class="error-page">
-
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="grain" aria-hidden="true"></div>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
-
   <!-- Navigation -->
   <nav class="site-nav" id="nav">
     <a class="logo logo--header" href="index.html" aria-label="Good Bones Web Inc. home">
@@ -95,8 +93,6 @@
       <li><a href="index.html#contact" class="nav-cta">Start a Project</a></li>
     </ul>
   </nav>
-
-
   <main id="main-content" class="error-hero">
     <div class="error-hero__bone" aria-hidden="true">🦴</div>
     <h1 class="error-hero__code" aria-label="404 page not found"><span>4</span><span>0</span><span>4</span></h1>
@@ -115,13 +111,11 @@
       </ul>
     </div>
   </main>
-
   <!-- Footer -->
   <footer class="site-footer">
     <div class="footer__top">
       <span class="footer__wordmark" aria-hidden="true">GOOD BONES</span>
     </div>
-
     <div class="footer__grid">
       <div class="footer__brand">
         <a class="logo logo--footer" href="index.html" aria-label="Good Bones Web Inc. home">
@@ -135,7 +129,6 @@
           <a class="social" href="https://twitter.com/goodbonesweb" aria-label="Twitter / X" rel="noopener noreferrer" target="_blank"><span>X</span></a>
         </div>
       </div>
-
       <nav class="footer__nav" aria-label="Footer navigation">
         <h3 class="footer__heading">Sitemap</h3>
         <ul>
@@ -147,7 +140,6 @@
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </nav>
-
       <div class="footer__contact">
         <h3 class="footer__heading">Contact</h3>
         <ul>
@@ -156,7 +148,6 @@
           <li>Edmonton, Alberta, Canada</li>
         </ul>
       </div>
-
       <div class="footer__legal">
         <h3 class="footer__heading">Legal</h3>
         <ul>
@@ -166,15 +157,12 @@
         </ul>
       </div>
     </div>
-
     <div class="footer__bottom">
       <p>&copy; 2026 Good Bones Web Inc. All rights reserved.</p>
       <span class="footer__bone" aria-hidden="true">🦴</span>
     </div>
   </footer>
-
-
-  <script type="module" src="script.js?v=48211317"></script>
+  <script type="module" src="script.min.js?v=6377deb8"></script>
   <script>
     // Independent, slightly chaotic cursor-driven drift on the 404 digits
     const code = document.querySelector('.error-hero__code');
