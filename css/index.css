@@ -2100,7 +2100,8 @@ cite {
   transition: transform var(--transition), background var(--transition), color var(--transition);
 }
 
-.social:hover {
+.social:hover,
+.social:focus-visible {
   transform: scale(1.12) rotate(-6deg);
   background: var(--yellow);
   color: var(--ink);
