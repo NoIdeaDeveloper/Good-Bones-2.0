@@ -63,8 +63,8 @@
     ]
   }
 </script>
-  <link rel="stylesheet" href="../css/global.min.css?v=a196ec12" />
-  <link rel="stylesheet" href="../css/blog.min.css?v=a196ec12" />
+  <link rel="stylesheet" href="../css/global.min.css?v=f8c12075" />
+  <link rel="stylesheet" href="../css/blog.min.css?v=f8c12075" />
 </head>
 <body class="blog-page">
 
@@ -102,12 +102,13 @@
       <p class="eyebrow">Good Bones Blog</p>
       <h1>Ideas, updates, and web wisdom</h1>
       <p>Practical thoughts on web design, performance, and growing an Edmonton business online.</p>
+      <p class="blog-hero__feed"><a href="../blog/feed.xml" type="application/atom+xml" rel="alternate">RSS feed</a></p>
     </div>
   </header>
 
   <main class="blog-layout" id="main-content">
     <div class="blog-index">
-    <article class="blog-card blog-card--featured" aria-label="Featured post">
+    <a class="blog-card blog-card--featured" href="why-your-edmonton-business-needs-a-website.html" aria-labelledby="blog-title-featured" aria-describedby="blog-excerpt-featured">
       <div class="blog-card__content">
         <div class="blog-card__meta">
           <time datetime="2026-07-13">July 13, 2026</time>
@@ -118,14 +119,14 @@
           <span class="blog-tag blog-tag--violet">Edmonton</span>
           <span class="blog-tag blog-tag--violet">Small Business</span>
         </div>
-        <h2 class="blog-card__title">Why Your Edmonton Business Needs a Website That Actually Works</h2>
-        <p class="blog-card__excerpt">A pretty homepage isn't enough. Here's what makes a website a real asset for local Edmonton businesses.</p>
-        <a class="btn btn--primary" href="why-your-edmonton-business-needs-a-website.html">Read the latest post</a>
+        <h2 class="blog-card__title" id="blog-title-featured">Why Your Edmonton Business Needs a Website That Actually Works</h2>
+        <p class="blog-card__excerpt" id="blog-excerpt-featured">A pretty homepage isn't enough. Here's what makes a website a real asset for local Edmonton businesses.</p>
+        <span class="blog-card__more" aria-hidden="true">Read the latest post →</span>
       </div>
       <span class="blog-card__accent blog-tag--violet" aria-hidden="true"></span>
-    </article>
+    </a>
       <div class="blog-index__grid">
-      <a class="blog-card" href="signs-your-website-needs-a-rescue.html">
+      <a class="blog-card" href="signs-your-website-needs-a-rescue.html" aria-labelledby="blog-title-1" aria-describedby="blog-excerpt-1">
         <div class="blog-card__meta">
           <time datetime="2026-07-12">July 12, 2026</time>
         </div>
@@ -134,8 +135,8 @@
             <span class="blog-tag blog-tag--coral">Performance</span>
             <span class="blog-tag blog-tag--coral">Small Business</span>
           </div>
-        <h2 class="blog-card__title">5 Signs Your Website Needs a Rescue</h2>
-        <p class="blog-card__excerpt">Slow load times, broken forms, and mobile headaches are costing you customers. Here are five warning signs—and what to do about them.</p>
+        <h2 class="blog-card__title" id="blog-title-1">5 Signs Your Website Needs a Rescue</h2>
+        <p class="blog-card__excerpt" id="blog-excerpt-1">Slow load times, broken forms, and mobile headaches are costing you customers. Here are five warning signs—and what to do about them.</p>
         <span class="blog-card__more" aria-hidden="true">Read post →</span>
         <span class="blog-card__accent blog-tag--coral" aria-hidden="true"></span>
       </a>
@@ -201,6 +202,10 @@
   </footer>
 
 
-  <script type="module" src="../script.min.js?v=a196ec12"></script>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <span aria-hidden="true">↑</span>
+  </button>
+
+  <script type="module" src="../script.min.js?v=f8c12075"></script>
 </body>
 </html>

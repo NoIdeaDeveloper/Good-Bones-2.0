@@ -217,12 +217,14 @@
 .blog-card__accent.blog-tag--pink { background: var(--pink); }
 .blog-card__accent.blog-tag--mint { background: var(--mint); }
 
-.blog-card:hover {
+.blog-card:hover,
+.blog-card:focus-visible {
   transform: translateY(-8px);
   box-shadow: var(--shadow-hover);
 }
 
-.blog-card:hover .blog-card__title {
+.blog-card:hover .blog-card__title,
+.blog-card:focus-visible .blog-card__title {
   color: var(--coral-strong);
 }
 
@@ -268,7 +270,8 @@
   text-underline-offset: 3px;
 }
 
-.blog-card:hover .blog-card__more {
+.blog-card:hover .blog-card__more,
+.blog-card:focus-visible .blog-card__more {
   color: var(--coral);
 }
 

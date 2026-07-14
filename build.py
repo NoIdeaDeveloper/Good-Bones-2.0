@@ -511,17 +511,20 @@ def build_blog_post(post: dict, contact: dict, all_posts: list[dict]) -> None:
     related_html = ""
     if related:
         related_cards = []
-        for p in related:
+        for idx, p in enumerate(related, start=1):
             p_date_iso, p_date_display = format_date(p["date"])
             p_tags = p.get("tags", [])
             p_accent = tag_accent_class(p_tags)
+            rel_title_id = f"related-title-{idx}"
+            rel_excerpt_id = f"related-excerpt-{idx}"
             related_cards.append(
-                f'      <a class="blog-card blog-card--related" href="{p["slug"]}.html">\n'
+                f'      <a class="blog-card blog-card--related" href="{p["slug"]}.html" aria-labelledby="{rel_title_id}" aria-describedby="{rel_excerpt_id}">\n'
                 f'        <div class="blog-card__meta">\n'
                 f'          <time datetime="{p_date_iso}">{p_date_display}</time>\n'
                 f'        </div>\n'
-                f'        <h3 class="blog-card__title">{p["title"]}</h3>\n'
-                f'        <p class="blog-card__excerpt">{p["excerpt"]}</p>\n'
+                f'        <h3 class="blog-card__title" id="{rel_title_id}">{p["title"]}</h3>\n'
+                f'        <p class="blog-card__excerpt" id="{rel_excerpt_id}">{p["excerpt"]}</p>\n'
+                f'        <span class="blog-card__more" aria-hidden="true">Read post →</span>\n'
                 f'        <span class="blog-card__accent {p_accent}" aria-hidden="true"></span>\n'
                 f'      </a>'
             )
@@ -607,36 +610,40 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     featured_tags_html = "\n".join(
         f'          <span class="blog-tag {featured_accent}">{tag}</span>' for tag in featured_tags
     )
+    featured_title_id = "blog-title-featured"
+    featured_excerpt_id = "blog-excerpt-featured"
     featured_html = (
-        f'    <article class="blog-card blog-card--featured" aria-label="Featured post">\n'
+        f'    <a class="blog-card blog-card--featured" href="{featured_post["slug"]}.html" aria-labelledby="{featured_title_id}" aria-describedby="{featured_excerpt_id}">\n'
         f'      <div class="blog-card__content">\n'
         f'        <div class="blog-card__meta">\n'
         f'          <time datetime="{featured_date_iso}">{featured_date_display}</time>\n'
         f'          <span class="blog-card__featured-label">Featured</span>\n'
         f'        </div>\n'
         f'        <div class="blog-card__tags">\n{featured_tags_html}\n        </div>\n'
-        f'        <h2 class="blog-card__title">{featured_post["title"]}</h2>\n'
-        f'        <p class="blog-card__excerpt">{featured_post["excerpt"]}</p>\n'
-        f'        <a class="btn btn--primary" href="{featured_post["slug"]}.html">Read the latest post</a>\n'
+        f'        <h2 class="blog-card__title" id="{featured_title_id}">{featured_post["title"]}</h2>\n'
+        f'        <p class="blog-card__excerpt" id="{featured_excerpt_id}">{featured_post["excerpt"]}</p>\n'
+        f'        <span class="blog-card__more" aria-hidden="true">Read the latest post →</span>\n'
         f'      </div>\n'
         f'      <span class="blog-card__accent {featured_accent}" aria-hidden="true"></span>\n'
-        f'    </article>'
+        f'    </a>'
     )
 
     cards = []
-    for post in posts[1:]:
+    for index, post in enumerate(posts[1:], start=1):
         date_iso, date_display = format_date(post["date"])
         tags = post.get("tags", [])
         accent = tag_accent_class(tags)
         tags_html = "\n".join(f'            <span class="blog-tag {accent}">{tag}</span>' for tag in tags)
+        title_id = f"blog-title-{index}"
+        excerpt_id = f"blog-excerpt-{index}"
         cards.append(
-            f'      <a class="blog-card" href="{post["slug"]}.html">\n'
+            f'      <a class="blog-card" href="{post["slug"]}.html" aria-labelledby="{title_id}" aria-describedby="{excerpt_id}">\n'
             f'        <div class="blog-card__meta">\n'
             f'          <time datetime="{date_iso}">{date_display}</time>\n'
             f'        </div>\n'
             f'        <div class="blog-card__tags">\n{tags_html}\n          </div>\n'
-            f'        <h2 class="blog-card__title">{post["title"]}</h2>\n'
-            f'        <p class="blog-card__excerpt">{post["excerpt"]}</p>\n'
+            f'        <h2 class="blog-card__title" id="{title_id}">{post["title"]}</h2>\n'
+            f'        <p class="blog-card__excerpt" id="{excerpt_id}">{post["excerpt"]}</p>\n'
             f'        <span class="blog-card__more" aria-hidden="true">Read post →</span>\n'
             f'        <span class="blog-card__accent {accent}" aria-hidden="true"></span>\n'
             f'      </a>'
