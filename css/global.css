@@ -135,6 +135,11 @@ textarea:focus-visible {
 }
 
 /* Custom scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink) var(--cream);
+}
+
 ::-webkit-scrollbar {
   width: 14px;
 }
@@ -1217,5 +1222,80 @@ textarea:focus-visible {
 
   .menu-toggle span {
     width: 22px;
+  }
+}
+
+/* Print styles */
+@media print {
+  *, *::before, *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    background: #fff;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+
+  a, a:visited {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    word-break: break-all;
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  img, svg {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .site-nav,
+  .menu-toggle,
+  .scroll-progress,
+  .grain,
+  .back-to-top,
+  .marquee,
+  .hero__card,
+  .cta-banner,
+  .socials,
+  .footer__socials,
+  .float-shape,
+  .blob,
+  .starburst {
+    display: none !important;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 40px 0;
+  }
+
+  .section {
+    padding: 24px 0;
+  }
+
+  .contact__form {
+    display: none;
   }
 }
