@@ -909,18 +909,20 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     # Blog teaser from the two most recent posts.
     teaser_posts = sorted(posts, key=lambda p: p["date"], reverse=True)[:2]
     teaser_cards = []
-    for post in teaser_posts:
+    for index, post in enumerate(teaser_posts):
+        title_id = f"blog-post-{index + 1}"
+        excerpt_id = f"blog-excerpt-{index + 1}"
         date_iso, date_display = format_date(post["date"])
         tags_html = "\n".join(f'          <span>{tag}</span>' for tag in post.get("tags", []))
         teaser_cards.append(
-            f'      <a class="blog-teaser__card" href="{base_path}blog/{post["slug"]}.html" aria-label="Read {post["title"]}">\n'
+            f'      <a class="blog-teaser__card" href="{base_path}blog/{post["slug"]}.html" aria-labelledby="{title_id}" aria-describedby="{excerpt_id}">\n'
             f'        <div class="blog-teaser__meta">\n'
             f'          <time datetime="{date_iso}">{date_display}</time>\n'
             f'{tags_html}\n'
             f'        </div>\n'
-            f'        <h3 class="blog-teaser__title">{post["title"]}</h3>\n'
-            f'        <p class="blog-teaser__excerpt">{post["excerpt"]}</p>\n'
-            f'        <span class="blog-teaser__more">Read post →</span>\n'
+            f'        <h3 class="blog-teaser__title" id="{title_id}">{post["title"]}</h3>\n'
+            f'        <p class="blog-teaser__excerpt" id="{excerpt_id}">{post["excerpt"]}</p>\n'
+            f'        <span class="blog-teaser__more" aria-hidden="true">Read post <span aria-hidden="true">→</span></span>\n'
             f'      </a>'
         )
 
