@@ -655,15 +655,27 @@
   animation: marquee 28s linear infinite;
 }
 
+.marquee__track span {
+  display: inline-flex;
+  align-items: center;
+}
+
 .marquee__track span:nth-child(even) {
   color: var(--yellow);
   font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   opacity: 0.6;
 }
 
-.marquee__track span {
-  display: inline-flex;
-  align-items: center;
+.marquee__tagline {
+  color: var(--coral);
+  font-size: clamp(1.25rem, 4.5vw, 1.8rem);
+  letter-spacing: 0.04em;
+}
+
+.marquee {
+  position: relative;
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
 @keyframes marquee {
