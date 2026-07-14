@@ -32,6 +32,22 @@ def load_template(name: str) -> str:
     return (TEMPLATES / name).read_text(encoding="utf-8")
 
 
+def load_inline_asset(path: Path) -> str:
+    """Return a minified asset suitable for inlining into HTML.
+
+    The returned string is indented two spaces so it sits neatly inside a
+    <style> or <script> block.
+    """
+    raw = path.read_text(encoding="utf-8")
+    if path.suffix.lower() == ".css" and MINIFY_CSS:
+        minified = minify_css(raw)
+    elif path.suffix.lower() == ".js" and MINIFY_JS:
+        minified = minify_js(raw)
+    else:
+        minified = raw
+    return "\n".join(f"  {line}" for line in minified.splitlines())
+
+
 def minify_css(css: str) -> str:
     """Return a compacted version of CSS without external dependencies.
 
@@ -356,6 +372,7 @@ def build_blog_post(post: dict, contact: dict, all_posts: list[dict]) -> None:
 
     head = apply_contact(head, contact)
     head = head.replace("{{base_path}}", base_path)
+    head = head.replace("{{fonts_css}}", load_inline_asset(ROOT / "fonts" / "fonts.css"))
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
@@ -453,6 +470,7 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
 
     head = apply_contact(head, contact)
     head = head.replace("{{base_path}}", base_path)
+    head = head.replace("{{fonts_css}}", load_inline_asset(ROOT / "fonts" / "fonts.css"))
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
@@ -692,6 +710,7 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     head = load_template("head.html")
     head = apply_contact(head, contact)
     head = head.replace("{{base_path}}", base_path)
+    head = head.replace("{{fonts_css}}", load_inline_asset(ROOT / "fonts" / "fonts.css"))
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
@@ -819,6 +838,7 @@ def build_404(contact: dict) -> None:
     head = load_template("head.html")
     head = apply_contact(head, contact)
     head = head.replace("{{base_path}}", base_path)
+    head = head.replace("{{fonts_css}}", load_inline_asset(ROOT / "fonts" / "fonts.css"))
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
