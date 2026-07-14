@@ -1562,6 +1562,7 @@
 
 .about__content .section__title {
   text-align: center;
+  margin-bottom: 32px;
 }
 
 .about__content .section__title::after {
