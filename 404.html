@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Page Not Found (404) — Good Bones Web Inc.</title>
   <meta name="description" content="We couldn't find that page. Let's get you back to Good Bones Web Inc." />
-  <meta name="robots" content="noindex, follow" />
   <link rel="preload" href="fonts/bebasneue-v16-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/spacegrotesk-v22-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="fonts/fonts.css" />
@@ -38,10 +37,18 @@
     "@type": "WebPage",
     "name": "Page Not Found (404) \u2014 Good Bones Web Inc.",
     "url": "https://goodbonesweb.com/404.html",
-    "description": "We couldn't find that page. Let's get you back to Good Bones Web Inc."
+    "description": "We couldn't find that page. Let's get you back to Good Bones Web Inc.",
+    "dateModified": "2026-07-13",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Good Bones Web Inc.",
+      "url": "https://goodbonesweb.com",
+      "logo": "https://goodbonesweb.com/favicon.png"
+    }
   }
-  </script>
-  <link rel="stylesheet" href="css/global.css?v=6" />
+</script>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="stylesheet" href="css/global.css?v=d511ace7" />
   <style>
     .error-page { min-height: 100svh; display: flex; flex-direction: column; background: var(--cream); }
     .error-page .site-nav { position: relative; background: rgba(255, 249, 240, 0.96); box-shadow: 0 4px 20px rgba(26, 26, 46, 0.06); }
@@ -64,6 +71,7 @@
   </style>
 </head>
 <body class="error-page">
+
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="grain" aria-hidden="true"></div>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -86,6 +94,7 @@
       <li><a href="index.html#contact" class="nav-cta">Start a Project</a></li>
     </ul>
   </nav>
+
 
   <main id="main-content" class="error-hero">
     <div class="error-hero__bone" aria-hidden="true">🦴</div>
@@ -163,7 +172,10 @@
     </div>
   </footer>
 
-  <script type="module" src="script.js?v=5"></script>
+  <script type="module" src="script.js?v=d511ace7"></script>
+
+
+  <script type="module" src="script.js?v=d511ace7"></script>
   <script>
     // Independent, slightly chaotic cursor-driven drift on the 404 digits
     const code = document.querySelector('.error-hero__code');

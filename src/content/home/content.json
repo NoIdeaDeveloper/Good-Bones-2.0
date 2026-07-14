@@ -1,0 +1,73 @@
+{
+  "title": "Good Bones Web Inc. — Edmonton Website Consulting",
+  "description": "Good Bones Web Inc. builds vibrant, strategy-first websites and digital experiences for businesses in Edmonton, Alberta and beyond.",
+  "page_title": "Websites with Good Bones",
+  "eyebrow": "Founded in Edmonton, Alberta",
+  "lede": "Websites built with strategy, designed with guts, and coded to perform. Built for Edmonton businesses with web-wide ambition.",
+  "about_title": "Edmonton roots. Web-wide reach.",
+  "about_intro": "We believe every business deserves a website that works as hard as they do — solid code underneath, bold design on top, and a strategy behind every page.",
+  "about_body": "Based in Edmonton, we build for local businesses with world-wide ambition. No bloated templates. No mystery plugins. Just fast, accessible, hand-coded sites built to last.",
+  "services_title": "Build, fix & amplify websites.",
+  "services_sub": "From first concept to live launch — strategy, design, and code that actually gets your business results.",
+  "work_title": "Recent projects, big energy.",
+  "work_sub": "Case studies and screenshots are available on request — these previews show the breadth of what we build.",
+  "testimonials_title": "What clients say.",
+  "testimonials_sub": "Real results from Edmonton-area businesses.",
+  "cta_title": "Your website deserves good bones.",
+  "cta_sub": "Let's build something Edmonton-proud and world-ready.",
+  "contact_title": "Ready for a site with good bones?",
+  "contact_intro": "Tell us what you are working on. We will reply within one business day with ideas, questions, and next steps.",
+  "blog_teaser_title": "Web wisdom for Edmonton businesses.",
+  "blog_teaser_sub": "Ideas, updates, and practical advice for making your website work harder.",
+  "stats": [
+    { "value": "5+", "label": "years", "count": 5, "accent": "yellow" },
+    { "value": "40+", "label": "projects", "count": 40, "accent": "coral" },
+    { "value": "1", "label": "team", "count": 1, "accent": "teal" }
+  ],
+  "projects": [
+    {
+      "title": "Local Coffee Roasters",
+      "description": "Brand site, online menu, and local SEO for an Edmonton cafe.",
+      "tag": "Design + Dev",
+      "tag_class": "tag--yellow",
+      "image_class": "work-card__image--one"
+    },
+    {
+      "title": "Northside Fitness",
+      "description": "High-energy booking site with class schedules and membership CTAs.",
+      "tag": "Strategy + Dev",
+      "tag_class": "tag--coral",
+      "image_class": "work-card__image--two"
+    },
+    {
+      "title": "Prairie Makers Market",
+      "description": "E-commerce refresh that doubled mobile conversions in 90 days.",
+      "tag": "Rescue + Updates",
+      "tag_class": "tag--teal",
+      "image_class": "work-card__image--three"
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Our old site looked homemade and hid the personality of our cafe. Good Bones rebuilt it in weeks. Now customers actually comment on how easy it is to find us and order online.",
+      "name": "Sarah Miller",
+      "role": "Owner, Local Coffee Roasters",
+      "initials": "SM",
+      "class": "testimonial--coral"
+    },
+    {
+      "quote": "Mobile class bookings doubled within the first month. They didn't just make it pretty — they thought through the whole member experience, from signup to checkout.",
+      "name": "James Chen",
+      "role": "Founder, Northside Fitness",
+      "initials": "JC",
+      "class": "testimonial--teal"
+    },
+    {
+      "quote": "We inherited a slow, broken shop that was costing us sales. Good Bones diagnosed the issues fast, fixed the critical stuff, and gave us a plan we could actually maintain.",
+      "name": "Asha Rahman",
+      "role": "Director, Prairie Makers Market",
+      "initials": "AR",
+      "class": "testimonial--violet"
+    }
+  ]
+}
