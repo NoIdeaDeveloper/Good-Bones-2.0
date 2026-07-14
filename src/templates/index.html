@@ -222,6 +222,24 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section section--faq" id="faq" aria-labelledby="faq-heading">
+    <div class="section__header section__header--faq">
+      <p class="eyebrow eyebrow--faq">Questions & answers</p>
+      <h2 class="section__title" id="faq-heading">{{faq_title}}</h2>
+      <p class="section__sub">{{faq_subtitle}}</p>
+    </div>
+    <div class="faq">
+      <div class="faq__list" role="region" aria-label="Frequently asked questions">
+{{faq_items}}
+      </div>
+      <p class="faq__cta">
+        <span>{{faq_contact_prompt}}</span>
+        <a href="{{faq_contact_link}}" class="btn btn--secondary">{{faq_contact_cta}}</a>
+      </p>
+    </div>
+  </section>
+
   <!-- Contact -->
   <section class="section section--contact" id="contact">
     <div class="contact__inner">
@@ -269,24 +287,6 @@
 
         <button type="submit" class="btn btn--primary">Send Message</button>
       </form>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="section section--faq" id="faq" aria-labelledby="faq-heading">
-    <div class="section__header">
-      <p class="eyebrow eyebrow--faq">Questions & answers</p>
-      <h2 class="section__title" id="faq-heading">{{faq_title}}</h2>
-      <p class="section__sub">{{faq_subtitle}}</p>
-    </div>
-    <div class="faq">
-      <div class="faq__list" role="region" aria-label="Frequently asked questions">
-{{faq_items}}
-      </div>
-      <p class="faq__cta">
-        <span>{{faq_contact_prompt}}</span>
-        <a href="{{faq_contact_link}}" class="btn btn--secondary">{{faq_contact_cta}}</a>
-      </p>
     </div>
   </section>
 

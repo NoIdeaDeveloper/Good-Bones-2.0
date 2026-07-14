@@ -351,7 +351,7 @@ if (hasHomepageHero) {
 
   // FAQ accordion
   const faqItems = document.querySelectorAll('.faq__item');
-  faqItems.forEach((item) => {
+  faqItems.forEach((item, index, items) => {
     const question = item.querySelector('.faq__question');
     if (!question) return;
 
@@ -360,12 +360,28 @@ if (hasHomepageHero) {
       question.setAttribute('aria-expanded', String(open));
     };
 
-    question.addEventListener('click', () => setOpen(!item.classList.contains('is-open')));
+    const closeOthers = () => {
+      items.forEach((other) => {
+        if (other !== item && other.classList.contains('is-open')) {
+          other.classList.remove('is-open');
+          const otherQuestion = other.querySelector('.faq__question');
+          if (otherQuestion) otherQuestion.setAttribute('aria-expanded', 'false');
+        }
+      });
+    };
+
+    question.addEventListener('click', () => {
+      const willOpen = !item.classList.contains('is-open');
+      closeOthers();
+      setOpen(willOpen);
+    });
 
     question.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        setOpen(!item.classList.contains('is-open'));
+        const willOpen = !item.classList.contains('is-open');
+        closeOthers();
+        setOpen(willOpen);
       }
     });
   });

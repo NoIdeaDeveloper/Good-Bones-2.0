@@ -863,16 +863,16 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     faq_items = ""
     if faq_data.get("items"):
         faq_items = "\n\n".join(
-            f'        <div class="faq__item">\n'
+            f'        <article class="faq__item" id="{item["id"]}">\n'
             f'          <h3 class="visually-hidden" id="faq-title-{idx}">{item["question"]}</h3>\n'
             f'          <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-answer-{idx}">\n'
-            f'            <span aria-hidden="true">{item["question"]}</span>\n'
-            f'            <span class="faq__icon" aria-hidden="true">+</span>\n'
+            f'            <span class="faq__question-text" aria-hidden="true">{item["question"]}</span>\n'
+            f'            <span class="faq__icon" aria-hidden="true"><span class="faq__icon-line faq__icon-line--h" aria-hidden="true"></span><span class="faq__icon-line faq__icon-line--v" aria-hidden="true"></span></span>\n'
             f'          </button>\n'
             f'          <div class="faq__answer" id="faq-answer-{idx}" role="region" aria-labelledby="faq-title-{idx}">\n'
             f'            <div class="faq__answer-inner"><p>{item["answer"]}</p></div>\n'
             f'          </div>\n'
-            f'        </div>'
+            f'        </article>'
             for idx, item in enumerate(faq_data["items"], start=1)
         )
 
