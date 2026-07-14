@@ -46,17 +46,24 @@ if (backToTop) {
   });
 }
 
+// Page-type guards: heavy homepage-only effects should only initialise when
+// the corresponding DOM exists. This avoids wasted CPU/memory on blog,
+// legal and 404 pages that share script.js.
+const hasHomepageHero = !!document.querySelector('.hero');
+
 // Reduced motion preference check (used by browser mockup + parallax)
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Animated browser mockup in hero card
-const browser = document.querySelector('.browser');
-if (browser && !prefersReducedMotion) {
-  setTimeout(() => browser.classList.add('is-building'), 400);
+if (hasHomepageHero) {
+  const browser = document.querySelector('.browser');
+  if (browser && !prefersReducedMotion) {
+    setTimeout(() => browser.classList.add('is-building'), 400);
+  }
 }
 
 // Mouse parallax on hero blobs and floating shapes
-if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+if (hasHomepageHero && !prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
     const parallaxItems = [
       { selector: '.blob--one .blob__inner', factorX: -18, factorY: -18 },
       { selector: '.blob--two .blob__inner', factorX: 26, factorY: 18 },
@@ -126,7 +133,7 @@ if (menuToggle && menu) {
 
 // 3D tilt effect on cards (desktop hover only, respects reduced-motion)
 const prefersHover = window.matchMedia('(hover: hover)').matches;
-if (prefersHover && !prefersReducedMotion) {
+if (hasHomepageHero && prefersHover && !prefersReducedMotion) {
   const tiltCards = document.querySelectorAll('[data-tilt]');
   tiltCards.forEach((card) => {
     card.addEventListener('pointermove', (e) => {
@@ -235,8 +242,9 @@ const initForm = (formEl) => {
 initForm(form);
 initForm(document.querySelector('.privacy-form'));
 
-// Reveal-on-scroll for sections and cards
-const observer = new IntersectionObserver(
+// Reveal-on-scroll for sections and cards (homepage only)
+if (hasHomepageHero) {
+  const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -253,14 +261,14 @@ const observer = new IntersectionObserver(
     observer.observe(el);
   });
 
-document.querySelectorAll('.service-card, .work-card, .testimonial, .about__visual, .about__content, .contact__form, .contact__content, .cta-banner__inner').forEach((el, index) => {
+  document.querySelectorAll('.service-card, .work-card, .testimonial, .about__visual, .about__content, .contact__form, .contact__content, .cta-banner__inner').forEach((el, index) => {
     el.classList.add('reveal');
     el.style.setProperty('--reveal-index', index);
     observer.observe(el);
   });
 
-// Count-up animation for About stats
-const countObserver = new IntersectionObserver(
+  // Count-up animation for About stats
+  const countObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
@@ -294,7 +302,8 @@ const countObserver = new IntersectionObserver(
     { threshold: 0.5 }
   );
 
-document.querySelectorAll('.about__stat').forEach((stat) => countObserver.observe(stat));
+  document.querySelectorAll('.about__stat').forEach((stat) => countObserver.observe(stat));
+}
 
 // Legal table-of-contents active-state highlighting
 const tocLinks = document.querySelectorAll('.legal-toc a');
