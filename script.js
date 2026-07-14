@@ -348,6 +348,27 @@ if (hasHomepageHero) {
   );
 
   document.querySelectorAll('.about__stat').forEach((stat) => countObserver.observe(stat));
+
+  // FAQ accordion
+  const faqItems = document.querySelectorAll('.faq__item');
+  faqItems.forEach((item) => {
+    const question = item.querySelector('.faq__question');
+    if (!question) return;
+
+    const setOpen = (open) => {
+      item.classList.toggle('is-open', open);
+      question.setAttribute('aria-expanded', String(open));
+    };
+
+    question.addEventListener('click', () => setOpen(!item.classList.contains('is-open')));
+
+    question.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setOpen(!item.classList.contains('is-open'));
+      }
+    });
+  });
 }
 
 // Legal table-of-contents active-state highlighting

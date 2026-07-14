@@ -1,0 +1,44 @@
+{
+  "title": "Frequently asked questions",
+  "subtitle": "Quick answers to common questions. Don't see what you need? Reach out and we will help.",
+  "items": [
+    {
+      "id": "faq-process",
+      "question": "What does your process look like?",
+      "answer": "We start with a free discovery call to understand your business, goals, and budget. Then we outline a plan with deliverables and timeline. From there we move into design, development, review, and launch. You are involved at every step."
+    },
+    {
+      "id": "faq-timeline",
+      "question": "How long does a website take?",
+      "answer": "A typical brochure site takes 4 to 6 weeks. Larger sites with custom features, e-commerce, or complex content can take 8 to 12 weeks. Timelines depend on how quickly content and feedback are provided."
+    },
+    {
+      "id": "faq-cost",
+      "question": "How much does a website cost?",
+      "answer": "Every project is scoped individually. A small business site typically starts around $3,000 CAD. Larger builds, rescue projects, and ongoing maintenance are quoted based on requirements. We are transparent about pricing in every proposal."
+    },
+    {
+      "id": "faq-cms",
+      "question": "Will I be able to update the site myself?",
+      "answer": "Yes. We build with content management in mind. Depending on the project, we may use a headless CMS, static site generator with a simple editor, or another setup that fits your comfort level. We also provide training and documentation."
+    },
+    {
+      "id": "faq-seo",
+      "question": "Do you help with SEO and performance?",
+      "answer": "Yes. Every site we build includes foundational technical SEO, fast load times, clean code, semantic markup, and accessibility best practices. We can also perform deeper SEO and performance audits as separate engagements."
+    },
+    {
+      "id": "faq-rescue",
+      "question": "My site is broken or outdated. Can you fix it?",
+      "answer": "That is exactly what our Site Rescue service is for. We diagnose the issues, fix the urgent problems, and give you a clear plan for keeping the site healthy going forward. No project is too messy for an honest assessment."
+    },
+    {
+      "id": "faq-edmonton",
+      "question": "Do you only work with Edmonton businesses?",
+      "answer": "We are based in Edmonton and love working with local businesses, but we also work with clients across Canada and beyond. Video calls, clear documentation, and asynchronous feedback keep remote projects running smoothly."
+    }
+  ],
+  "contact_prompt": "Still have questions?",
+  "contact_cta": "Reach out",
+  "contact_link": "#contact"
+}

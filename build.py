@@ -853,6 +853,29 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     head = apply_asset_hashes(head, base_path)
     head = head.replace("{{schema_json}}", build_schema("home", contact, title=title, url=canonical_url, description=description))
 
+    # FAQ content (optional)
+    faq_data = load_content_json("home", "faq.json") if (CONTENT / "home" / "faq.json").exists() else {}
+    faq_title = faq_data.get("title", "Frequently asked questions")
+    faq_subtitle = faq_data.get("subtitle", "")
+    faq_contact_prompt = faq_data.get("contact_prompt", "Still have questions?")
+    faq_contact_cta = faq_data.get("contact_cta", "Reach out")
+    faq_contact_link = faq_data.get("contact_link", "#contact")
+    faq_items = ""
+    if faq_data.get("items"):
+        faq_items = "\n\n".join(
+            f'        <div class="faq__item">\n'
+            f'          <h3 class="visually-hidden" id="faq-title-{idx}">{item["question"]}</h3>\n'
+            f'          <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-answer-{idx}">\n'
+            f'            <span aria-hidden="true">{item["question"]}</span>\n'
+            f'            <span class="faq__icon" aria-hidden="true">+</span>\n'
+            f'          </button>\n'
+            f'          <div class="faq__answer" id="faq-answer-{idx}" role="region" aria-labelledby="faq-title-{idx}">\n'
+            f'            <div class="faq__answer-inner"><p>{item["answer"]}</p></div>\n'
+            f'          </div>\n'
+            f'        </div>'
+            for idx, item in enumerate(faq_data["items"], start=1)
+        )
+
     # Simple scalar replacements from content.json.
     scalar_keys = [
         "eyebrow", "lede", "about_title", "about_intro", "about_body",
@@ -949,6 +972,12 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     html = html.replace("{{stats}}", stats_html)
     html = html.replace("{{testimonials}}", "\n\n".join(testimonial_cards))
     html = html.replace("{{blog_teaser_posts}}", "\n\n".join(teaser_cards))
+    html = html.replace("{{faq_title}}", faq_title)
+    html = html.replace("{{faq_subtitle}}", faq_subtitle)
+    html = html.replace("{{faq_contact_prompt}}", faq_contact_prompt)
+    html = html.replace("{{faq_contact_cta}}", faq_contact_cta)
+    html = html.replace("{{faq_contact_link}}", faq_contact_link)
+    html = html.replace("{{faq_items}}", faq_items)
     for key in scalar_keys:
         html = html.replace("{{" + key + "}}", data.get(key, ""))
     # Contact data replacement is handled by apply_contact in nav/footer; also do direct body.
