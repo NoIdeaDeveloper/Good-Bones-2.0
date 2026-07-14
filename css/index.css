@@ -2366,35 +2366,54 @@ textarea[aria-invalid="true"] {
 
 /* FAQ accordion */
 .section--faq {
-  background: var(--mint);
   position: relative;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(255, 107, 107, 0.22) 0%, transparent 30%),
+    radial-gradient(circle at 12% 82%, rgba(78, 205, 196, 0.20) 0%, transparent 32%),
+    radial-gradient(circle at 55% 65%, rgba(255, 217, 61, 0.18) 0%, transparent 26%),
+    repeating-linear-gradient(135deg, transparent 0, transparent 60px, rgba(26, 26, 46, 0.04) 60px, rgba(26, 26, 46, 0.04) 62px),
+    linear-gradient(145deg, var(--peach) 0%, var(--cream) 55%, var(--mint) 100%);
+}
+
+.section--faq > * {
+  position: relative;
+  z-index: 1;
 }
 
 .section--faq::before {
   content: "";
   position: absolute;
-  top: -80px;
-  right: -60px;
-  width: clamp(200px, 34vw, 320px);
-  height: clamp(200px, 34vw, 320px);
-  border-radius: 50%;
-  background: var(--teal);
-  opacity: 0.2;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, var(--coral) 18%, transparent 20%),
+    radial-gradient(circle, var(--teal) 18%, transparent 20%),
+    radial-gradient(circle, var(--yellow) 18%, transparent 20%);
+  background-size: 120px 120px;
+  background-position: 0 0, 60px 60px, 30px 90px;
+  opacity: 0.10;
   pointer-events: none;
+  z-index: 0;
 }
 
 .section--faq::after {
   content: "";
   position: absolute;
-  bottom: -60px;
-  left: -60px;
-  width: clamp(160px, 26vw, 240px);
-  height: clamp(160px, 26vw, 240px);
+  top: -60px;
+  right: -10vw;
+  width: clamp(240px, 42vw, 520px);
+  height: clamp(240px, 42vw, 520px);
   border-radius: 50%;
-  background: var(--coral);
-  opacity: 0.12;
+  border: 24px solid var(--yellow);
+  opacity: 0.14;
   pointer-events: none;
+  z-index: 0;
+  animation: faq-ring 18s ease-in-out infinite alternate;
+}
+
+@keyframes faq-ring {
+  from { transform: rotate(0deg) translateY(0); }
+  to { transform: rotate(18deg) translateY(-24px); }
 }
 
 .section__header--faq .section__title::after,
@@ -2552,6 +2571,10 @@ textarea[aria-invalid="true"] {
 
   .faq__item:not(.is-open) .faq__answer {
     max-height: 0;
+  }
+
+  .section--faq::after {
+    animation: none;
   }
 }
 
