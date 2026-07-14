@@ -890,7 +890,7 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     testimonial_cards = []
     for t in data["testimonials"]:
         testimonial_cards.append(
-            f'      <blockquote class="testimonial {t["class"]}" data-tilt>\n'
+            f'      <blockquote class="testimonial tilt {t["class"]}" data-tilt>\n'
             f'        <span class="testimonial__pin" aria-hidden="true"></span>\n'
             f'        <div class="testimonial__quote-mark" aria-hidden="true">“</div>\n'
             f'        <p>{t["quote"]}</p>\n'
