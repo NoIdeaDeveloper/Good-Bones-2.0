@@ -2365,8 +2365,8 @@ textarea[aria-invalid="true"] {
 }
 
 /* FAQ accordion */
-/* FAQ accordion */
 .section--faq {
+  --shadow-faq: 0 14px 30px rgba(26, 26, 46, 0.10);
   position: relative;
   overflow: hidden;
   background:
@@ -2438,7 +2438,7 @@ textarea[aria-invalid="true"] {
   background: var(--white);
   border: 3px solid var(--ink);
   border-radius: var(--radius);
-  box-shadow: 6px 6px 0 var(--ink);
+  box-shadow: 6px 6px 0 rgba(26, 26, 46, 0.18);
   overflow: hidden;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
@@ -2446,7 +2446,7 @@ textarea[aria-invalid="true"] {
 .faq__item:hover,
 .faq__item:has(.faq__question:focus-visible) {
   transform: translateY(-5px) rotate(-0.6deg);
-  box-shadow: 10px 10px 0 var(--ink);
+  box-shadow: 10px 10px 0 var(--violet);
   border-color: var(--violet);
 }
 
