@@ -441,7 +441,9 @@
 }
 
 .blog-post .legal-back:hover,
-.legal-back:hover {
+.blog-post .legal-back:focus-visible,
+.legal-back:hover,
+.legal-back:focus-visible {
   transform: translate(-3px, -3px);
   background: var(--yellow);
   box-shadow: 7px 7px 0 var(--ink);

@@ -657,9 +657,29 @@ html {
 
 .legal-hero p {
   max-width: 640px;
-  margin: 0 auto;
+  margin: 0 auto 28px;
   font-size: 1.15rem;
   opacity: 0.85;
+}
+
+.legal-hero__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  padding: 10px 20px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
+}
+
+.legal-hero__back:hover,
+.legal-hero__back:focus-visible {
+  background: var(--yellow);
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 
 .legal-layout {
@@ -693,16 +713,22 @@ html {
   font-weight: 600;
   padding: 6px 10px;
   border-radius: 8px;
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
   color: var(--ink);
   opacity: 0.8;
 }
 
 .legal-toc a:hover,
+.legal-toc a:focus-visible,
 .legal-toc a.is-active {
   background: var(--yellow);
   opacity: 1;
   color: var(--ink);
+  transform: translateX(4px);
+}
+
+.legal-toc a.is-active {
+  font-weight: 700;
 }
 
 .legal-content {
@@ -771,10 +797,16 @@ html {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
+  transition: color var(--transition);
 }
 
-.legal-content a:hover {
+.legal-content a:hover,
+.legal-content a:focus-visible {
   color: var(--coral);
+}
+
+.legal-content a:focus-visible {
+  outline-offset: 4px;
 }
 
 .privacy-notice {
@@ -830,6 +862,13 @@ html {
   box-shadow: 0 0 0 4px rgba(155, 93, 229, 0.18);
 }
 
+.privacy-form input[aria-invalid="true"],
+.privacy-form select[aria-invalid="true"],
+.privacy-form textarea[aria-invalid="true"] {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.15);
+}
+
 .privacy-form textarea {
   resize: vertical;
   min-height: 120px;
@@ -842,7 +881,8 @@ html {
   box-shadow: 6px 6px 0 var(--ink);
 }
 
-.privacy-form .btn--primary:hover {
+.privacy-form .btn--primary:hover,
+.privacy-form .btn--primary:focus-visible {
   transform: translate(-3px, -3px);
   box-shadow: 9px 9px 0 var(--ink);
 }
@@ -917,7 +957,8 @@ html {
   border: 2px solid var(--ink);
   border-radius: 999px;
   font-weight: 700;
-  transition: transform var(--transition), background var(--transition);
+  transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
+  box-shadow: 4px 4px 0 var(--ink);
 }
 
 .legal-back::before {
@@ -925,9 +966,15 @@ html {
   font-size: 1.2rem;
 }
 
-.legal-back:hover {
+.legal-back:hover,
+.legal-back:focus-visible {
   background: var(--yellow);
   transform: translateY(-2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.legal-back:focus-visible {
+  outline-offset: 5px;
 }
 
 /* 404 page */
@@ -1171,6 +1218,11 @@ html {
 
   .legal-hero p {
     font-size: 1.05rem;
+    margin-bottom: 22px;
+  }
+
+  .legal-hero__back {
+    padding: 8px 16px;
   }
 
   .legal-layout {

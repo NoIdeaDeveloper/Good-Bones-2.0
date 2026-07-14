@@ -3,6 +3,7 @@
 <head>
 {{head}}
   <link rel="stylesheet" href="{{base_path}}css/global.min.css{{cache_bust}}" />
+  <link rel="alternate" type="application/atom+xml" title="The Good Bones Blog" href="{{base_path}}blog/feed.xml" />
 </head>
 <body class="legal-page">
 
@@ -12,6 +13,7 @@
     <p class="eyebrow">Good Bones Web Inc.</p>
     <h1>{{page_title}}</h1>
     <p>{{intro}}</p>
+    <a class="legal-hero__back" href="{{base_path}}index.html" aria-label="Back to home page">← Back to home</a>
   </header>
 
   <div class="legal-layout">
@@ -24,11 +26,15 @@
 
 {{content}}
 
-      <a class="legal-back" href="{{base_path}}index.html">Back to home</a>
+      <a class="legal-back" href="{{base_path}}index.html" aria-label="Back to home page">Back to home</a>
     </main>
   </div>
 
 {{footer}}
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <span aria-hidden="true">↑</span>
+  </button>
 
   <script type="module" src="{{base_path}}script.min.js{{cache_bust}}"></script>
 </body>
