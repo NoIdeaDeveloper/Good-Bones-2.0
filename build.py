@@ -4,6 +4,7 @@
 import hashlib
 import json
 import re
+import shutil
 from datetime import datetime
 from pathlib import Path
 
@@ -143,6 +144,105 @@ def get_minified_source(path: Path) -> bytes:
     return raw
 
 
+# Lazily-populated mapping of logical asset path -> hashed relative path.
+_ASSET_FINGERPRINTS: dict[str, str] = {}
+
+
+def _file_hash(path: Path) -> str:
+    return hashlib.md5(path.read_bytes()).hexdigest()[:8]
+
+
+def _remove_stale_fingerprints(directory: Path, stem: str, suffix: str) -> None:
+    """Delete previous fingerprinted copies of an asset in *directory*."""
+    pattern = re.compile(re.escape(stem) + r"\.[0-9a-f]{8,32}" + re.escape(suffix) + r"$")
+    for item in directory.iterdir():
+        if item.is_file() and pattern.match(item.name):
+            item.unlink()
+
+
+def compute_asset_fingerprints() -> dict[str, str]:
+    """Copy selected static assets to content-hashed filenames.
+
+    Returns a mapping of logical relative path (e.g.
+    "fonts/bebasneue-v16-latin.woff2") to the new hashed relative path (e.g.
+    "fonts/bebasneue-v16-latin.a1b2c3d4.woff2"). Previous fingerprinted copies
+    are removed first so stale files don't accumulate in the repo.
+    """
+    assets = [
+        ("fonts/bebasneue-v16-latin.woff2", ROOT / "fonts" / "bebasneue-v16-latin.woff2"),
+        ("fonts/spacegrotesk-v22-latin.woff2", ROOT / "fonts" / "spacegrotesk-v22-latin.woff2"),
+        ("favicon.png", ROOT / "favicon.png"),
+        ("favicon.ico", ROOT / "favicon.ico"),
+        ("og-image.png", ROOT / "og-image.png"),
+    ]
+    fingerprints: dict[str, str] = {}
+    for logical, src in assets:
+        if not src.exists():
+            print(f"Warning: asset {src} not found; skipping fingerprinting")
+            continue
+        digest = _file_hash(src)
+        _remove_stale_fingerprints(src.parent, src.stem, src.suffix)
+        dst = src.parent / f"{src.stem}.{digest}{src.suffix}"
+        shutil.copy2(src, dst)
+        fingerprints[logical] = str(dst.relative_to(ROOT)).replace("\\", "/")
+        print(f"Fingerprinted {logical} -> {fingerprints[logical]}")
+    global _ASSET_FINGERPRINTS
+    _ASSET_FINGERPRINTS = fingerprints
+    return fingerprints
+
+
+def asset_fingerprints() -> dict[str, str]:
+    if not _ASSET_FINGERPRINTS:
+        compute_asset_fingerprints()
+    return _ASSET_FINGERPRINTS
+
+
+def hashed_asset_url(logical: str, base_path: str = "") -> str:
+    """Return the fingerprinted URL for an asset.
+
+    *logical* is the repo-relative path of the source asset, e.g.
+    "fonts/bebasneue-v16-latin.woff2". *base_path* is the page-relative prefix
+    ("" or "../").
+    """
+    hashed = asset_fingerprints().get(logical)
+    if not hashed:
+        return f"{base_path}{logical}"
+    return f"{base_path}{hashed}"
+
+
+def absolute_hashed_asset_url(logical: str, domain: str) -> str:
+    """Return the absolute fingerprinted URL for root-level assets like OG images."""
+    hashed = asset_fingerprints().get(logical)
+    if not hashed:
+        return f"{domain}/{logical}"
+    return f"{domain}/{hashed}"
+
+
+def apply_asset_hashes(html: str, base_path: str = "") -> str:
+    """Replace {{asset:<logical>}} placeholders with fingerprinted URLs."""
+    def repl(match: re.Match) -> str:
+        return hashed_asset_url(match.group(1).strip(), base_path)
+    return re.sub(r"\{\{asset:([^}]+)\}\}", repl, html)
+
+
+def inline_fonts_css(base_path: str) -> str:
+    """Return minified fonts.css with hashed, base-path-aware font URLs."""
+    path = ROOT / "fonts" / "fonts.css"
+    if not path.exists():
+        return ""
+    css = path.read_text(encoding="utf-8")
+
+    def rewrite_url(match: re.Match) -> str:
+        filename = match.group(1)
+        logical = f"fonts/{filename}"
+        return f'url("{hashed_asset_url(logical, base_path)}")'
+
+    css = re.sub(r'url\(["\']?([^"\')]+)["\']?\)', rewrite_url, css)
+    if MINIFY_CSS:
+        css = minify_css(css)
+    return "\n".join(f"  {line}" for line in css.splitlines())
+
+
 def cache_bust_for(output_file: Path) -> str:
     """Return the query-string cache buster for the generated HTML page.
 
@@ -192,7 +292,7 @@ def build_schema(page_type: str, contact: dict, **kwargs) -> str:
         "@type": "Organization",
         "name": contact["company"],
         "url": contact["domain"],
-        "logo": f"{contact['domain']}/favicon.png",
+        "logo": absolute_hashed_asset_url("favicon.png", contact["domain"]),
     }
 
     if page_type == "webpage":
@@ -242,7 +342,7 @@ def build_schema(page_type: str, contact: dict, **kwargs) -> str:
                 "@type": "WebPage",
                 "@id": kwargs["url"],
             },
-            "image": contact["og"]["image"],
+            "image": kwargs.get("image", absolute_hashed_asset_url("og-image.png", contact["domain"])),
         }
     else:
         data = {
@@ -286,18 +386,21 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
 
     base_path = relative_base_path(output_file)
     cache_bust = cache_bust_for(output_file)
+    og_image_url = absolute_hashed_asset_url("og-image.png", contact["domain"])
 
     head = load_template("head.html")
     head = apply_contact(head, contact)
     head = head.replace("{{base_path}}", base_path)
+    head = head.replace("{{fonts_css}}", inline_fonts_css(base_path))
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
-    head = head.replace("{{og_image}}", contact["og"]["image"])
+    head = head.replace("{{og_image}}", og_image_url)
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
     head = head.replace("{{og_type}}", "website")
+    head = apply_asset_hashes(head, base_path)
 
     last_updated_iso = datetime.strptime(data["last_updated"], "%B %d, %Y").strftime("%Y-%m-%d")
     schema = build_schema(
@@ -370,17 +473,20 @@ def build_blog_post(post: dict, contact: dict, all_posts: list[dict]) -> None:
     base_path = relative_base_path(output_file)
     cache_bust = cache_bust_for(output_file)
 
+    og_image_url = absolute_hashed_asset_url("og-image.png", contact["domain"])
+
     head = apply_contact(head, contact)
     head = head.replace("{{base_path}}", base_path)
-    head = head.replace("{{fonts_css}}", load_inline_asset(ROOT / "fonts" / "fonts.css"))
+    head = head.replace("{{fonts_css}}", inline_fonts_css(base_path))
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
-    head = head.replace("{{og_image}}", contact["og"]["image"])
+    head = head.replace("{{og_image}}", og_image_url)
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
     head = head.replace("{{og_type}}", "article")
+    head = apply_asset_hashes(head, base_path)
 
     schema = build_schema(
         "blogposting",
@@ -390,6 +496,7 @@ def build_blog_post(post: dict, contact: dict, all_posts: list[dict]) -> None:
         description=description,
         date=date_iso,
         author=post["author"],
+        image=og_image_url,
     )
     head = head.replace("{{schema_json}}", schema)
 
@@ -468,17 +575,20 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     base_path = relative_base_path(output_file)
     cache_bust = cache_bust_for(output_file)
 
+    og_image_url = absolute_hashed_asset_url("og-image.png", contact["domain"])
+
     head = apply_contact(head, contact)
     head = head.replace("{{base_path}}", base_path)
-    head = head.replace("{{fonts_css}}", load_inline_asset(ROOT / "fonts" / "fonts.css"))
+    head = head.replace("{{fonts_css}}", inline_fonts_css(base_path))
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
-    head = head.replace("{{og_image}}", contact["og"]["image"])
+    head = head.replace("{{og_image}}", og_image_url)
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
     head = head.replace("{{og_type}}", "website")
+    head = apply_asset_hashes(head, base_path)
 
     schema = build_schema(
         "blog",
@@ -708,17 +818,20 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     canonical_url = contact["domain"] + "/"
 
     head = load_template("head.html")
+    og_image_url = absolute_hashed_asset_url("og-image.png", contact["domain"])
+
     head = apply_contact(head, contact)
     head = head.replace("{{base_path}}", base_path)
-    head = head.replace("{{fonts_css}}", load_inline_asset(ROOT / "fonts" / "fonts.css"))
+    head = head.replace("{{fonts_css}}", inline_fonts_css(base_path))
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
-    head = head.replace("{{og_image}}", contact["og"]["image"])
+    head = head.replace("{{og_image}}", og_image_url)
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
     head = head.replace("{{og_type}}", "website")
+    head = apply_asset_hashes(head, base_path)
     head = head.replace("{{schema_json}}", build_schema("home", contact, title=title, url=canonical_url, description=description))
 
     # Simple scalar replacements from content.json.
@@ -836,17 +949,20 @@ def build_404(contact: dict) -> None:
     canonical_url = f"{contact['domain']}/404.html"
 
     head = load_template("head.html")
+    og_image_url = absolute_hashed_asset_url("og-image.png", contact["domain"])
+
     head = apply_contact(head, contact)
     head = head.replace("{{base_path}}", base_path)
-    head = head.replace("{{fonts_css}}", load_inline_asset(ROOT / "fonts" / "fonts.css"))
+    head = head.replace("{{fonts_css}}", inline_fonts_css(base_path))
     head = head.replace("{{title}}", title)
     head = head.replace("{{description}}", description)
     head = head.replace("{{canonical_url}}", canonical_url)
-    head = head.replace("{{og_image}}", contact["og"]["image"])
+    head = head.replace("{{og_image}}", og_image_url)
     head = head.replace("{{og_image_alt}}", contact["og"]["image_alt"])
     head = head.replace("{{twitter_handle}}", contact["og"]["twitter_handle"])
     head = head.replace("{{domain}}", contact["domain"])
     head = head.replace("{{og_type}}", "website")
+    head = apply_asset_hashes(head, base_path)
     head = head.replace("{{schema_json}}", build_schema("webpage", contact, title=title, url=canonical_url, description=description))
 
     html = layout
@@ -893,6 +1009,11 @@ def write_minified_assets() -> None:
 def main() -> None:
     contact = load_json("contact.json")
 
+    # Write minified CSS/JS and fingerprint static assets before generating
+    # pages so every generated reference points to the correct hashed file.
+    write_minified_assets()
+    compute_asset_fingerprints()
+
     pages = {
         "privacy.json": ROOT / "privacy.html",
         "terms.json": ROOT / "terms.html",
@@ -907,7 +1028,6 @@ def main() -> None:
     build_404(contact)
     build_feed(contact, posts)
     build_sitemap(contact, posts)
-    write_minified_assets()
 
 
 if __name__ == "__main__":
