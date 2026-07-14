@@ -1,52 +1,52 @@
 {
   "page_title": "Terms of Service",
-  "intro": "A clear agreement for clients and visitors. No fine print — just the essentials.",
-  "last_updated": "July 12, 2026",
+  "intro": "A straightforward agreement for visitors and clients. This page covers how our services work, what to expect, and our shared responsibilities.",
+  "last_updated": "July 14, 2026",
   "sections": [
     {
-      "id": "agreement-to-these-terms",
-      "heading": "Agreement to these terms",
-      "body": "<p>By using this website or hiring Good Bones Web Inc. for services, you agree to these Terms of Service. If you do not agree, please do not use the site or submit a project inquiry.</p>"
+      "id": "using-this-site",
+      "heading": "Using this site",
+      "body": "<p>By using this website or hiring Good Bones Web Inc., you agree to these terms. If you do not agree, please do not use the site or submit a project inquiry.</p>"
     },
     {
       "id": "what-we-do",
       "heading": "What we do",
-      "body": "<p>Good Bones Web Inc. provides website design, development, strategy, and site rescue services for businesses. Every project is scoped individually, and the specific deliverables, timeline, and cost are agreed upon in writing before work begins.</p>"
+      "body": "<p>We design and build websites, provide strategy guidance, and help rescue struggling sites. Each project is scoped individually. Before work begins, we agree in writing on deliverables, timeline, and cost.</p>"
     },
     {
       "id": "quotes-and-payment",
       "heading": "Quotes and payment",
-      "body": "<ul><li>Project quotes are valid for 14 days unless otherwise stated.</li><li>A deposit is usually required to begin work. The amount is specified in your project agreement.</li><li>Remaining payments are due according to the milestones or schedule outlined in the agreement.</li><li>Late payments may delay project delivery.</li></ul>"
+      "body": "<ul><li><strong>Quotes are valid for 14 days</strong> unless otherwise stated.</li><li><strong>A deposit is usually required</strong> to begin work. The amount is specified in your project agreement.</li><li><strong>Remaining payments are due</strong> according to the milestones or schedule in the agreement.</li><li><strong>Late payments may delay</strong> project delivery.</li></ul>"
     },
     {
       "id": "client-responsibilities",
       "heading": "Client responsibilities",
-      "body": "<p>To keep a project moving, clients agree to:</p><ul><li>Provide content, branding assets, and feedback in a timely manner.</li><li>Review deliverables and share approvals or revisions within the agreed timeframe.</li><li>Ensure they have the rights to any materials they provide, such as photos, text, and logos.</li><li>Maintain their own accounts for third-party services unless otherwise arranged.</li></ul>"
+      "body": "<p>To keep a project on track, clients agree to:</p><ul><li>Provide content, branding assets, and feedback on time.</li><li>Review deliverables and approve or request revisions within the agreed timeframe.</li><li>Make sure they have the rights to anything they provide, such as photos, text, and logos.</li><li>Maintain their own accounts for third-party services unless we agree otherwise.</li></ul>"
     },
     {
       "id": "revisions-and-scope-changes",
       "heading": "Revisions and scope changes",
-      "body": "<p>Each project includes a set number of revision rounds defined in the agreement. Additional revisions or new requests outside the original scope may require extra time and cost. We will always discuss scope changes with you before proceeding.</p>"
+      "body": "<p>Each project includes a set number of revision rounds, defined in the agreement. Additional revisions or new requests outside the original scope may take extra time and cost extra. We will always discuss any scope change with you before proceeding.</p>"
     },
     {
       "id": "intellectual-property",
       "heading": "Intellectual property",
-      "body": "<p>After final payment, clients receive the rights to use the final website and design deliverables for their business. Good Bones Web Inc. retains the right to display the work in our portfolio and marketing unless otherwise agreed in writing.</p><p>We do not claim ownership of client-provided content, logos, trademarks, or other pre-existing materials.</p>"
+      "body": "<p>After final payment, clients receive the right to use the final website and design deliverables for their business. We retain the right to show the work in our portfolio and marketing unless we agree otherwise in writing.</p><p>We do not claim ownership of any content, logos, trademarks, or other materials you already owned before the project.</p>"
     },
     {
-      "id": "website-hosting-and-maintenance",
-      "heading": "Website hosting and maintenance",
-      "body": "<p>Unless included in your project agreement, website hosting, domain registration, and ongoing maintenance are the client's responsibility. We offer optional maintenance plans and are happy to recommend trusted hosting providers.</p>"
+      "id": "hosting-and-maintenance",
+      "heading": "Hosting and maintenance",
+      "body": "<p>Unless your project agreement includes hosting or maintenance, those are your responsibility. We offer optional maintenance plans and are happy to recommend hosting providers we trust.</p>"
     },
     {
-      "id": "limitations-of-liability",
-      "heading": "Limitations of liability",
-      "body": "<p>Good Bones Web Inc. is not liable for indirect, incidental, or consequential damages related to the use of our services or website. Our total liability for any project is limited to the amount paid for that project.</p><p>We build websites with care, but we cannot guarantee uninterrupted availability, perfect security, or specific business results such as traffic or sales.</p>"
+      "id": "liability",
+      "heading": "Liability",
+      "body": "<p>Good Bones Web Inc. is not liable for indirect, incidental, or consequential damages related to the use of our services or website. Our total liability for any project is limited to the amount paid for that project.</p><p>We build every site with care, but we cannot guarantee uninterrupted availability, perfect security, or specific business outcomes such as traffic or sales.</p>"
     },
     {
       "id": "cancellations-and-refunds",
       "heading": "Cancellations and refunds",
-      "body": "<p>If a project is cancelled after work has begun, the deposit is non-refundable. Any completed work beyond the deposit value will be billed proportionally. We will communicate clearly about what has been completed at the time of cancellation.</p>"
+      "body": "<p>If a project is cancelled after work has begun, the deposit is non-refundable. Any completed work beyond the deposit value will be billed proportionally. We will clearly communicate what has been completed at the time of cancellation.</p>"
     },
     {
       "id": "changes-to-these-terms",
@@ -61,7 +61,7 @@
     {
       "id": "contact-us",
       "heading": "Contact us",
-      "body": "<p>Questions about these terms? Get in touch.</p>",
+      "body": "<p>Questions about these terms? <a href=\"mailto:hello@goodbonesweb.com\">Get in touch</a>.</p>",
       "use_contact": true
     }
   ]

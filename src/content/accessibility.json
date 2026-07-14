@@ -1,37 +1,42 @@
 {
   "page_title": "Accessibility Statement",
-  "intro": "We believe the web should work for everyone. Here's how we approach accessible design and what we're doing to improve.",
-  "last_updated": "July 12, 2026",
+  "intro": "We believe websites should work well for everyone. This page explains how we design for accessibility and how you can tell us if something isn't working for you.",
+  "last_updated": "July 14, 2026",
   "sections": [
     {
       "id": "our-commitment",
       "heading": "Our commitment",
-      "body": "<p>Good Bones Web Inc. is committed to making our website and the websites we build usable by as many people as possible. We aim to follow recognized accessibility best practices, including the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA.</p>"
+      "body": "<p>Good Bones Web Inc. is committed to making our website and the sites we build usable by the widest possible audience. We follow the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA as our target and continuously look for ways to improve.</p>"
     },
     {
-      "id": "what-we-do-to-support-accessibility",
-      "heading": "What we do to support accessibility",
-      "body": "<ul><li>Use clear, readable typography and strong color contrast for text.</li><li>Structure pages with semantic HTML and proper heading order.</li><li>Add descriptive labels and alternative text for images and icons.</li><li>Ensure the site can be navigated with a keyboard.</li><li>Respect reduced-motion preferences for visitors who disable animations.</li><li>Test with keyboard navigation, screen readers, and common browser tools.</li></ul>"
+      "id": "what-accessibility-means",
+      "heading": "What accessibility means",
+      "body": "<p>An accessible website is one that people can use regardless of how they interact with technology. That includes people who use screen readers, keyboard navigation, voice control, screen magnifiers, or who prefer reduced motion. Accessibility also helps people with temporary limitations, such as a broken arm, slow internet, or bright sunlight on a mobile screen.</p>"
     },
     {
-      "id": "accessibility-in-our-client-work",
+      "id": "what-we-do",
+      "heading": "What we do",
+      "body": "<ul><li><strong>Use clear, readable text</strong> with strong colour contrast.</li><li><strong>Structure pages with semantic HTML</strong> and a logical heading order.</li><li><strong>Add descriptive labels and alt text</strong> for images and icons.</li><li><strong>Ensure full keyboard navigation</strong> without getting trapped or lost.</li><li><strong>Respect reduced-motion preferences</strong> for visitors who disable animations.</li><li><strong>Test with keyboard navigation, screen readers, and browser tools.</strong></li></ul>"
+    },
+    {
+      "id": "client-work",
       "heading": "Accessibility in our client work",
-      "body": "<p>Accessibility is part of how we build websites for clients. We design with readable contrast, semantic markup, keyboard-friendly navigation, and responsive layouts. We also offer accessibility reviews and remediation for existing sites.</p>"
+      "body": "<p>Accessibility is built into our design and development process. We create readable contrast, semantic markup, keyboard-friendly navigation, and responsive layouts. We also offer accessibility reviews and remediation for existing sites.</p>"
     },
     {
       "id": "known-limitations",
       "heading": "Known limitations",
-      "body": "<p>Some decorative animations and visual effects are present for brand personality. These do not affect core functionality, and visitors who prefer reduced motion can disable them through their system settings.</p><p>We are continuously learning and improving. If you find a barrier we have not addressed, please let us know.</p>"
+      "body": "<p>Some parts of our site use decorative animations for brand personality. These do not affect core functionality. Visitors who prefer reduced motion can disable animations through their system settings, and our site will respond accordingly.</p><p>We are always learning and improving. If you find a barrier we have not addressed, please let us know.</p>"
     },
     {
       "id": "third-party-content",
       "heading": "Third-party content",
-      "body": "<p>Our site may include links to or embeds from third-party services. We choose accessible tools when possible, but we cannot guarantee the accessibility of every external platform.</p>"
+      "body": "<p>Our site may link to or embed content from third-party services. We choose accessible tools when possible, but we cannot guarantee the accessibility of every external platform.</p>"
     },
     {
-      "id": "how-to-give-feedback",
+      "id": "feedback",
       "heading": "How to give feedback",
-      "body": "<p>If you experience any difficulty using this website, or if you have suggestions for improving accessibility, we want to hear from you.</p>",
+      "body": "<p>If you experience any difficulty using this website, or if you have suggestions for improving accessibility, we want to hear from you. <a href=\"mailto:hello@goodbonesweb.com\">Email us at hello@goodbonesweb.com</a>.</p>",
       "use_contact": true
     }
   ]
