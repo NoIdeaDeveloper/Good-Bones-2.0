@@ -19,7 +19,7 @@
     <div class="blob blob--three" aria-hidden="true"><div class="blob__inner"></div></div>
 
     <div class="hero__content">
-      <p class="eyebrow">{{eyebrow}}</p>
+      <p class="eyebrow eyebrow--hero">{{eyebrow}}</p>
       <h1 class="hero__title">
         Websites with
         <span class="hero__highlight">
@@ -30,9 +30,14 @@
       </h1>
       <p class="hero__lede">{{lede}}</p>
       <div class="hero__actions">
-        <a href="#contact" class="btn btn--primary">Start a Project</a>
-        <a href="#work" class="btn btn--secondary">See the Work</a>
+        <a href="#contact" class="btn btn--primary hero__btn" aria-label="Start a project with Good Bones">Start a Project</a>
+        <a href="#work" class="btn btn--secondary hero__btn" aria-label="View selected client work">See the Work</a>
       </div>
+      <ul class="hero__trust" aria-label="Quick facts">
+        <li><span aria-hidden="true">✓</span> Hand-coded, no bloated templates</li>
+        <li><span aria-hidden="true">✓</span> Built in Edmonton, for web-wide results</li>
+        <li><span aria-hidden="true">✓</span> Strategy, design &amp; development</li>
+      </ul>
     </div>
 
     <div class="hero__card" aria-hidden="true">
@@ -64,7 +69,7 @@
 
     <a href="#services" class="scroll-hint" aria-label="Scroll to services">
       <span class="scroll-hint__text">Scroll</span>
-      <span class="scroll-hint__arrow">↓</span>
+      <span class="scroll-hint__arrow" aria-hidden="true">↓</span>
     </a>
 
     <!-- Floating pop-art shapes -->

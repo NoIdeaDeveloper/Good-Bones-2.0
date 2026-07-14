@@ -103,8 +103,11 @@ textarea:focus-visible {
   .starburst,
   .map-pin,
   .hero__card,
-  .scroll-hint {
+  .scroll-hint,
+  .hero__content,
+  .hero__card {
     animation: none !important;
+    transition: none !important;
   }
 
   .blob__inner,

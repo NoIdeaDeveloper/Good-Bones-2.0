@@ -124,6 +124,14 @@
   border-top: 0;
 }
 
+.eyebrow--hero {
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 7px 16px;
+}
+
 .hero__title {
   font-family: "Bebas Neue", sans-serif;
   font-size: clamp(2.8rem, 15vw, 7.8rem);
@@ -221,9 +229,11 @@
 }
 
 .hero__lede {
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  max-width: 520px;
-  margin-bottom: 34px;
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  line-height: 1.55;
+  max-width: 540px;
+  margin-bottom: 32px;
+  opacity: 0.92;
 }
 
 .hero__actions {
@@ -232,14 +242,49 @@
   flex-wrap: wrap;
 }
 
+.hero__trust {
+  margin-top: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  font-weight: 600;
+  opacity: 0.88;
+}
+
+.hero__trust li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero__trust li span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  background: var(--mint);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-size: 0.7rem;
+  color: var(--ink);
+}
+
 @media (max-width: 420px) {
   .hero__actions {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .hero__actions .btn {
+  .hero__actions .btn,
+  .hero__btn {
     width: 100%;
+  }
+
+  .hero__trust {
+    margin-top: 26px;
   }
 }
 
@@ -291,6 +336,12 @@
   flex-direction: column;
   justify-content: center;
   animation: card-float 5s ease-in-out infinite alternate;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero__card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-hover);
 }
 
 @media (max-width: 420px) {
@@ -560,6 +611,7 @@
   left: 6%;
   font-size: clamp(1.6rem, 5vw, 2.6rem);
   color: var(--coral);
+  filter: drop-shadow(3px 3px 0 var(--ink));
 }
 
 .float-shape--star .float-shape__inner {
@@ -571,6 +623,8 @@
   left: auto;
   right: 6%;
   font-size: clamp(1.4rem, 4vw, 2.2rem);
+  color: var(--yellow);
+  filter: drop-shadow(3px 3px 0 var(--ink));
 }
 
 .float-shape--zig .float-shape__inner {
@@ -589,6 +643,7 @@
   border-radius: 50%;
   background: var(--violet);
   border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
   animation: float-bob 4s ease-in-out infinite alternate;
 }
 

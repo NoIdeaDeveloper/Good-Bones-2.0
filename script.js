@@ -256,12 +256,17 @@ if (hasHomepageHero) {
     { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
 
+  document.querySelectorAll('.hero__content').forEach((el) => {
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+
   document.querySelectorAll('.section__header').forEach((el) => {
     el.classList.add('reveal');
     observer.observe(el);
   });
 
-  document.querySelectorAll('.service-card, .work-card, .testimonial, .about__visual, .about__content, .contact__form, .contact__content, .cta-banner__inner').forEach((el, index) => {
+  document.querySelectorAll('.service-card, .work-card, .testimonial, .about__visual, .about__content, .contact__form, .contact__content, .cta-banner__inner, .hero__card').forEach((el, index) => {
     el.classList.add('reveal');
     el.style.setProperty('--reveal-index', index);
     observer.observe(el);
