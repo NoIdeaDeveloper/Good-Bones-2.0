@@ -1,0 +1,57 @@
+name: Build and verify site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build site
+        run: python3 build.py
+
+      - name: Verify generated pages have no unreplaced placeholders
+        run: |
+          #!/usr/bin/env bash
+          set -euo pipefail
+          failed=0
+          for file in index.html 404.html privacy.html terms.html accessibility.html blog/index.html blog/*.html; do
+            if grep -q '{{' "$file"; then
+              echo "Unreplaced placeholder in $file:"
+              grep -n '{{' "$file" || true
+              failed=1
+            fi
+          done
+          if [ "$failed" -ne 0 ]; then
+            exit 1
+          fi
+
+      - name: Verify sitemap.xml and blog/feed.xml are valid XML
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          ET.parse('sitemap.xml')
+          ET.parse('blog/feed.xml')
+          print('XML files are valid')
+          PY
+
+      - name: Ensure build is reproducible (no uncommitted changes)
+        if: github.event_name == 'push'
+        run: |
+          git add -A
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Build produced uncommitted changes. Run build.py locally and commit the generated files."
+            git status --short
+            exit 1
+          fi
