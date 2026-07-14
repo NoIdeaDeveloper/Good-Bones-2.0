@@ -144,30 +144,44 @@ if (prefersHover && !prefersReducedMotion) {
 }
 
 // Basic form handling (placeholder — no backend configured)
-if (form) {
+const initForm = (formEl) => {
+  if (!formEl) return;
+
+  const errorIdFor = (field) => {
+    const describedBy = field.getAttribute('aria-describedby');
+    if (!describedBy) return null;
+    // aria-describedby can hold multiple IDs; the first one points to the inline error.
+    return describedBy.split(' ')[0];
+  };
+
   const setError = (field, message) => {
-    const errorEl = document.getElementById(field.getAttribute('aria-describedby'));
+    const errorEl = document.getElementById(errorIdFor(field));
     if (errorEl) {
       errorEl.textContent = message;
     }
     field.setAttribute('aria-invalid', 'true');
   };
 
-const clearError = (field) => {
-    const errorEl = document.getElementById(field.getAttribute('aria-describedby'));
+  const clearError = (field) => {
+    const errorEl = document.getElementById(errorIdFor(field));
     if (errorEl) {
       errorEl.textContent = '';
     }
     field.setAttribute('aria-invalid', 'false');
   };
 
-const validateField = (field) => {
+  const labelFor = (field) => {
+    const label = formEl.querySelector(`label[for="${field.id}"]`);
+    return label ? label.textContent.trim() : field.name || 'This field';
+  };
+
+  const validateField = (field) => {
     const value = field.value.trim();
-    if (!value) {
-      setError(field, `${field.previousElementSibling.textContent} is required`);
+    if (field.required && !value) {
+      setError(field, `${labelFor(field)} is required`);
       return false;
     }
-    if (field.type === 'email' && !field.checkValidity()) {
+    if (field.type === 'email' && value && !field.checkValidity()) {
       setError(field, 'Please enter a valid email address');
       return false;
     }
@@ -175,9 +189,8 @@ const validateField = (field) => {
     return true;
   };
 
-['#name', '#email'].forEach((selector) => {
-    const field = form.querySelector(selector);
-    if (!field) return;
+  const requiredFields = formEl.querySelectorAll('input[required], select[required], textarea[required]');
+  requiredFields.forEach((field) => {
     field.addEventListener('blur', () => validateField(field));
     field.addEventListener('input', () => {
       if (field.getAttribute('aria-invalid') === 'true') {
@@ -186,18 +199,16 @@ const validateField = (field) => {
     });
   });
 
-form.addEventListener('submit', (event) => {
+  formEl.addEventListener('submit', (event) => {
     event.preventDefault();
-    const submitBtn = form.querySelector('button[type="submit"]');
+    const submitBtn = formEl.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
-    const nameField = form.querySelector('#name');
-    const emailField = form.querySelector('#email');
+    const fields = Array.from(requiredFields);
 
-    const nameValid = validateField(nameField);
-    const emailValid = validateField(emailField);
+    const allValid = fields.map(validateField).every(Boolean);
 
-    if (!nameValid || !emailValid) {
-      const firstInvalid = form.querySelector('[aria-invalid="true"]');
+    if (!allValid) {
+      const firstInvalid = formEl.querySelector('[aria-invalid="true"]');
       if (firstInvalid) {
         firstInvalid.focus();
       }
@@ -212,14 +223,17 @@ form.addEventListener('submit', (event) => {
 
     submitBtn.textContent = 'Message sent (demo)';
     submitBtn.style.background = 'var(--teal)';
-    form.reset();
-    [nameField, emailField].forEach(clearError);
+    formEl.reset();
+    fields.forEach(clearError);
     setTimeout(() => {
       submitBtn.textContent = originalText;
       submitBtn.style.background = '';
     }, 3000);
   });
-}
+};
+
+initForm(form);
+initForm(document.querySelector('.privacy-form'));
 
 // Reveal-on-scroll for sections and cards
 const observer = new IntersectionObserver(
