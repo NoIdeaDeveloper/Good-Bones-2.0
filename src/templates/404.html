@@ -17,7 +17,8 @@
     .error-hero > p { font-size: clamp(1.1rem, 2vw, 1.35rem); max-width: 520px; margin: 0 auto 32px; }
     .error-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
     .error-actions .btn--secondary { background: var(--white); color: var(--ink); }
-    .error-actions .btn--secondary:hover { background: var(--yellow); transform: translateY(-2px); }
+    .error-actions .btn--secondary:hover,
+    .error-actions .btn--secondary:focus-visible { background: var(--yellow); transform: translateY(-2px); }
     .error-help { margin-top: 40px; padding-top: 32px; border-top: 2px dashed rgba(26, 26, 46, 0.15); max-width: 480px; }
     .error-help h2 { font-family: "Bebas Neue", sans-serif; font-size: 1.5rem; letter-spacing: 0.03em; margin-bottom: 16px; color: var(--ink); }
     .error-help ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
