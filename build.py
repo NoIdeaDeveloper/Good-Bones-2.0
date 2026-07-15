@@ -63,12 +63,22 @@ def minify_css(css: str) -> str:
 
     # Remove comments.
     css = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
+    # Preserve data: URIs so their base64 payloads are not mangled.
+    data_uris: list[str] = []
+    css = re.sub(
+        r"url\(data:[^)]+\)",
+        lambda m: (data_uris.append(m.group(0)) or f"\x01{len(data_uris) - 1}\x01"),
+        css,
+    )
     # Trim whitespace around punctuation that doesn't need it.
     css = re.sub(r"\s*([{}:;,>+~()])\s*", r"\1", css)
     # Keep a single space after closing brace so selectors remain separated.
     css = re.sub(r"}\s*", "} ", css)
     # Collapse repeated whitespace and trim.
     css = re.sub(r"\s+", " ", css).strip()
+    # Restore data URIs.
+    for i, uri in enumerate(data_uris):
+        css = css.replace(f"\x01{i}\x01", uri, 1)
     return css
 
 
@@ -84,10 +94,10 @@ def minify_js(js: str) -> str:
     except ImportError:
         pass
 
-    # Remove single-line comments.
-    js = re.sub(r"//.*?$", "", js, flags=re.MULTILINE)
-    # Remove multi-line comments.
+    # Remove multi-line comments first.
     js = re.sub(r"/\*.*?\*/", "", js, flags=re.DOTALL)
+    # Remove single-line comments, but not URLs (e.g. https://).
+    js = re.sub(r"(?<!:)//.*?$", "", js, flags=re.MULTILINE)
     # Collapse whitespace, but keep spaces around keywords/identifiers safe.
     js = re.sub(r"\s+", " ", js).strip()
     return js
@@ -295,7 +305,7 @@ def build_schema(page_type: str, contact: dict, **kwargs) -> str:
         "logo": absolute_hashed_asset_url("favicon.png", contact["domain"]),
     }
 
-    if page_type == "webpage":
+    if page_type in ("webpage", "home"):
         data = {
             **base,
             "@type": "WebPage",
@@ -434,6 +444,8 @@ def build_page(data_file: Path, output_file: Path, contact: dict) -> None:
     html = html.replace("{{toc}}", toc)
     html = html.replace("{{content}}", content)
 
+    if MINIFY_HTML:
+        html = minify_html(html)
     output_file.write_text(html, encoding="utf-8")
     print(f"Built {output_file}")
 
@@ -552,9 +564,8 @@ def build_blog_post(post: dict, contact: dict, all_posts: list[dict]) -> None:
     html = html.replace("{{date_iso}}", date_iso)
     html = html.replace("{{date_display}}", date_display)
     html = html.replace("{{author}}", post["author"])
-    # Replace the two tag placeholders separately: hero tags and footer tags.
-    html = html.replace("{{tags}}", tags_html, 1)
-    html = html.replace("{{tags}}", tags_inline_html, 1)
+    html = html.replace("{{hero_tags}}", tags_html)
+    html = html.replace("{{footer_tags}}", tags_inline_html)
     html = html.replace("{{excerpt}}", post["excerpt"])
     body_indented = "\n".join(f"        {line}" for line in post["body"].splitlines())
     # Convert root-relative links inside post bodies to be relative to this page.
@@ -563,6 +574,8 @@ def build_blog_post(post: dict, contact: dict, all_posts: list[dict]) -> None:
     html = html.replace("{{related}}", related_html)
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
+    if MINIFY_HTML:
+        html = minify_html(html)
     output_file.write_text(html, encoding="utf-8")
     print(f"Built {output_file}")
 
@@ -664,6 +677,8 @@ def build_blog_index(posts: list[dict], contact: dict) -> None:
     html = html.replace("{{posts}}", "\n\n".join(cards))
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
+    if MINIFY_HTML:
+        html = minify_html(html)
     output_file.write_text(html, encoding="utf-8")
     print(f"Built {output_file}")
 
@@ -710,16 +725,6 @@ def build_sitemap(contact: dict, posts: list[dict]) -> None:
         "lastmod": home_lastmod,
         "priority": "1.0",
         "changefreq": "weekly",
-    })
-
-    # 404 page uses the last_updated date from its content JSON.
-    notfound_data = json.loads((CONTENT / "404" / "content.json").read_text(encoding="utf-8"))
-    notfound_lastmod = datetime.strptime(notfound_data.get("last_updated", "January 1, 2020"), "%B %d, %Y").strftime("%Y-%m-%d")
-    urls.append({
-        "loc": f"{domain}/404.html",
-        "lastmod": notfound_lastmod,
-        "priority": "0.1",
-        "changefreq": "yearly",
     })
 
     # Legal pages use the last_updated date from their content JSON.
@@ -789,7 +794,7 @@ def build_feed(contact: dict, posts: list[dict]) -> None:
         return
 
     domain = contact["domain"]
-    updated_iso = max((p["date"] for p in posts), default=datetime.now().strftime("%Y-%m-%d"))
+    updated_iso = max((p["date"] for p in posts), default="2020-01-01")
 
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
@@ -851,7 +856,8 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     head = head.replace("{{domain}}", contact["domain"])
     head = head.replace("{{og_type}}", "website")
     head = apply_asset_hashes(head, base_path)
-    head = head.replace("{{schema_json}}", build_schema("home", contact, title=title, url=canonical_url, description=description))
+    last_updated_iso = datetime.strptime(data.get("last_updated", "January 1, 2020"), "%B %d, %Y").strftime("%Y-%m-%d")
+    head = head.replace("{{schema_json}}", build_schema("home", contact, title=title, url=canonical_url, description=description, date_modified=last_updated_iso))
 
     # FAQ content (optional)
     faq_data = load_content_json("home", "faq.json") if (CONTENT / "home" / "faq.json").exists() else {}
@@ -983,6 +989,8 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     # Contact data replacement is handled by apply_contact in nav/footer; also do direct body.
     html = apply_contact(html, contact)
 
+    if MINIFY_HTML:
+        html = minify_html(html)
     output_file.write_text(html, encoding="utf-8")
     print(f"Built {output_file}")
 

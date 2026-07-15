@@ -359,9 +359,21 @@ html {
   box-shadow: 6px 6px 0 var(--ink);
 }
 
-.btn--primary:hover {
+.btn--primary:hover,
+.btn--primary:focus-visible {
   transform: translate(-3px, -3px);
   box-shadow: 9px 9px 0 var(--ink);
+}
+
+.btn--secondary {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus-visible {
+  background: var(--yellow);
+  transform: translateY(-2px);
 }
 
 /* Back to top button */
