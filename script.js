@@ -109,6 +109,8 @@ if (hasHomepageHero && !prefersReducedMotion && window.matchMedia('(hover: hover
       factorY: item.factorY
     })).filter((item) => item.el);
 
+    if (!elements.length) return;
+
     const siteFooter = document.querySelector('.site-footer');
 
     let ticking = false;
@@ -141,6 +143,17 @@ if (hasHomepageHero && !prefersReducedMotion && window.matchMedia('(hover: hover
         ticking = true;
       }
     }, { passive: true });
+
+    // Reset transforms when the pointer leaves the document so elements don't stay stuck.
+    document.addEventListener('mouseleave', () => {
+      elements.forEach((item) => {
+        item.el.style.transform = '';
+      });
+      if (siteFooter) {
+        siteFooter.style.setProperty('--footer-bg-x', '0px');
+        siteFooter.style.setProperty('--footer-bg-y', '0px');
+      }
+    });
 }
 
 // Mobile menu toggle
@@ -222,15 +235,35 @@ if (menuToggle && menu) {
 const prefersHover = window.matchMedia('(hover: hover)').matches;
 if (hasHomepageHero && prefersHover && !prefersReducedMotion) {
   const tiltCards = document.querySelectorAll('[data-tilt]');
+  let tiltTicking = false;
+  let tiltCard = null;
+  let tiltX = 0;
+  let tiltY = 0;
+
+  const updateTilt = () => {
+    if (!tiltCard) {
+      tiltTicking = false;
+      return;
+    }
+    tiltCard.style.transform = `perspective(800px) rotateY(${tiltX * 8}deg) rotateX(${-tiltY * 8}deg) translateY(-8px)`;
+    tiltTicking = false;
+  };
+
   tiltCards.forEach((card) => {
     card.addEventListener('pointermove', (e) => {
       const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      tiltCard = card;
+      tiltX = (e.clientX - rect.left) / rect.width - 0.5;
+      tiltY = (e.clientY - rect.top) / rect.height - 0.5;
       card.classList.add('is-tilting');
-      card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-8px)`;
+      if (!tiltTicking) {
+        window.requestAnimationFrame(updateTilt);
+        tiltTicking = true;
+      }
     });
+
     card.addEventListener('pointerleave', () => {
+      tiltCard = null;
       card.classList.remove('is-tilting');
       card.style.transform = '';
     });

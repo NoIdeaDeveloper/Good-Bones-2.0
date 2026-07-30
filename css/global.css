@@ -17,7 +17,10 @@
   --max-width: 1200px;
   --shadow: 0 18px 40px rgba(26, 26, 46, 0.14);
   --shadow-hover: 0 28px 60px rgba(26, 26, 46, 0.18);
-  --transition: 0.25s ease;
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition: 0.2s var(--ease-out);
+  --transition-bounce: 0.3s var(--ease-bounce);
 
   /* Fluid spacing scale */
   --space-xs: clamp(0.5rem, 1vw, 0.75rem);
@@ -101,6 +104,10 @@ textarea:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -117,13 +124,16 @@ textarea:focus-visible {
   .hero__card,
   .scroll-hint,
   .hero__content,
-  .hero__card {
+  .site-footer::before,
+  .section--faq::after,
+  .grain {
     animation: none !important;
     transition: none !important;
   }
 
   .blob__inner,
-  .float-shape__inner {
+  .float-shape__inner,
+  .site-footer::before {
     transform: none !important;
   }
 
@@ -144,7 +154,16 @@ textarea:focus-visible {
     opacity: 0;
   }
 
-  .tilt {
+  .tilt,
+  .work-card,
+  .service-card,
+  .testimonial,
+  .blog-teaser__card,
+  .faq__item,
+  .about__stat,
+  .btn,
+  .social,
+  .footer__socials .social {
     transform: none !important;
   }
 }
@@ -263,7 +282,7 @@ html {
 
 .logo:hover,
 .logo:focus-visible {
-  transform: scale(1.04);
+  transform: scale(1.04) rotate(-2deg);
 }
 
 .logo:focus-visible {
@@ -329,6 +348,12 @@ html {
 .menu a:not(.nav-cta):hover::after,
 .menu a:not(.nav-cta):focus-visible::after {
   width: 100%;
+  animation: nav-underline 0.3s var(--ease-bounce);
+}
+
+@keyframes nav-underline {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
 }
 
 .menu a:not(.nav-cta):focus-visible {
@@ -348,13 +373,13 @@ html {
   color: var(--cream);
   padding: 10px 20px;
   border-radius: 999px;
-  transition: transform var(--transition), background var(--transition);
+  transition: transform var(--transition-bounce), background var(--transition);
 }
 
 .nav-cta:hover,
 .nav-cta:focus-visible {
   background: var(--violet);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .menu-toggle {
@@ -385,7 +410,7 @@ html {
   height: 3px;
   background: var(--ink);
   border-radius: 3px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform var(--transition), opacity var(--transition);
 }
 
 .menu-toggle__sr-only {
@@ -410,7 +435,7 @@ html {
   font-weight: 700;
   border: 3px solid var(--ink);
   cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  transition: transform var(--transition-bounce), box-shadow var(--transition), background var(--transition);
 }
 
 .btn--primary {
@@ -457,7 +482,7 @@ html {
   opacity: 0;
   transform: translateY(20px) scale(0.8);
   pointer-events: none;
-  transition: opacity var(--transition), transform var(--transition), background var(--transition), pointer-events 0s;
+  transition: opacity var(--transition), transform var(--transition-bounce), background var(--transition), pointer-events 0s;
   z-index: 10001;
 }
 
@@ -470,7 +495,7 @@ html {
 .back-to-top:hover,
 .back-to-top:focus-visible {
   background: var(--violet);
-  transform: translateY(-3px) scale(1.06);
+  transform: translateY(-4px) scale(1.08);
   box-shadow: 7px 7px 0 var(--ink);
 }
 
@@ -660,7 +685,7 @@ html {
   border: 3px solid var(--white);
   font-weight: 700;
   font-size: 0.8rem;
-  transition: transform var(--transition), background var(--transition), color var(--transition);
+  transition: transform var(--transition-bounce), background var(--transition), color var(--transition);
 }
 
 .footer__socials .social:hover,
@@ -691,7 +716,7 @@ html {
 .footer__contact a,
 .footer__legal a {
   opacity: 0.85;
-  transition: opacity var(--transition), transform var(--transition);
+  transition: opacity var(--transition), transform var(--transition-bounce), color var(--transition);
   display: inline-block;
   color: var(--white);
 }
@@ -703,7 +728,7 @@ html {
 .footer__contact a:focus-visible,
 .footer__legal a:focus-visible {
   opacity: 1;
-  transform: translateX(4px);
+  transform: translateX(5px);
   color: var(--yellow);
 }
 
