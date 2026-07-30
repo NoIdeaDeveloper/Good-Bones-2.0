@@ -305,13 +305,14 @@ html {
 .menu {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: clamp(18px, 2.4vw, 32px);
 }
 
 .menu a {
   font-weight: 600;
   position: relative;
   transition: color var(--transition);
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
 }
 
 .menu a:not(.nav-cta)::after {
