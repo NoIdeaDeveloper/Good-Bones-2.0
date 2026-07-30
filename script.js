@@ -5,9 +5,36 @@ const nav = document.getElementById('nav');
 const menuToggle = document.getElementById('menuToggle');
 const menu = document.getElementById('menu');
 const menuLinks = menu ? menu.querySelectorAll('a') : [];
+const menuBackdrop = document.getElementById('menuBackdrop');
 const form = document.querySelector('.contact__form');
 const scrollProgress = document.getElementById('scrollProgress');
 const backToTop = document.getElementById('backToTop');
+
+// Active section highlighting for in-page nav links
+const sectionIds = ['services', 'work', 'about', 'testimonials', 'faq', 'contact', 'blog'];
+let currentSection = '';
+
+const updateActiveSection = () => {
+  if (!menu) return;
+  const scrollY = window.scrollY + 120;
+  let active = '';
+
+  // Prefer the last section whose top is above our offset.
+  for (const id of sectionIds) {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= scrollY) {
+      active = id;
+    }
+  }
+
+  if (active && active !== currentSection) {
+    currentSection = active;
+    menuLinks.forEach((link) => {
+      const isCurrent = link.dataset.section === active;
+      link.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+    });
+  }
+};
 
 // Sticky nav background on scroll + scroll progress + back-to-top
 const updateOnScroll = () => {
@@ -34,6 +61,8 @@ const updateOnScroll = () => {
         backToTop.classList.remove('is-visible');
       }
     }
+
+    updateActiveSection();
   };
 
 window.addEventListener('scroll', updateOnScroll, { passive: true });
@@ -123,14 +152,21 @@ if (menuToggle && menu) {
     menu.classList.toggle('menu--open', isOpen);
     menuToggle.setAttribute('aria-expanded', String(isOpen));
     menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('menu-open', isOpen);
+
+    if (menuBackdrop) {
+      menuBackdrop.classList.toggle('menu-backdrop--visible', isOpen);
+    }
 
     // Keep the hidden mobile menu out of the keyboard/AT order when closed.
     if (isMobileMenu()) {
       menu.inert = !isOpen;
       menu.setAttribute('aria-hidden', String(!isOpen));
+      if (menuBackdrop) menuBackdrop.inert = !isOpen;
     } else {
       menu.inert = false;
       menu.removeAttribute('aria-hidden');
+      if (menuBackdrop) menuBackdrop.inert = true;
     }
   };
 
@@ -146,16 +182,27 @@ if (menuToggle && menu) {
 
   // Close mobile menu when a link is clicked
   menuLinks.forEach((link) => {
-    link.addEventListener('click', () => updateMenuState(false));
+    link.addEventListener('click', () => {
+      // Let the browser start the anchor jump first, then close the drawer.
+      requestAnimationFrame(() => updateMenuState(false));
+    });
   });
 
-  // Close on Escape or when clicking outside the open menu
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menu.classList.contains('menu--open')) {
+  // Close on Escape, clicking the backdrop, or clicking outside the menu
+  const closeMenu = () => {
+    if (menu.classList.contains('menu--open')) {
       updateMenuState(false);
       menuToggle.focus();
     }
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
   });
+
+  if (menuBackdrop) {
+    menuBackdrop.addEventListener('click', closeMenu);
+  }
 
   document.addEventListener('click', (e) => {
     if (

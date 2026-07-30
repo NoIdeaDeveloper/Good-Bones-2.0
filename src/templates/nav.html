@@ -1,6 +1,6 @@
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="grain" aria-hidden="true"></div>
-  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"><span class="scroll-progress__peg" aria-hidden="true"></span></div>
 
   <!-- Navigation -->
   <nav class="site-nav" id="nav">
@@ -10,14 +10,16 @@
     </a>
     <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      <span class="menu-toggle__sr-only" aria-hidden="true">Menu</span>
     </button>
+    <div class="menu-backdrop" id="menuBackdrop" aria-hidden="true"></div>
     <ul class="menu" id="menu">
-      <li><a href="{{base_path}}index.html#services">Services</a></li>
-      <li><a href="{{base_path}}index.html#work">Work</a></li>
-      <li><a href="{{base_path}}index.html#about">About</a></li>
-      <li><a href="{{base_path}}index.html#testimonials">Testimonials</a></li>
-      <li><a href="{{base_path}}index.html#faq">FAQ</a></li>
-      <li><a href="{{base_path}}blog/index.html">Blog</a></li>
-      <li><a href="{{base_path}}index.html#contact" class="nav-cta">Start a Project</a></li>
+      <li><a href="{{base_path}}index.html#services" data-section="services">Services</a></li>
+      <li><a href="{{base_path}}index.html#work" data-section="work">Work</a></li>
+      <li><a href="{{base_path}}index.html#about" data-section="about">About</a></li>
+      <li><a href="{{base_path}}index.html#testimonials" data-section="testimonials">Testimonials</a></li>
+      <li><a href="{{base_path}}index.html#faq" data-section="faq">FAQ</a></li>
+      <li><a href="{{base_path}}blog/index.html" data-section="blog">Blog</a></li>
+      <li><a href="{{base_path}}index.html#contact" class="nav-cta" data-section="contact">Start a Project</a></li>
     </ul>
   </nav>
