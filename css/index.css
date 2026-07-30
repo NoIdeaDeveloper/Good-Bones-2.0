@@ -170,12 +170,13 @@
 }
 
 .hero__title .bones::before {
-  content: "🦴";
+  content: "✦";
   position: absolute;
   top: -0.5em;
   right: -0.22em;
   font-size: 0.5em;
   transform: rotate(16deg);
+  color: var(--yellow);
 }
 
 .hero__title .sparkle {
