@@ -617,24 +617,13 @@
 
 /* Sections */
 .section {
-  padding: 70px 5vw;
-}
-
-@media (min-width: 720px) {
-  .section {
-    padding: 90px 6vw;
-  }
-}
-
-@media (min-width: 960px) {
-  .section {
-    padding: 110px 6vw;
-  }
+  padding: var(--section-padding-y) var(--section-padding-x);
+  position: relative;
 }
 
 .section__header {
   max-width: var(--max-width);
-  margin: 0 auto 60px;
+  margin: 0 auto clamp(2rem, 5vw, 3.5rem);
   text-align: center;
   position: relative;
 }
@@ -677,14 +666,90 @@
 
 .section__sub {
   max-width: 620px;
-  margin: 18px auto 0;
+  margin: clamp(0.75rem, 2vw, 1.25rem) auto 0;
   font-size: clamp(1rem, 2.5vw, 1.1rem);
   opacity: 0.82;
 }
 
 @media (max-width: 420px) {
   .section__sub {
-    margin: 14px auto 0;
+    margin: 0.75rem auto 0;
+  }
+}
+
+/* Angled section separators for flow */
+.section::before,
+.section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: clamp(48px, 6vw, 80px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.section::before {
+  top: -1px;
+}
+
+.section::after {
+  bottom: -1px;
+  transform: rotate(180deg);
+}
+
+.section--services::before {
+  background: linear-gradient(135deg, var(--cream) 50%, transparent 50%);
+}
+
+.section--services::after {
+  background: linear-gradient(135deg, var(--white) 50%, transparent 50%);
+}
+
+.section--work::before {
+  background: linear-gradient(135deg, var(--white) 50%, transparent 50%);
+}
+
+.section--work::after {
+  background: linear-gradient(135deg, var(--cream) 50%, transparent 50%);
+}
+
+.section--about::before {
+  background: linear-gradient(135deg, var(--cream) 50%, transparent 50%);
+}
+
+.section--about::after {
+  background: linear-gradient(135deg, var(--yellow) 50%, transparent 50%);
+}
+
+.section--testimonials::before {
+  background: linear-gradient(135deg, var(--cream) 50%, transparent 50%);
+}
+
+.section--testimonials::after {
+  background: linear-gradient(135deg, var(--white) 50%, transparent 50%);
+}
+
+.section--faq::before {
+  background: linear-gradient(135deg, var(--white) 50%, transparent 50%);
+}
+
+.section--faq::after {
+  background: linear-gradient(135deg, var(--cream) 50%, transparent 50%);
+}
+
+.section--contact::before {
+  background: linear-gradient(135deg, var(--cream) 50%, transparent 50%);
+}
+
+.section--blog-teaser::before {
+  background: linear-gradient(135deg, var(--white) 50%, transparent 50%);
+}
+
+@media (max-width: 720px) {
+  .section::before,
+  .section::after {
+    height: clamp(28px, 5vw, 48px);
   }
 }
 
@@ -966,7 +1031,7 @@
 .services__cta {
   display: flex;
   width: fit-content;
-  margin: 36px auto 0;
+  margin: clamp(1.5rem, 4vw, 2.5rem) auto 0;
 }
 
 /* Work
@@ -974,9 +1039,13 @@
    and decoding="async" on every below-the-fold <img>. */
 .section--work {
   background:
-    radial-gradient(rgba(26, 26, 46, 0.07) 1.5px, transparent 1.5px) 0 0 / 26px 26px,
-    var(--mint);
+    radial-gradient(rgba(26, 26, 46, 0.06) 1.5px, transparent 1.5px) 0 0 / 24px 24px,
+    linear-gradient(180deg, #e6f7f5 0%, var(--mint) 40%, #e6f7f5 100%);
   position: relative;
+}
+
+.section--work .section__header {
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
 }
 
 .work-grid {
@@ -1246,10 +1315,15 @@
 
 .work-grid__note {
   max-width: var(--max-width);
-  margin: 28px auto 0;
+  margin: clamp(1.25rem, 3vw, 2rem) auto 0;
   text-align: center;
   font-size: clamp(0.95rem, 2.4vw, 1rem);
   opacity: 0.82;
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 255, 255, 0.55);
+  border: 2px dashed rgba(26, 26, 46, 0.2);
+  border-radius: var(--radius-sm);
+  width: fit-content;
 }
 
 /* Starburst */
@@ -1298,9 +1372,10 @@
 }
 
 /* CTA banner */
+/* CTA banner */
 .cta-banner {
   background: var(--white);
-  padding: 90px 6vw;
+  padding: clamp(3rem, 8vw, 6rem) 6vw;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -1334,26 +1409,26 @@
 }
 
 .cta-banner__inner {
-  max-width: var(--max-width);
+  max-width: min(var(--max-width), 92vw);
   margin: 0 auto;
   position: relative;
   z-index: 1;
   background: var(--white);
   border: 4px solid var(--ink);
   border-radius: var(--radius);
-  padding: 32px 24px;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2.5rem);
   box-shadow: 10px 10px 0 var(--ink);
 }
 
 @media (min-width: 720px) {
   .cta-banner__inner {
-    padding: 40px 32px;
+    padding: clamp(1.75rem, 4vw, 3rem) clamp(1.5rem, 4vw, 2.75rem);
   }
 }
 
 @media (min-width: 960px) {
   .cta-banner__inner {
-    padding: 48px 40px;
+    padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 3rem);
   }
 }
 
@@ -1526,7 +1601,7 @@
 }
 
 .about__content p {
-  margin-bottom: 18px;
+  margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
   font-size: clamp(1rem, 2.5vw, 1.05rem);
   line-height: 1.6;
   text-align: center;
@@ -1664,7 +1739,11 @@
 
 /* Testimonials */
 .section--testimonials {
-  background: var(--yellow);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255, 107, 107, 0.12) 0%, transparent 28%),
+    radial-gradient(circle at 88% 24%, rgba(155, 93, 229, 0.10) 0%, transparent 30%),
+    radial-gradient(circle at 70% 85%, rgba(78, 205, 196, 0.14) 0%, transparent 32%),
+    var(--yellow);
   position: relative;
   overflow: hidden;
 }
@@ -2152,6 +2231,7 @@ textarea[aria-invalid="true"] {
   position: relative;
   overflow: hidden;
   background: var(--cream);
+  padding-bottom: calc(var(--section-padding-y) + var(--space-lg));
 }
 
 .section--blog-teaser::before {
@@ -2262,7 +2342,7 @@ textarea[aria-invalid="true"] {
 
 .blog-teaser__archive-link {
   text-align: center;
-  margin-top: 28px;
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 700;
 }
 
