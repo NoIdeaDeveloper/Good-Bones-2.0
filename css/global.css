@@ -1,5 +1,13 @@
-/* CSS Variables */
+/*
+ * Good Bones design tokens
+ *   1. Colors      (brand palette)
+ *   2. Shapes      (radius, shadows, max-width)
+ *   3. Motion      (easings, transitions)
+ *   4. Spacing     (fluid scale + section padding)
+ * Keep this block at the top so the rest of the system can reference tokens.
+ */
 :root {
+  /* 1. Colors */
   --ink: #1A1A2E;
   --cream: #FFF9F0;
   --white: #FFFFFF;
@@ -12,17 +20,21 @@
   --pink: #F15BB5;
   --mint: #CBF3F0;
   --peach: #FFE5D9;
+
+  /* 2. Shapes */
   --radius: 22px;
   --radius-sm: 14px;
   --max-width: 1200px;
   --shadow: 0 18px 40px rgba(26, 26, 46, 0.14);
   --shadow-hover: 0 28px 60px rgba(26, 26, 46, 0.18);
+
+  /* 3. Motion */
   --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --transition: 0.2s var(--ease-out);
   --transition-bounce: 0.3s var(--ease-bounce);
 
-  /* Fluid spacing scale */
+  /* 4. Fluid spacing scale — use these instead of magic numbers */
   --space-xs: clamp(0.5rem, 1vw, 0.75rem);
   --space-sm: clamp(0.75rem, 1.5vw, 1rem);
   --space-md: clamp(1rem, 2.5vw, 1.5rem);
