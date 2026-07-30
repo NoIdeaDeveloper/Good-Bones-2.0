@@ -198,6 +198,13 @@
   opacity: 0.92;
 }
 
+@media (min-width: 768px) {
+  .hero__lede {
+    max-width: 560px;
+    line-height: 1.5;
+  }
+}
+
 .hero__actions {
   display: flex;
   gap: 16px;
@@ -234,6 +241,13 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+@media (min-width: 768px) {
+  .hero__card {
+    width: min(88%, 460px);
+    padding: 28px;
+  }
+}
+
 .hero__card:hover {
   transform: translateY(-6px) scale(1.01);
   box-shadow: var(--shadow-hover);
@@ -266,6 +280,20 @@
   .stat--right {
     bottom: -14px;
     right: -16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .stat {
+    padding: 16px 20px;
+  }
+
+  .stat__number {
+    font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+  }
+
+  .stat__label {
+    font-size: 0.7rem;
   }
 }
 
@@ -1053,7 +1081,7 @@
    and decoding="async" on every below-the-fold <img>. */
 .section--work {
   background:
-    radial-gradient(rgba(26, 26, 46, 0.06) 1.5px, transparent 1.5px) 0 0 / 24px 24px,
+    radial-gradient(rgba(26, 26, 46, 0.05) 1.5px, transparent 1.5px) 0 0 / 24px 24px,
     linear-gradient(180deg, #e6f7f5 0%, var(--mint) 40%, #e6f7f5 100%);
   position: relative;
 }
@@ -1105,7 +1133,8 @@
 }
 
 .work-card__image {
-  height: clamp(180px, 32vw, 220px);
+  aspect-ratio: 16 / 10;
+  min-height: 180px;
   border-bottom: 3px solid var(--ink);
   background-size: cover;
   background-position: center;
@@ -1114,7 +1143,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: clamp(16px, 3vw, 24px);
 }
 
 @media (min-width: 680px) {
@@ -1315,6 +1344,7 @@
   opacity: 0;
   transform: scale(0.8) translateY(-10px);
   transition: opacity var(--transition), transform var(--transition);
+  box-shadow: 2px 2px 0 var(--ink);
 }
 
 .work-card:hover .work-card__peek,
@@ -1327,7 +1357,8 @@
   position: relative;
 }
 
-.work-grid__note {
+.work-grid__note,
+.work-grid__empty {
   max-width: var(--max-width);
   margin: clamp(1.25rem, 3vw, 2rem) auto 0;
   text-align: center;
@@ -1338,6 +1369,26 @@
   border: 2px dashed rgba(26, 26, 46, 0.2);
   border-radius: var(--radius-sm);
   width: fit-content;
+}
+
+.work-grid__empty {
+  opacity: 1;
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 560px;
+  font-weight: 600;
+}
+
+.work-grid__empty a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--violet);
+  font-weight: 700;
+}
+
+.work-grid__empty a:hover,
+.work-grid__empty a:focus-visible {
+  color: var(--coral);
 }
 
 /* Starburst */

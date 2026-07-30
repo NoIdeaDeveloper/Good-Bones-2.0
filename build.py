@@ -891,7 +891,7 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     ]
 
     project_cards = []
-    for index, project in enumerate(data["projects"]):
+    for index, project in enumerate(data.get("projects", [])):
         title_id = f"work-title-{index + 1}"
         desc_id = f"work-desc-{index + 1}"
         project_cards.append(
@@ -914,6 +914,8 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
             f'        </div>\n'
             f'      </a>'
         )
+
+    projects_html = "\n\n".join(project_cards) if project_cards else '      <p class="work-grid__empty">Projects are being added. In the meantime, <a href="#contact">ask us for case studies and live examples</a>.</p>'
 
     stats_html = "\n".join(
         f'            <div class="about__stat about__stat--{stat["accent"]}" data-count="{stat["count"]}">\n'
@@ -974,7 +976,7 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
     html = html.replace("{{footer}}", footer.replace("{{base_path}}", base_path))
     # Replace remaining cache_bust in footer after apply_contact.
     html = html.replace("{{cache_bust}}", cache_bust)
-    html = html.replace("{{projects}}", "\n\n".join(project_cards))
+    html = html.replace("{{projects}}", projects_html)
     html = html.replace("{{stats}}", stats_html)
     html = html.replace("{{testimonials}}", "\n\n".join(testimonial_cards))
     html = html.replace("{{blog_teaser_posts}}", "\n\n".join(teaser_cards))
