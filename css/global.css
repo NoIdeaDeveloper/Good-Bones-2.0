@@ -606,8 +606,20 @@ html {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.6fr 1fr 1fr 1fr;
-  gap: 40px;
+  gap: clamp(24px, 4vw, 40px);
   padding: 60px 6vw;
+}
+
+@media (max-width: 900px) {
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 28px;
+    padding: 48px 5vw;
+  }
+
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
 }
 
 .footer__brand .logo--footer {
@@ -1107,17 +1119,6 @@ html {
   margin-bottom: 30px;
 }
 
-@media (max-width: 900px) {
-  .footer__grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 36px 28px;
-  }
-
-  .footer__brand {
-    grid-column: 1 / -1;
-  }
-}
-
 @media (max-width: 720px) {
   html {
     scroll-padding-top: 78px;
@@ -1302,28 +1303,47 @@ html {
   }
 
   .footer__grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px 24px;
-    padding: 40px 5vw;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 36px 5vw 40px;
   }
 
   .footer__brand {
     grid-column: 1 / -1;
-  }
-
-  .footer__nav a,
-  .footer__contact a,
-  .footer__legal a {
-    padding: 4px 0;
-    display: inline-block;
+    text-align: center;
   }
 
   .footer__brand .logo--footer {
+    justify-content: center;
     font-size: 1.5rem;
   }
 
   .footer__tagline {
     max-width: none;
+    margin: 0 auto 18px;
+  }
+
+  .footer__socials {
+    justify-content: center;
+  }
+
+  .footer__nav,
+  .footer__contact,
+  .footer__legal {
+    text-align: center;
+  }
+
+  .footer__nav ul,
+  .footer__contact ul,
+  .footer__legal ul {
+    gap: 8px;
+  }
+
+  .footer__nav a,
+  .footer__contact a,
+  .footer__legal a {
+    padding: 6px 0;
+    display: inline-block;
   }
 
   .footer__heading {
@@ -1334,6 +1354,8 @@ html {
     padding: 16px 5vw;
     text-align: center;
     flex-wrap: wrap;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .legal-hero {
@@ -1381,11 +1403,6 @@ html {
 }
 
 @media (max-width: 540px) {
-  .footer__grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
   .footer__wordmark {
     text-shadow: 3px 3px 0 var(--yellow), 6px 6px 0 var(--pink);
   }

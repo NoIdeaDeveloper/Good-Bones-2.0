@@ -2111,18 +2111,29 @@ cite {
 .contact__details {
   margin-bottom: 24px;
   text-align: left;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 768px) {
   .contact__details {
-    display: block;
+    display: flex;
     margin-bottom: 28px;
   }
 }
 
 .contact__details li {
-  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.contact__details li::before {
+  content: "→";
+  color: var(--coral);
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 .contact__details a {
@@ -2130,9 +2141,11 @@ cite {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
+  word-break: break-word;
 }
 
-.contact__details a:hover {
+.contact__details a:hover,
+.contact__details a:focus-visible {
   color: var(--coral);
 }
 
@@ -2140,9 +2153,10 @@ cite {
   display: flex;
   gap: 14px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 768px) {
   .socials {
     justify-content: flex-start;
   }
@@ -2203,13 +2217,14 @@ cite {
 .contact__form select,
 .contact__form textarea {
   width: 100%;
-  padding: 12px 14px;
+  padding: 14px 16px;
   margin-bottom: 18px;
   border: 2px solid var(--ink);
   border-radius: var(--radius-sm);
   background: var(--cream);
   outline: none;
   transition: border-color var(--transition), box-shadow var(--transition);
+  min-height: 48px;
 }
 
 @media (min-width: 720px) {
@@ -2218,6 +2233,7 @@ cite {
   .contact__form textarea {
     padding: 14px 16px;
     margin-bottom: 20px;
+    min-height: 52px;
   }
 }
 
