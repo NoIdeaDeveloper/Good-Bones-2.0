@@ -15,7 +15,7 @@ const sectionIds = ['services', 'work', 'about', 'testimonials', 'faq', 'contact
 let currentSection = '';
 
 const updateActiveSection = () => {
-  if (!menu) return;
+  if (!menu || !hasHomepageHero) return;
   const scrollY = window.scrollY + 120;
   let active = '';
 
@@ -35,6 +35,16 @@ const updateActiveSection = () => {
     });
   }
 };
+
+// Highlight the current page link on blog/legal/404 pages (not the homepage).
+if (!hasHomepageHero && menuLinks.length) {
+  const pagePath = window.location.pathname.split('/').pop() || 'index.html';
+  menuLinks.forEach((link) => {
+    const linkPath = link.getAttribute('href').split('#')[0].split('/').pop();
+    const isCurrent = linkPath === pagePath;
+    link.setAttribute('aria-current', isCurrent ? 'page' : 'false');
+  });
+}
 
 // Sticky nav background on scroll + scroll progress + back-to-top
 const updateOnScroll = () => {
