@@ -168,7 +168,7 @@ textarea:focus-visible {
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar — lighter on touch/mobile */
 html {
   scrollbar-width: thin;
   scrollbar-color: var(--ink) var(--cream);
@@ -190,6 +190,21 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--violet);
+}
+
+@media (max-width: 720px), (hover: none), (pointer: coarse) {
+  html {
+    scrollbar-width: auto;
+    scrollbar-color: initial;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-width: 2px;
+  }
 }
 
 /* Scroll progress bar */
@@ -218,7 +233,7 @@ html {
   100% { transform: translateX(0%); }
 }
 
-/* Grain overlay */
+/* Grain overlay — hidden on touch/pointer-coarse devices to save GPU */
 .grain {
   position: fixed;
   inset: 0;
@@ -226,6 +241,12 @@ html {
   z-index: 900;
   opacity: 0.045;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (hover: none), (pointer: coarse) {
+  .grain {
+    display: none;
+  }
 }
 
 /* Skip link */

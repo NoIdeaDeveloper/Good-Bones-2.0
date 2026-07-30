@@ -81,8 +81,11 @@ if (backToTop) {
 // legal and 404 pages that share script.js.
 const hasHomepageHero = !!document.querySelector('.hero');
 
-// Reduced motion preference check (used by browser mockup + parallax)
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Reduced motion preference check (live, used by browser mockup + parallax)
+let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+  prefersReducedMotion = e.matches;
+});
 
 // Animated browser mockup in hero card
 if (hasHomepageHero) {
@@ -93,7 +96,11 @@ if (hasHomepageHero) {
 }
 
 // Mouse parallax on hero blobs and floating shapes
-if (hasHomepageHero && !prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+const hoverMedia = window.matchMedia('(hover: hover)');
+let hasHover = hoverMedia.matches;
+hoverMedia.addEventListener('change', (e) => { hasHover = e.matches; });
+
+if (hasHomepageHero && !prefersReducedMotion && hasHover) {
     const parallaxItems = [
       { selector: '.blob--one .blob__inner', factorX: -18, factorY: -18 },
       { selector: '.blob--two .blob__inner', factorX: 26, factorY: 18 },
@@ -232,8 +239,7 @@ if (menuToggle && menu) {
 }
 
 // 3D tilt effect on cards (desktop hover only, respects reduced-motion)
-const prefersHover = window.matchMedia('(hover: hover)').matches;
-if (hasHomepageHero && prefersHover && !prefersReducedMotion) {
+if (hasHomepageHero && hasHover && !prefersReducedMotion) {
   const tiltCards = document.querySelectorAll('[data-tilt]');
   let tiltTicking = false;
   let tiltCard = null;
