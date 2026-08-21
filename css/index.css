@@ -869,6 +869,8 @@
 }
 
 .service-card {
+  display: flex;
+  flex-direction: column;
   background: var(--cream);
   border: 3px solid var(--ink);
   border-radius: var(--radius);

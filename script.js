@@ -125,8 +125,8 @@ if (hasHomepageHero && !prefersReducedMotion && hasHover) {
       factorY: item.factorY
     })).filter((item) => item.el);
 
-    if (!elements.length) return;
-
+    // Note: no top-level `return` here — ES modules forbid it (was killing the whole script).
+    if (elements.length) {
     const siteFooter = document.querySelector('.site-footer');
 
     let ticking = false;
@@ -185,6 +185,7 @@ if (hasHomepageHero && !prefersReducedMotion && hasHover) {
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) resetParallax();
     });
+    }
 }
 
 // Mobile menu toggle
