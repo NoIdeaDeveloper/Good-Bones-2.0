@@ -86,8 +86,7 @@ updateOnScroll();
 // Back to top
 if (backToTop) {
   backToTop.addEventListener('click', () => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   });
 }
 
@@ -153,6 +152,7 @@ if (hasHomepageHero && !prefersReducedMotion && hasHover) {
     };
 
     document.addEventListener('mousemove', (e) => {
+      if (prefersReducedMotion) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
       if (!ticking) {
@@ -161,8 +161,16 @@ if (hasHomepageHero && !prefersReducedMotion && hasHover) {
       }
     }, { passive: true });
 
+    // If reduced motion is enabled mid-session, stop drifting and reset.
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+      if (e.matches) {
+        resetParallax();
+        ticking = false;
+      }
+    });
+
     // Reset transforms when the pointer leaves the document so elements don't stay stuck.
-    document.addEventListener('mouseleave', () => {
+    const resetParallax = () => {
       elements.forEach((item) => {
         item.el.style.transform = '';
       });
@@ -170,6 +178,12 @@ if (hasHomepageHero && !prefersReducedMotion && hasHover) {
         siteFooter.style.setProperty('--footer-bg-x', '0px');
         siteFooter.style.setProperty('--footer-bg-y', '0px');
       }
+    };
+    document.addEventListener('mouseleave', resetParallax);
+
+    // Reset while the tab is hidden so positions don't look stale on return.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) resetParallax();
     });
 }
 
