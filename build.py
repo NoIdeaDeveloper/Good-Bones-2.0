@@ -82,11 +82,135 @@ def minify_css(css: str) -> str:
     return css
 
 
+def _scan_js_string(js: str, start: int, quote: str) -> int:
+    """Return the index just past the string literal starting at ``start``."""
+    i = start + 1
+    n = len(js)
+    while i < n:
+        if js[i] == "\\":
+            i += 2
+            continue
+        if js[i] == quote:
+            return i + 1
+        i += 1
+    return n
+
+
+def _scan_js_template(js: str, start: int) -> int:
+    """Return the index just past the template literal starting at ``start``.
+
+    Handles nested ``${...}`` expressions (and strings inside them) so that
+    ``//`` and ``/* */`` sequences inside interpolations are not mistaken for
+    comments.
+    """
+    i = start + 1
+    n = len(js)
+    while i < n:
+        if js[i] == "\\":
+            i += 2
+            continue
+        if js[i] == "`":
+            return i + 1
+        if js[i] == "$" and i + 1 < n and js[i + 1] == "{":
+            depth = 1
+            i += 2
+            while i < n and depth > 0:
+                if js[i] == "\\":
+                    i += 2
+                    continue
+                if js[i] == "`":
+                    i = _scan_js_template(js, i)
+                    continue
+                if js[i] in ('"', "'"):
+                    i = _scan_js_string(js, i, js[i])
+                    continue
+                if js[i] == "{":
+                    depth += 1
+                elif js[i] == "}":
+                    depth -= 1
+                i += 1
+            continue
+        i += 1
+    return n
+
+
+def _scan_js_regex(js: str, start: int) -> int:
+    """Return the index just past the regex literal starting at ``start``."""
+    i = start + 1
+    n = len(js)
+    while i < n:
+        if js[i] == "\\":
+            i += 2
+            continue
+        if js[i] == "/":
+            i += 1
+            break
+        if js[i] in "\n\r":
+            return i
+        i += 1
+    # Consume any flags that follow (e.g. /[0-9]/g).
+    while i < n and js[i].isalpha():
+        i += 1
+    return i
+
+
+def strip_js_comments(js: str) -> str:
+    """Remove ``//`` and ``/* */`` comments without corrupting literals.
+
+    Walks the source character by character so comment markers inside
+    strings, template literals and regex literals are preserved.
+    """
+    out: list[str] = []
+    i = 0
+    n = len(js)
+    # Previous significant char (ignoring whitespace), used to decide
+    # whether a '/' starts a regex literal rather than a division.
+    prev_sig = ""
+    while i < n:
+        c = js[i]
+        nxt = js[i + 1] if i + 1 < n else ""
+        if c == "/" and nxt == "*":
+            end = js.find("*/", i + 2)
+            if end == -1:
+                end = n
+            out.append(" ")
+            i = end + 2
+            continue
+        if c == "/" and nxt == "/":
+            end = js.find("\n", i + 2)
+            if end == -1:
+                i = n
+                break
+            i = end
+            continue
+        if c in ('"', "'"):
+            out.append(js[i:_scan_js_string(js, i, c)])
+            i = _scan_js_string(js, i, c)
+            prev_sig = c
+            continue
+        if c == "`":
+            out.append(js[i:_scan_js_template(js, i)])
+            i = _scan_js_template(js, i)
+            prev_sig = c
+            continue
+        if c == "/" and prev_sig in "()=,:[!&|?{};+-*%^~<>":
+            out.append(js[i:_scan_js_regex(js, i)])
+            i = _scan_js_regex(js, i)
+            prev_sig = c
+            continue
+        if not c.isspace():
+            prev_sig = c
+        out.append(c)
+        i += 1
+    return "".join(out)
+
+
 def minify_js(js: str) -> str:
     """Return a compacted version of JS without external dependencies.
 
     Uses jsmin when available; otherwise falls back to a conservative
-    regex-based stripper that removes comments and collapses whitespace.
+    comment stripper (tokenizer-based, so string/template/regex literals
+    are never corrupted) followed by whitespace collapsing.
     """
     try:
         import jsmin as jsmin_lib  # type: ignore
@@ -94,10 +218,7 @@ def minify_js(js: str) -> str:
     except ImportError:
         pass
 
-    # Remove multi-line comments first.
-    js = re.sub(r"/\*.*?\*/", "", js, flags=re.DOTALL)
-    # Remove single-line comments, but not URLs (e.g. https://).
-    js = re.sub(r"(?<!:)//.*?$", "", js, flags=re.MULTILINE)
+    js = strip_js_comments(js)
     # Collapse whitespace, but keep spaces around keywords/identifiers safe.
     js = re.sub(r"\s+", " ", js).strip()
     return js
