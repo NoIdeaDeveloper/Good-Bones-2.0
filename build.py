@@ -696,7 +696,8 @@ def build_blog_post(post: dict, contact: dict, all_posts: list[dict]) -> None:
     html = html.replace("{{excerpt}}", post["excerpt"])
     body_indented = "\n".join(f"        {line}" for line in post["body"].splitlines())
     # Convert root-relative links inside post bodies to be relative to this page.
-    body_indented = body_indented.replace('href="/index.html', f'href="{base_path}index.html')
+    body_indented = re.sub(r'href="/', f'href="{base_path}', body_indented)
+    body_indented = re.sub(r'src="/', f'src="{base_path}', body_indented)
     html = html.replace("{{body}}", body_indented)
     html = html.replace("{{related}}", related_html)
 
