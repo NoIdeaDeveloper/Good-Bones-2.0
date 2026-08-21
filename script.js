@@ -1,6 +1,11 @@
 // Good Bones site scripts — ES module
 // No top-level IIFE needed; modules are implicitly strict and scoped.
 
+// Page-type guard: heavy homepage-only effects should only initialise when
+// the corresponding DOM exists. This avoids wasted CPU/memory on blog,
+// legal and 404 pages that share script.js.
+const hasHomepageHero = !!document.querySelector('.hero');
+
 const nav = document.getElementById('nav');
 const menuToggle = document.getElementById('menuToggle');
 const menu = document.getElementById('menu');
@@ -85,11 +90,6 @@ if (backToTop) {
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 }
-
-// Page-type guards: heavy homepage-only effects should only initialise when
-// the corresponding DOM exists. This avoids wasted CPU/memory on blog,
-// legal and 404 pages that share script.js.
-const hasHomepageHero = !!document.querySelector('.hero');
 
 // Reduced motion preference check (live, used by browser mockup + parallax)
 let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
