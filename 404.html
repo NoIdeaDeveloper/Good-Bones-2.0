@@ -170,7 +170,8 @@
   <script>
     // Independent, slightly chaotic cursor-driven drift on the 404 digits
     const code = document.querySelector('.error-hero__code');
-    if (code && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (code) {
       const digits = code.querySelectorAll('span');
       const baseRot = [-6, 0, 6];
       const state = Array.from(digits).map(() => ({
@@ -182,6 +183,8 @@
       }));
 
       let lastX = 0, lastY = 0, cursorEnergy = 0;
+      let running = false;
+      let rafId = null;
 
       const pickTarget = (s, time) => {
         const energy = Math.min(cursorEnergy, 1);
@@ -205,6 +208,8 @@
       }, { passive: true });
 
       const animate = (time) => {
+        rafId = null;
+        if (!running) return;
         cursorEnergy *= 0.94;
         state.forEach((s, i) => {
           if (time > s.nextChange) pickTarget(s, time);
@@ -219,9 +224,33 @@
             ` rotateY(${s.ry.toFixed(2)}deg)` +
             ` rotate(${(s.r + baseRot[i]).toFixed(2)}deg)`;
         });
-        requestAnimationFrame(animate);
+        rafId = requestAnimationFrame(animate);
       };
-      requestAnimationFrame(animate);
+
+      const start = () => {
+        if (running || reduceMotionQuery.matches) return;
+        running = true;
+        rafId = requestAnimationFrame(animate);
+      };
+      const stop = () => {
+        running = false;
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      };
+
+      reduceMotionQuery.addEventListener('change', (e) => {
+        if (e.matches) stop();
+        else start();
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else start();
+      });
+
+      if (!reduceMotionQuery.matches) start();
     }
   </script>
 </body>
