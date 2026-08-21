@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Static site generator for Good Bones."""
 
+import argparse
 import hashlib
 import json
 import re
 import shutil
+import sys
+import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
 
@@ -1198,7 +1201,87 @@ def write_minified_assets() -> None:
         print(f"Wrote {dst}")
 
 
+def run_checks() -> bool:
+    """Validate generated output without rebuilding. Returns False on failure.
+
+    Verifies: no leftover template placeholders, all internal links resolve
+    to files on disk, every JSON-LD block parses, and sitemap.xml/feed.xml
+    are well-formed XML with expected roots.
+    """
+    ok = True
+    html_files = [
+        ROOT / "index.html",
+        ROOT / "404.html",
+        ROOT / "privacy.html",
+        ROOT / "terms.html",
+        ROOT / "accessibility.html",
+        ROOT / "blog" / "index.html",
+    ]
+    for post in (CONTENT / "blog" / "posts.json").exists() and json.loads((CONTENT / "blog" / "posts.json").read_text(encoding="utf-8")).get("posts", []) or []:
+        html_files.append(ROOT / "blog" / f'{post["slug"]}.html')
+
+    missing = [p for p in html_files if not p.exists()]
+    if missing:
+        print("Missing generated pages (run python3 build.py first):")
+        for p in missing:
+            print(f"  {p.relative_to(ROOT)}")
+        return False
+
+    for page in html_files:
+        html = page.read_text(encoding="utf-8")
+
+        placeholders = sorted(set(re.findall(r"\{\{[A-Za-z0-9_]+\}\}", html)))
+        if placeholders:
+            ok = False
+            print(f"{page.relative_to(ROOT)}: unresolved placeholders: {', '.join(placeholders)}")
+
+        for attr in ("href", "src"):
+            for target in re.findall(rf'{attr}="([^"]+)"', html):
+                if target.startswith(("#", "http", "mailto:", "tel:", "data:")):
+                    continue
+                clean = target.split("?")[0].split("#")[0]
+                if not clean:
+                    continue
+                resolved = (page.parent / clean).resolve()
+                if not resolved.exists():
+                    ok = False
+                    print(f"{page.relative_to(ROOT)}: broken {attr} -> {target}")
+
+        for ld in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S):
+            try:
+                json.loads(ld)
+            except json.JSONDecodeError as exc:
+                ok = False
+                print(f"{page.relative_to(ROOT)}: invalid JSON-LD: {exc}")
+
+    for name, expected_root in (("sitemap.xml", "urlset"), ("blog/feed.xml", "feed")):
+        path = ROOT / name
+        if not path.exists():
+            print(f"Missing {name}")
+            ok = False
+            continue
+        try:
+            root = ET.parse(path).getroot()
+            if root.tag.rsplit("}", 1)[-1] != expected_root:
+                ok = False
+                print(f"{name}: unexpected root element <{root.tag.rsplit('}', 1)[-1]}>")
+        except ET.ParseError as exc:
+            ok = False
+            print(f"{name}: XML parse error: {exc}")
+
+    if ok:
+        print(f"OK: checked {len(html_files)} pages, all links, JSON-LD, sitemap, and feed valid.")
+    return ok
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Build the Good Bones static site.")
+    parser.add_argument("--check", action="store_true", help="validate the last build's output instead of rebuilding")
+    args = parser.parse_args()
+
+    if args.check:
+        sys.exit(0 if run_checks() else 1)
+
     contact = load_json("contact.json")
 
     # Write minified CSS/JS and fingerprint static assets before generating
