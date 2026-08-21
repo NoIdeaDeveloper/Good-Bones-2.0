@@ -2539,6 +2539,11 @@ textarea[aria-invalid="true"] {
   border-color: var(--violet);
 }
 
+.faq__heading {
+  font-size: inherit;
+  line-height: inherit;
+}
+
 .faq__question {
   width: 100%;
   display: flex;
