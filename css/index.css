@@ -102,7 +102,7 @@
   letter-spacing: 0.02em;
   margin-bottom: 24px;
   overflow-wrap: break-word;
-  word-break: keep-all;
+  word-break: break-word;
 }
 
 @media (min-width: 420px) {
@@ -1291,10 +1291,22 @@
   transition: transform var(--transition), color var(--transition);
 }
 
+.work-card__cta-arrow {
+  display: inline-block;
+  font-size: 1.1em;
+  line-height: 1;
+  transition: transform var(--transition-bounce);
+}
+
 .work-card:hover .work-card__cta,
 .work-card:focus-within .work-card__cta {
   color: var(--coral);
   transform: translateX(6px);
+}
+
+.work-card:hover .work-card__cta-arrow,
+.work-card:focus-within .work-card__cta-arrow {
+  transform: translateX(4px);
 }
 
 .tag {

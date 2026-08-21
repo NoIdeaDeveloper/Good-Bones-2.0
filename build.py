@@ -1039,7 +1039,7 @@ def build_home_index(contact: dict, posts: list[dict]) -> None:
             f'          <h3 id="{title_id}">{project["title"]}</h3>\n'
             f'          <p id="{desc_id}">{project["description"]}</p>\n'
             f'          <span class="tag {project["tag_class"]}">{project["tag"]}</span>\n'
-            f'          <span class="work-card__cta" aria-hidden="true">Request case study <span aria-hidden="true">→</span></span>\n'
+            f'          <span class="work-card__cta" aria-hidden="true">Request case study <span class="work-card__cta-arrow" aria-hidden="true">→</span></span>\n'
             f'        </div>\n'
             f'      </a>'
         )
